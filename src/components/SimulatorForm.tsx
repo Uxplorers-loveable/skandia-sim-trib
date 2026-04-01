@@ -191,8 +191,11 @@ const BarIndicator: React.FC<{ value: number; max: number; label?: string }> = (
 };
 
 const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, setInputs }) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const update = useCallback(<K extends keyof SimulatorInputs>(key: K, val: SimulatorInputs[K]) => {
     setInputs(prev => ({ ...prev, [key]: val }));
+    if (key === 'salario') setErrors(prev => ({ ...prev, salario: '' }));
   }, [setInputs]);
 
   const min13 = 13 * SMLV;
