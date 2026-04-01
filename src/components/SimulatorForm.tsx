@@ -213,6 +213,11 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <HelpTooltip text="Tu salario mensual bruto antes de deducciones. Es la base principal para calcular tu retención." />
               </label>
               <MoneyInput value={inputs.salario} onChange={(v) => update('salario', v)} />
+              {errors.salario && (
+                <p className="text-xs text-destructive font-body font-bold mt-1.5">
+                  {errors.salario}
+                </p>
+              )}
               {integralInvalido && (
                 <p className="text-xs text-destructive font-body font-bold mt-1.5">
                   ⚠ Mínimo ${min13.toLocaleString('es-CO')} (13 SMLV) para salario integral.
