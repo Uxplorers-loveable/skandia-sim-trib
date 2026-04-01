@@ -243,7 +243,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
 
       {/* Corporate savings banner — only if user has salarial bonus */}
       {inputs.bonoOn && (
-        <div className="rounded-full bg-foreground px-s3 py-4 flex items-center gap-4">
+        <div className="bg-foreground px-s3 py-4 flex items-center gap-4 rounded-sm">
           <div className="w-10 h-10 rounded-full bg-warning flex items-center justify-center flex-shrink-0">
             <i className="fa-solid fa-lightbulb text-foreground text-lg" />
           </div>
