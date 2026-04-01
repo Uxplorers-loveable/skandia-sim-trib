@@ -134,7 +134,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               <span className="font-heading text-sm font-medium text-foreground">
                 ¿Tienes asesor asignado?
               </span>
-              <PillToggle value={tieneAsesor} onChange={setTieneAsesor} />
+              <Switch checked={tieneAsesor} onCheckedChange={setTieneAsesor} />
             </div>
           )}
         </div>
