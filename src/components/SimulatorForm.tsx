@@ -191,8 +191,11 @@ const BarIndicator: React.FC<{ value: number; max: number; label?: string }> = (
 };
 
 const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, setInputs }) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const update = useCallback(<K extends keyof SimulatorInputs>(key: K, val: SimulatorInputs[K]) => {
     setInputs(prev => ({ ...prev, [key]: val }));
+    if (key === 'salario') setErrors(prev => ({ ...prev, salario: '' }));
   }, [setInputs]);
 
   const min13 = 13 * SMLV;
@@ -210,6 +213,11 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <HelpTooltip text="Tu salario mensual bruto antes de deducciones. Es la base principal para calcular tu retención." />
               </label>
               <MoneyInput value={inputs.salario} onChange={(v) => update('salario', v)} />
+              {errors.salario && (
+                <p className="text-xs text-destructive font-body font-bold mt-1.5">
+                  {errors.salario}
+                </p>
+              )}
               {integralInvalido && (
                 <p className="text-xs text-destructive font-body font-bold mt-1.5">
                   ⚠ Mínimo ${min13.toLocaleString('es-CO')} (13 SMLV) para salario integral.
@@ -519,9 +527,14 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           Volver
         </Button>
         <Button
-          onClick={onNext}
+          onClick={() => {
+            if (!inputs.salario || inputs.salario <= 0) {
+              setErrors({ salario: 'Ingresa tu salario mensual para continuar con la simulación.' });
+              return;
+            }
+            onNext();
+          }}
           className="flex-[2]"
-          disabled={!inputs.salario || inputs.salario <= 0}
         >
           Ver mis resultados
           <i className="fa-solid fa-arrow-right ml-1" />
