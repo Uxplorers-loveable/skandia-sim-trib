@@ -536,8 +536,31 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
         </Button>
         <Button
           onClick={() => {
+            const newErrors: Record<string, string> = {};
             if (!inputs.salario || inputs.salario <= 0) {
-              setErrors({ salario: 'Ingresa tu salario mensual para continuar con la simulación.' });
+              newErrors.salario = 'Ingresa tu salario mensual para continuar con la simulación.';
+            }
+            if (inputs.bonoOn && (!inputs.bono || inputs.bono <= 0)) {
+              newErrors.bono = 'Ingresa el valor del bono o desactiva la opción.';
+            }
+            if (inputs.auxOn) {
+              if (inputs.auxTipo === 'fijo' && (!inputs.auxFijo || inputs.auxFijo <= 0)) {
+                newErrors.auxFijo = 'Ingresa el valor del auxilio o desactiva la opción.';
+              }
+              if (inputs.auxTipo === 'variable' && (!inputs.auxMeses || inputs.auxMeses.every(v => !v || v <= 0))) {
+                newErrors.auxVar = 'Ingresa al menos un valor de auxilio mensual o desactiva la opción.';
+              }
+            }
+            if (inputs.comOn) {
+              if (inputs.comTipo === 'fijo' && (!inputs.comFijo || inputs.comFijo <= 0)) {
+                newErrors.comFijo = 'Ingresa el valor de la comisión o desactiva la opción.';
+              }
+              if (inputs.comTipo === 'variable' && (!inputs.comMeses || inputs.comMeses.every(v => !v || v <= 0))) {
+                newErrors.comVar = 'Ingresa al menos un valor de comisión mensual o desactiva la opción.';
+              }
+            }
+            if (Object.keys(newErrors).length > 0) {
+              setErrors(newErrors);
               return;
             }
             onNext();
