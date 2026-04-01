@@ -3,7 +3,8 @@ import ProgressSteps from '@/components/ProgressSteps';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SimulatorForm from '@/components/SimulatorForm';
 import ResultsScreen from '@/components/ResultsScreen';
-import { SimulatorInputs } from '@/lib/taxEngine';
+import { SimulatorInputs, UVT, SMLV } from '@/lib/taxEngine';
+import skandiaLogo from '@/assets/skandia-logo.svg';
 
 const STEPS = ['Tus datos', 'Simulación', 'Resultados'];
 
@@ -33,6 +34,8 @@ const defaultInputs: SimulatorInputs = {
   facturas: 0,
 };
 
+const formatCurrency = (v: number) => v.toLocaleString('es-CO');
+
 const Index: React.FC = () => {
   const [step, setStep] = useState(1);
   const [userData, setUserData] = useState({
@@ -46,17 +49,12 @@ const Index: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="max-w-[800px] mx-auto px-s6 md:px-s6 py-s2 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-heading font-bold text-sm">S</span>
-            </div>
-            <span className="font-heading font-bold text-lg text-foreground">Skandia</span>
-          </div>
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+        <div className="max-w-[800px] mx-auto px-4 md:px-s6 py-s2 flex items-center justify-between">
+          <img src={skandiaLogo} alt="Skandia" className="h-5" />
           <span className="text-[10px] font-mono text-muted-foreground bg-secondary px-3 py-1 rounded-full">
-            UVT $52.374 · 2026
+            UVT ${formatCurrency(UVT)} · SMLV ${formatCurrency(SMLV)} · 2026
           </span>
         </div>
       </header>
