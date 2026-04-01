@@ -243,22 +243,21 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
 
       {/* Corporate savings banner — only if user has salarial bonus */}
       {inputs.bonoOn && (
-        <div className="rounded-xl bg-[hsl(215,50%,23%)] p-s3 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-[hsl(45,90%,55%)] flex items-center justify-center flex-shrink-0">
-            <i className="fa-solid fa-lightbulb text-[hsl(215,50%,23%)] text-lg" />
+        <div className="rounded-full bg-foreground px-s3 py-4 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full bg-warning flex items-center justify-center flex-shrink-0">
+            <i className="fa-solid fa-lightbulb text-foreground text-lg" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-heading text-sm font-bold text-white">
+            <p className="font-heading text-sm font-bold text-primary-foreground">
               ¿Conoces los planes de ahorro corporativo?
             </p>
-            <p className="font-body text-xs text-white/70 mt-0.5">
+            <p className="font-body text-xs text-primary-foreground/70 mt-0.5">
               Una herramienta de planeación tributaria y creación de capital para ti y tu empresa.
             </p>
           </div>
           <Button
-            variant="outline"
-            className="border-white/30 text-white hover:bg-white/10 flex-shrink-0"
-            onClick={() => window.open('https://www.skandia.co', '_blank')}
+            className="rounded-full flex-shrink-0"
+            onClick={() => window.open('https://planescorpskandia.netlify.app', '_blank')}
           >
             Conoce más
             <i className="fa-solid fa-arrow-right ml-1" />
