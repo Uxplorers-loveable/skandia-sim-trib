@@ -53,7 +53,7 @@ const Index: React.FC = () => {
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
         <div className="max-w-[800px] mx-auto px-4 md:px-s6 py-s2 flex items-center justify-between">
           <img src={skandiaLogo} alt="Skandia" className="h-5" />
-          <span className="text-[10px] font-mono text-muted-foreground bg-secondary px-3 py-1 rounded-full">
+          <span className="text-[10px] font-body text-muted-foreground bg-secondary px-3 py-1 rounded-full">
             UVT ${formatCurrency(UVT)} · SMLV ${formatCurrency(SMLV)} · 2026
           </span>
         </div>
