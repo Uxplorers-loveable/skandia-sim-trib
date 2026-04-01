@@ -257,7 +257,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <span className="font-heading text-sm font-medium text-foreground">¿Recibes bono?</span>
               <p className="text-xs text-muted-foreground mt-0.5">Prima extralegal, bono de desempeño u otro pago adicional</p>
             </div>
-            <YesNoToggle value={inputs.bonoOn} onChange={(v) => update('bonoOn', v)} />
+            <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update('bonoOn', v)} />
           </div>
           {inputs.bonoOn && (
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
