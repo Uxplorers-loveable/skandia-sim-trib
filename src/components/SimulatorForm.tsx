@@ -26,7 +26,6 @@ const MoneyInput: React.FC<{
 
   const handleFocus = () => {
     setFocused(true);
-    setDisplay(value === 0 ? '' : String(value));
   };
   const handleBlur = () => {
     setFocused(false);
@@ -36,8 +35,9 @@ const MoneyInput: React.FC<{
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^0-9]/g, '');
-    setDisplay(raw);
-    onChange(parseInt(raw, 10) || 0);
+    const num = parseInt(raw, 10) || 0;
+    setDisplay(num === 0 ? '' : formatMoney(num));
+    onChange(num);
   };
 
   // Sync display with external value changes when not focused
