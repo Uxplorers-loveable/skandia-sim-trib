@@ -409,7 +409,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 {inputs.comTipo === 'fijo' ? (
                   <div>
                     <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor de la comisión mensual</label>
-                    <MoneyInput value={inputs.comFijo} onChange={(v) => update('comFijo', v)} />
+                    <MoneyInput value={inputs.comFijo} onChange={(v) => { update('comFijo', v); setErrors(prev => ({ ...prev, comFijo: '' })); }} />
+                    {errors.comFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
