@@ -318,6 +318,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                   />
                 </div>
               </div>
+              <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+                <strong>No SS:</strong> el bono no forma parte de la base para aportes a seguridad social. <strong>Base SS:</strong> el bono sí se incluye en la base de cotización a salud y pensión.
+              </p>
             </div>
           )}
 
