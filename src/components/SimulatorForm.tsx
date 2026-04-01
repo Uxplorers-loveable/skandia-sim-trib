@@ -363,7 +363,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 {inputs.auxTipo === 'fijo' ? (
                   <div>
                     <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del auxilio mensual</label>
-                    <MoneyInput value={inputs.auxFijo} onChange={(v) => update('auxFijo', v)} />
+                    <MoneyInput value={inputs.auxFijo} onChange={(v) => { update('auxFijo', v); setErrors(prev => ({ ...prev, auxFijo: '' })); }} />
+                    {errors.auxFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
