@@ -43,19 +43,25 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
         <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
           Optimiza tu retención en la fuente y paga solo lo justo
         </h1>
-        <div className="space-y-2 max-w-lg mx-auto">
-          <p className="font-body text-base text-muted-foreground">
-            <i className="fa-solid fa-chart-line text-primary mr-2" />
-            Descubre cuánto puedes ahorrar en impuestos con tu aporte óptimo a FPV/AFC.
-          </p>
-          <p className="font-body text-base text-muted-foreground">
-            <i className="fa-solid fa-user-tie text-primary mr-2" />
-            Recibe una recomendación personalizada y conéctate con tu asesor Skandia.
-          </p>
-          <p className="font-body text-base text-muted-foreground">
-            <i className="fa-solid fa-clock text-primary mr-2" />
-            Completa la simulación en menos de 5 minutos.
-          </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
+          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
+            <i className="fa-solid fa-chart-line text-primary text-lg mt-0.5 shrink-0" />
+            <p className="font-body text-sm text-muted-foreground">
+              Descubre cuánto puedes ahorrar en impuestos con tu aporte óptimo a FPV/AFC.
+            </p>
+          </div>
+          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
+            <i className="fa-solid fa-user-tie text-primary text-lg mt-0.5 shrink-0" />
+            <p className="font-body text-sm text-muted-foreground">
+              Recibe una recomendación personalizada y conéctate con tu asesor Skandia.
+            </p>
+          </div>
+          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
+            <i className="fa-solid fa-clock text-primary text-lg mt-0.5 shrink-0" />
+            <p className="font-body text-sm text-muted-foreground">
+              Completa la simulación en menos de 5 minutos.
+            </p>
+          </div>
         </div>
       </div>
 
