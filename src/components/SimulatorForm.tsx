@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from '@/lib/taxEngine';
 
 interface SimulatorFormProps {
@@ -84,31 +85,6 @@ const PillToggle: React.FC<{
   </div>
 );
 
-const YesNoToggle: React.FC<{
-  value: boolean;
-  onChange: (v: boolean) => void;
-}> = ({ value, onChange }) => (
-  <div className="flex rounded-xl border border-border overflow-hidden flex-shrink-0">
-    <button
-      type="button"
-      onClick={() => onChange(false)}
-      className={`px-5 py-2 text-sm font-body font-bold transition-all ${
-        !value ? 'bg-secondary text-foreground' : 'bg-background text-muted-foreground'
-      }`}
-    >
-      No
-    </button>
-    <button
-      type="button"
-      onClick={() => onChange(true)}
-      className={`px-5 py-2 text-sm font-body font-bold transition-all ${
-        value ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground'
-      }`}
-    >
-      Sí
-    </button>
-  </div>
-);
 
 const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
   const [open, setOpen] = useState(false);
@@ -281,7 +257,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <span className="font-heading text-sm font-medium text-foreground">¿Recibes bono?</span>
               <p className="text-xs text-muted-foreground mt-0.5">Prima extralegal, bono de desempeño u otro pago adicional</p>
             </div>
-            <YesNoToggle value={inputs.bonoOn} onChange={(v) => update('bonoOn', v)} />
+            <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update('bonoOn', v)} />
           </div>
           {inputs.bonoOn && (
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
@@ -325,7 +301,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes auxilios o bonificaciones no salariales?</span>
                 <p className="text-xs text-muted-foreground mt-0.5">No forman parte de la base de seguridad social (INCNR)</p>
               </div>
-              <YesNoToggle value={inputs.auxOn} onChange={(v) => update('auxOn', v)} />
+              <Switch checked={inputs.auxOn} onCheckedChange={(v) => update('auxOn', v)} />
             </div>
             {inputs.auxOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
@@ -370,7 +346,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes comisiones?</span>
                 <p className="text-xs text-muted-foreground mt-0.5">Sí forman parte de la base de seguridad social</p>
               </div>
-              <YesNoToggle value={inputs.comOn} onChange={(v) => update('comOn', v)} />
+              <Switch checked={inputs.comOn} onCheckedChange={(v) => update('comOn', v)} />
             </div>
             {inputs.comOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">

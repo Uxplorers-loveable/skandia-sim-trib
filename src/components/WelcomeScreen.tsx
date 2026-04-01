@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 
 interface WelcomeScreenProps {
   onNext: (data: {
@@ -10,36 +11,6 @@ interface WelcomeScreenProps {
     tieneAsesor: boolean;
   }) => void;
 }
-
-const PillToggle: React.FC<{
-  value: boolean;
-  onChange: (v: boolean) => void;
-  labelYes?: string;
-  labelNo?: string;
-}> = ({ value, onChange, labelYes = 'Sí', labelNo = 'No' }) => (
-  <div className="flex rounded-xl border border-border overflow-hidden">
-    <button
-      type="button"
-      onClick={() => onChange(false)}
-      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
-        !value ? 'bg-background text-muted-foreground' : 'bg-primary text-primary-foreground'
-      }`}
-      style={{ order: 1 }}
-    >
-      {labelNo}
-    </button>
-    <button
-      type="button"
-      onClick={() => onChange(true)}
-      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
-        value ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground'
-      }`}
-      style={{ order: 2 }}
-    >
-      {labelYes}
-    </button>
-  </div>
-);
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
@@ -154,7 +125,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <span className="font-heading text-sm font-medium text-foreground">
               ¿Eres cliente Skandia?
             </span>
-            <PillToggle value={esCliente} onChange={setEsCliente} />
+            <Switch checked={esCliente} onCheckedChange={setEsCliente} />
           </div>
 
           {/* Asesor asignado (conditional) */}
@@ -163,7 +134,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               <span className="font-heading text-sm font-medium text-foreground">
                 ¿Tienes asesor asignado?
               </span>
-              <PillToggle value={tieneAsesor} onChange={setTieneAsesor} />
+              <Switch checked={tieneAsesor} onCheckedChange={setTieneAsesor} />
             </div>
           )}
         </div>
