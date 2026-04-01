@@ -306,8 +306,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
                 <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
-                  <MoneyInput value={inputs.bono} onChange={(v) => update('bono', v)} />
+                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
+                  <MoneyInput value={inputs.bono} onChange={(v) => { update('bono', v); setErrors(prev => ({ ...prev, bono: '' })); }} />
+                  {errors.bono && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.bono}</p>}
                 </div>
                 <div>
                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Mes en que lo recibes</label>
