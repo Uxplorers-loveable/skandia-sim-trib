@@ -306,8 +306,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
                 <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
-                  <MoneyInput value={inputs.bono} onChange={(v) => update('bono', v)} />
+                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
+                  <MoneyInput value={inputs.bono} onChange={(v) => { update('bono', v); setErrors(prev => ({ ...prev, bono: '' })); }} />
+                  {errors.bono && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.bono}</p>}
                 </div>
                 <div>
                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Mes en que lo recibes</label>
@@ -362,7 +363,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 {inputs.auxTipo === 'fijo' ? (
                   <div>
                     <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del auxilio mensual</label>
-                    <MoneyInput value={inputs.auxFijo} onChange={(v) => update('auxFijo', v)} />
+                    <MoneyInput value={inputs.auxFijo} onChange={(v) => { update('auxFijo', v); setErrors(prev => ({ ...prev, auxFijo: '' })); }} />
+                    {errors.auxFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -407,7 +409,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 {inputs.comTipo === 'fijo' ? (
                   <div>
                     <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor de la comisión mensual</label>
-                    <MoneyInput value={inputs.comFijo} onChange={(v) => update('comFijo', v)} />
+                    <MoneyInput value={inputs.comFijo} onChange={(v) => { update('comFijo', v); setErrors(prev => ({ ...prev, comFijo: '' })); }} />
+                    {errors.comFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -536,8 +539,31 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
         </Button>
         <Button
           onClick={() => {
+            const newErrors: Record<string, string> = {};
             if (!inputs.salario || inputs.salario <= 0) {
-              setErrors({ salario: 'Ingresa tu salario mensual para continuar con la simulación.' });
+              newErrors.salario = 'Ingresa tu salario mensual para continuar con la simulación.';
+            }
+            if (inputs.bonoOn && (!inputs.bono || inputs.bono <= 0)) {
+              newErrors.bono = 'Ingresa el valor del bono o desactiva la opción.';
+            }
+            if (inputs.auxOn) {
+              if (inputs.auxTipo === 'fijo' && (!inputs.auxFijo || inputs.auxFijo <= 0)) {
+                newErrors.auxFijo = 'Ingresa el valor del auxilio o desactiva la opción.';
+              }
+              if (inputs.auxTipo === 'variable' && (!inputs.auxMeses || inputs.auxMeses.every(v => !v || v <= 0))) {
+                newErrors.auxVar = 'Ingresa al menos un valor de auxilio mensual o desactiva la opción.';
+              }
+            }
+            if (inputs.comOn) {
+              if (inputs.comTipo === 'fijo' && (!inputs.comFijo || inputs.comFijo <= 0)) {
+                newErrors.comFijo = 'Ingresa el valor de la comisión o desactiva la opción.';
+              }
+              if (inputs.comTipo === 'variable' && (!inputs.comMeses || inputs.comMeses.every(v => !v || v <= 0))) {
+                newErrors.comVar = 'Ingresa al menos un valor de comisión mensual o desactiva la opción.';
+              }
+            }
+            if (Object.keys(newErrors).length > 0) {
+              setErrors(newErrors);
               return;
             }
             onNext();
