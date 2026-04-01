@@ -10,7 +10,7 @@ const STEPS = ['Tus datos', 'Simulación', 'Resultados'];
 
 const defaultInputs: SimulatorInputs = {
   salario: 25000000,
-  tipoSal: 'integral',
+  tipoSal: 'ordinario',
   indep: 0,
   bonoOn: false,
   bono: 0,
