@@ -96,7 +96,16 @@ const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
   const toggle = () => {
     if (!open && btnRef.current) {
       const rect = btnRef.current.getBoundingClientRect();
-      setPos({ top: rect.bottom + 8, left: rect.left + rect.width / 2 });
+      const tooltipWidth = 288; // w-72 = 18rem = 288px
+      let left = rect.left + rect.width / 2;
+      const margin = 12;
+
+      // Clamp horizontally so tooltip doesn't overflow viewport
+      const minLeft = margin + tooltipWidth / 2;
+      const maxLeft = window.innerWidth - margin - tooltipWidth / 2;
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      setPos({ top: rect.bottom + 8, left });
     }
     setOpen(!open);
   };
@@ -122,11 +131,10 @@ const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
       </button>
       {open && pos && ReactDOM.createPortal(
         <div
-          className="fixed z-[9999] w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg"
+          className="fixed z-[9999] max-w-[calc(100vw-24px)] w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg"
           style={{ top: pos.top, left: pos.left, transform: 'translateX(-50%)' }}
         >
           {text}
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45 mt-1" />
         </div>,
         document.body
       )}
