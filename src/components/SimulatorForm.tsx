@@ -486,7 +486,11 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           <i className="fa-solid fa-arrow-left mr-1" />
           Volver
         </Button>
-        <Button onClick={onNext} className="flex-[2]">
+        <Button
+          onClick={onNext}
+          className="flex-[2]"
+          disabled={!inputs.salario || inputs.salario <= 0}
+        >
           Ver mis resultados
           <i className="fa-solid fa-arrow-right ml-1" />
         </Button>
