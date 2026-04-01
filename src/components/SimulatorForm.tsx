@@ -48,7 +48,7 @@ const MoneyInput: React.FC<{
 
   return (
     <div className="relative">
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-mono text-sm">$</span>
+      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-sm">$</span>
       <input
         type="text"
         inputMode="numeric"
@@ -58,7 +58,7 @@ const MoneyInput: React.FC<{
         onChange={handleChange}
         disabled={disabled}
         placeholder={placeholder}
-        className="w-full h-12 pl-8 pr-4 rounded-lg border border-border font-mono text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-secondary"
+        className="w-full h-12 pl-8 pr-4 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-secondary"
       />
     </div>
   );
@@ -267,7 +267,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 onChange={(e) => update('pctProc2', Number(e.target.value) || 0)}
                 min={0}
                 max={100}
-                className="w-full h-12 px-4 rounded-lg border border-border font-mono text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                 placeholder="ej. 15"
               />
             </div>
@@ -423,7 +423,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               </span>
               <HelpTooltip text="Prestación social equivalente a un mes de salario por cada año trabajado. Solo aplica para contratos de salario ordinario." />
             </label>
-            <div className="h-12 px-4 flex items-center rounded-lg border border-border bg-secondary font-mono text-sm text-muted-foreground">
+            <div className="h-12 px-4 flex items-center rounded-lg border border-border bg-secondary font-body text-sm text-muted-foreground">
               ${inputs.tipoSal === 'ordinario' ? inputs.salario.toLocaleString('es-CO') : '0 (integral)'}
             </div>
           </div>
