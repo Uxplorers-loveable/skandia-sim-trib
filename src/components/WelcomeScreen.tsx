@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
 
 interface WelcomeScreenProps {
   onNext: (data: {
@@ -11,6 +10,36 @@ interface WelcomeScreenProps {
     tieneAsesor: boolean;
   }) => void;
 }
+
+const PillToggle: React.FC<{
+  value: boolean;
+  onChange: (v: boolean) => void;
+  labelYes?: string;
+  labelNo?: string;
+}> = ({ value, onChange, labelYes = 'Sí', labelNo = 'No' }) => (
+  <div className="flex rounded-xl border border-border overflow-hidden">
+    <button
+      type="button"
+      onClick={() => onChange(false)}
+      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
+        !value ? 'bg-background text-muted-foreground' : 'bg-primary text-primary-foreground'
+      }`}
+      style={{ order: 1 }}
+    >
+      {labelNo}
+    </button>
+    <button
+      type="button"
+      onClick={() => onChange(true)}
+      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
+        value ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground'
+      }`}
+      style={{ order: 2 }}
+    >
+      {labelYes}
+    </button>
+  </div>
+);
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
@@ -43,25 +72,19 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
         <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
           Optimiza tu retención en la fuente y paga solo lo justo
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
-          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
-            <i className="fa-solid fa-chart-line text-primary text-lg mt-0.5 shrink-0" />
-            <p className="font-body text-sm text-muted-foreground">
-              Descubre cuánto puedes ahorrar en impuestos con tu aporte óptimo a FPV/AFC.
-            </p>
-          </div>
-          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
-            <i className="fa-solid fa-user-tie text-primary text-lg mt-0.5 shrink-0" />
-            <p className="font-body text-sm text-muted-foreground">
-              Recibe una recomendación personalizada y conéctate con tu asesor Skandia.
-            </p>
-          </div>
-          <div className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
-            <i className="fa-solid fa-clock text-primary text-lg mt-0.5 shrink-0" />
-            <p className="font-body text-sm text-muted-foreground">
-              Completa la simulación en menos de 5 minutos.
-            </p>
-          </div>
+        <div className="space-y-2 max-w-lg mx-auto">
+          <p className="font-body text-base text-muted-foreground">
+            <i className="fa-solid fa-chart-line text-primary mr-2" />
+            Descubre cuánto puedes ahorrar en impuestos con tu aporte óptimo a FPV/AFC.
+          </p>
+          <p className="font-body text-base text-muted-foreground">
+            <i className="fa-solid fa-user-tie text-primary mr-2" />
+            Recibe una recomendación personalizada y conéctate con tu asesor Skandia.
+          </p>
+          <p className="font-body text-base text-muted-foreground">
+            <i className="fa-solid fa-clock text-primary mr-2" />
+            Completa la simulación en menos de 5 minutos.
+          </p>
         </div>
       </div>
 
@@ -131,7 +154,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <span className="font-heading text-sm font-medium text-foreground">
               ¿Eres cliente Skandia?
             </span>
-            <Switch checked={esCliente} onCheckedChange={setEsCliente} />
+            <PillToggle value={esCliente} onChange={setEsCliente} />
           </div>
 
           {/* Asesor asignado (conditional) */}
@@ -140,7 +163,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               <span className="font-heading text-sm font-medium text-foreground">
                 ¿Tienes asesor asignado?
               </span>
-              <Switch checked={tieneAsesor} onCheckedChange={setTieneAsesor} />
+              <PillToggle value={tieneAsesor} onChange={setTieneAsesor} />
             </div>
           )}
         </div>
