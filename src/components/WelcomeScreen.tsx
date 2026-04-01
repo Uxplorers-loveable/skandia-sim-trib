@@ -125,7 +125,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <span className="font-heading text-sm font-medium text-foreground">
               ¿Eres cliente Skandia?
             </span>
-            <PillToggle value={esCliente} onChange={setEsCliente} />
+            <Switch checked={esCliente} onCheckedChange={setEsCliente} />
           </div>
 
           {/* Asesor asignado (conditional) */}
