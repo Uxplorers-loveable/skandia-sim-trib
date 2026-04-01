@@ -85,31 +85,6 @@ const PillToggle: React.FC<{
   </div>
 );
 
-const YesNoToggle: React.FC<{
-  value: boolean;
-  onChange: (v: boolean) => void;
-}> = ({ value, onChange }) => (
-  <div className="flex rounded-xl border border-border overflow-hidden flex-shrink-0">
-    <button
-      type="button"
-      onClick={() => onChange(false)}
-      className={`px-5 py-2 text-sm font-body font-bold transition-all ${
-        !value ? 'bg-secondary text-foreground' : 'bg-background text-muted-foreground'
-      }`}
-    >
-      No
-    </button>
-    <button
-      type="button"
-      onClick={() => onChange(true)}
-      className={`px-5 py-2 text-sm font-body font-bold transition-all ${
-        value ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground'
-      }`}
-    >
-      Sí
-    </button>
-  </div>
-);
 
 const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
   const [open, setOpen] = useState(false);
