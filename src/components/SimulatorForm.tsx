@@ -301,7 +301,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes auxilios o bonificaciones no salariales?</span>
                 <p className="text-xs text-muted-foreground mt-0.5">No forman parte de la base de seguridad social (INCNR)</p>
               </div>
-              <YesNoToggle value={inputs.auxOn} onChange={(v) => update('auxOn', v)} />
+              <Switch checked={inputs.auxOn} onCheckedChange={(v) => update('auxOn', v)} />
             </div>
             {inputs.auxOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
