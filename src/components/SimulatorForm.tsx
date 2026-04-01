@@ -505,6 +505,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <HelpTooltip text="Aportes adicionales que haces directamente a tu fondo de pensiones obligatorio. Tienen tratamiento como INCRGO, diferente al FPV/AFC. Máx 25% del ingreso o 2.500 UVT/año." />
             </label>
             <MoneyInput value={inputs.volObl} onChange={(v) => update('volObl', v)} />
+            <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+              <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
+            </p>
           </div>
         </div>
       </CollapsibleSection>
