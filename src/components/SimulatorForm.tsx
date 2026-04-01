@@ -99,9 +99,9 @@ const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
         <i className="fa-solid fa-circle-question text-xs" />
       </button>
       {open && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg">
+        <div className="absolute z-50 top-full left-1/2 -translate-x-1/2 mt-2 w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg">
           {text}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45 -mt-1" />
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-2 h-2 bg-foreground rotate-45 mt-1" />
         </div>
       )}
     </span>
