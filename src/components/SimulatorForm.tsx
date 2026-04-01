@@ -527,9 +527,14 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           Volver
         </Button>
         <Button
-          onClick={onNext}
+          onClick={() => {
+            if (!inputs.salario || inputs.salario <= 0) {
+              setErrors({ salario: 'Ingresa tu salario mensual para continuar con la simulación.' });
+              return;
+            }
+            onNext();
+          }}
           className="flex-[2]"
-          disabled={!inputs.salario || inputs.salario <= 0}
         >
           Ver mis resultados
           <i className="fa-solid fa-arrow-right ml-1" />
