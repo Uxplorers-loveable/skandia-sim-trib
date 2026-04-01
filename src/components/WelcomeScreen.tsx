@@ -1,45 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-
-interface WelcomeScreenProps {
-  onNext: (data: {
-    nombre: string;
-    email: string;
-    telefono: string;
-    esCliente: boolean;
-    tieneAsesor: boolean;
-  }) => void;
-}
-
-const PillToggle: React.FC<{
-  value: boolean;
-  onChange: (v: boolean) => void;
-  labelYes?: string;
-  labelNo?: string;
-}> = ({ value, onChange, labelYes = 'Sí', labelNo = 'No' }) => (
-  <div className="flex rounded-xl border border-border overflow-hidden">
-    <button
-      type="button"
-      onClick={() => onChange(false)}
-      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
-        !value ? 'bg-background text-muted-foreground' : 'bg-primary text-primary-foreground'
-      }`}
-      style={{ order: 1 }}
-    >
-      {labelNo}
-    </button>
-    <button
-      type="button"
-      onClick={() => onChange(true)}
-      className={`px-5 py-2.5 text-sm font-body font-bold transition-all ${
-        value ? 'bg-primary text-primary-foreground' : 'bg-background text-muted-foreground'
-      }`}
-      style={{ order: 2 }}
-    >
-      {labelYes}
-    </button>
-  </div>
-);
+import { Switch } from '@/components/ui/switch';
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
