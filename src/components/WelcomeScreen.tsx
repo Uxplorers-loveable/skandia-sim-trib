@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
+interface WelcomeScreenProps {
+  onNext: (data: {
+    nombre: string;
+    email: string;
+    telefono: string;
+    esCliente: boolean;
+    tieneAsesor: boolean;
+  }) => void;
+}
+
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
