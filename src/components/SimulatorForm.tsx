@@ -346,7 +346,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes comisiones?</span>
                 <p className="text-xs text-muted-foreground mt-0.5">Sí forman parte de la base de seguridad social</p>
               </div>
-              <YesNoToggle value={inputs.comOn} onChange={(v) => update('comOn', v)} />
+              <Switch checked={inputs.comOn} onCheckedChange={(v) => update('comOn', v)} />
             </div>
             {inputs.comOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
