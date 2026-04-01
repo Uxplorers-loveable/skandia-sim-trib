@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
 import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from '@/lib/taxEngine';
 
 interface SimulatorFormProps {
@@ -408,14 +409,19 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               Número de dependientes (máx. 4)
               <HelpTooltip text="Persona que depende económicamente de ti: cónyuge sin ingresos, hijos menores de 18 años, hijos entre 18 y 23 años que estudian, o familiares con limitación física o mental. Cada dependiente reduce tu base de retención. (Art. 387 + Ley 2277/2022)" />
             </label>
-            <input
-              type="number"
-              value={inputs.dep}
-              onChange={(e) => update('dep', Math.min(4, Math.max(0, Number(e.target.value) || 0)))}
-              min={0}
+            <Slider
+              value={[inputs.dep]}
+              onValueChange={([v]) => update('dep', v)}
               max={4}
-              className="w-full h-12 px-4 rounded-lg border border-border font-mono text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+              step={1}
+              className="w-full"
             />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+            </div>
+            <p className="text-sm font-medium text-foreground font-body">
+              {inputs.dep === 0 ? 'Sin personas a cargo' : `${inputs.dep} persona${inputs.dep > 1 ? 's' : ''} a cargo`}
+            </p>
             <p className="text-[10px] text-muted-foreground mt-1 font-body italic">
               <strong>Art. 387:</strong> descuenta el 10% del ingreso hasta 32 UVT/mes — afecta retención y aporte óptimo (solo aplica por el 1.er dependiente dentro del 40%).
             </p>
