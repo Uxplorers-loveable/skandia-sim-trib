@@ -72,7 +72,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
     },
     C: {
       title: 'Descubre el valor de contar con un asesor Skandia para implementar tu estrategia',
-      primary: 'Quiero conocer más sobre Skandia',
+      primary: 'Contactar con un asesor',
       primaryIcon: 'fa-building',
     },
   }[scenario];
