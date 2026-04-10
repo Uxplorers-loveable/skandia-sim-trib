@@ -259,7 +259,6 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
               Procedimiento de retención
-              <HelpTooltip text="Procedimiento 1: la retención se calcula cada mes con base en tu ingreso de ese mes. Procedimiento 2: tu empleador calcula un porcentaje fijo en diciembre o junio del año anterior." />
             </label>
             <PillToggle
               options={[
@@ -269,6 +268,10 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               value={String(inputs.proc)}
               onChange={(v) => update('proc', Number(v) as 1 | 2)}
             />
+            <p className="text-[10px] text-muted-foreground font-body italic mt-1.5">
+              <strong>Procedimiento 1:</strong> la retención se calcula cada mes con base en tu ingreso de ese mes.
+              <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año anterior.
+            </p>
           </div>
 
           {inputs.proc === 2 && (
