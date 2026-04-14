@@ -195,6 +195,59 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
           <i className="fa-solid fa-arrow-right ml-1" />
         </Button>
       </form>
+
+      {/* Preparation modal */}
+      {showPrepModal && (
+        <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-card rounded-xl border border-border p-s3 max-w-md w-full space-y-s2 animate-fade-in">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                <i className="fa-solid fa-clipboard-list text-primary text-lg" />
+              </div>
+              <h3 className="font-heading text-lg font-bold text-foreground">Antes de comenzar</h3>
+            </div>
+            <p className="font-body text-sm text-muted-foreground">
+              Para obtener resultados más precisos, te recomendamos tener a la mano la siguiente información:
+            </p>
+
+            <div className="space-y-3">
+              <div className="bg-secondary rounded-lg p-s2">
+                <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1.5">
+                  <i className="fa-solid fa-money-bill-wave mr-1.5" />
+                  Tu ingreso
+                </p>
+                <p className="text-xs font-body text-muted-foreground">Auxilios, bonos, comisiones</p>
+              </div>
+
+              <div className="bg-secondary rounded-lg p-s2">
+                <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1.5">
+                  <i className="fa-solid fa-receipt mr-1.5" />
+                  Tus deducciones
+                </p>
+                <p className="text-xs font-body text-muted-foreground">Dependientes, intereses de vivienda, salud prepagada, compras electrónicas</p>
+              </div>
+
+              <div className="bg-secondary rounded-lg p-s2">
+                <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1.5">
+                  <i className="fa-solid fa-piggy-bank mr-1.5" />
+                  Aportes voluntarios
+                </p>
+                <p className="text-xs font-body text-muted-foreground">Fondo de Pensiones Voluntarias (FPV), Ahorro para el Fomento de la Construcción (AFC)</p>
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-1">
+              <Button variant="outline" className="flex-1" onClick={() => setShowPrepModal(false)}>
+                Volver
+              </Button>
+              <Button className="flex-1" onClick={handleContinue}>
+                Continuar
+                <i className="fa-solid fa-arrow-right ml-1" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
