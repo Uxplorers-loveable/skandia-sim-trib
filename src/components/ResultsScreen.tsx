@@ -35,16 +35,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
   // Monthly retention chart data
   const chartData = results.dataMes.map((d) => ({
     name: MESES[d.m],
-    actual: Math.round(d.reteM),
-    optima: Math.round(
-      (() => {
-        // Compute optimal retention per month (simplified: proportional reduction)
-        const totalActual = results.reteTot;
-        const totalOptimal = totalActual - results.ahorroOpt;
-        if (totalActual === 0) return 0;
-        return d.reteM * (totalOptimal / totalActual);
-      })()
-    ),
+    retencion: Math.round(d.reteM),
+    alivios: Math.round(d.alivM),
   }));
 
   const reteMensualActual = results.reteTot / 12;
