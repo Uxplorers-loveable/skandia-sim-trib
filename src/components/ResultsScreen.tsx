@@ -316,7 +316,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
             <div className="bg-accent/50 rounded-lg p-s2 border border-primary/20">
               <p className="text-xs font-body text-muted-foreground">
                 <i className="fa-solid fa-circle-info mr-1 text-primary" />
-                Al aceptar, también le comunicaremos a tu Fondo de Pensiones tu necesidad de contacto para que puedan asistirte de manera oportuna.
+                Al aceptar, también le comunicaremos a tu asesor tu necesidad de contacto para que puedan asistirte de manera oportuna.
               </p>
             </div>
             <div className="flex gap-3">
