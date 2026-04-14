@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { SimulatorResults, SimulatorInputs, fmtN, MESES, calculate } from '@/lib/taxEngine';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 interface ResultsScreenProps {
   inputs: SimulatorInputs;
@@ -35,16 +35,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
   // Monthly retention chart data
   const chartData = results.dataMes.map((d) => ({
     name: MESES[d.m],
-    actual: Math.round(d.reteM),
-    optima: Math.round(
-      (() => {
-        // Compute optimal retention per month (simplified: proportional reduction)
-        const totalActual = results.reteTot;
-        const totalOptimal = totalActual - results.ahorroOpt;
-        if (totalActual === 0) return 0;
-        return d.reteM * (totalOptimal / totalActual);
-      })()
-    ),
+    retencion: Math.round(d.reteM),
+    alivios: Math.round(d.alivM),
   }));
 
   const reteMensualActual = results.reteTot / 12;
@@ -184,10 +176,10 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
 
       {/* Bar chart */}
       <div className="bg-card rounded-xl border border-border p-s3">
-        <h3 className="font-heading text-sm font-bold text-foreground mb-s2">Retención mensual: actual vs. óptima</h3>
+        <h3 className="font-heading text-sm font-bold text-foreground mb-s2">Retención mensual</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} barGap={2}>
+            <ComposedChart data={chartData} barGap={2}>
               <XAxis
                 dataKey="name"
                 tick={{ fontSize: 11, fontFamily: 'Open Sans' }}
@@ -212,9 +204,9 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
               <Legend
                 wrapperStyle={{ fontFamily: 'Open Sans', fontSize: '12px', fontWeight: 700 }}
               />
-              <Bar name="Retención actual" dataKey="actual" fill="#8ba2c1" radius={[4, 4, 0, 0]} />
-              <Bar name="Retención óptima" dataKey="optima" fill="#00c73d" radius={[4, 4, 0, 0]} />
-            </BarChart>
+              <Bar name="Retención mes" dataKey="retencion" fill="#5a8a6a" radius={[4, 4, 0, 0]} />
+              <Line name="Alivios tributarios" dataKey="alivios" type="monotone" stroke="#c8922a" strokeWidth={2.5} dot={{ r: 4, fill: '#c8922a' }} />
+            </ComposedChart>
           </ResponsiveContainer>
         </div>
       </div>
