@@ -265,6 +265,18 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
         </div>
       )}
 
+      {/* Disclaimers */}
+      <div className="space-y-3 pt-s2">
+        <p className="text-[11px] font-body text-muted-foreground leading-relaxed">
+          <i className="fa-solid fa-circle-info mr-1 text-muted-foreground/60" />
+          Esta simulación es exclusivamente tributaria, no constituye una recomendación de inversión ni una asesoría personalizada. El aporte sugerido maximiza el beneficio fiscal pero no evalúa el perfil de riesgo, horizonte de inversión ni necesidades de liquidez del usuario.
+        </p>
+        <p className="text-[11px] font-body text-muted-foreground leading-relaxed">
+          <i className="fa-solid fa-circle-info mr-1 text-muted-foreground/60" />
+          Esta simulación calcula el beneficio tributario estimado de aportar a un Fondo Voluntario de Pensiones. No constituye asesoría de inversión ni recomendación profesional. La decisión de invertir en un FPV debe considerar tu perfil de riesgo, horizonte de inversión y necesidades de liquidez. Las rentabilidades pasadas no garantizan rentabilidades futuras. Consulta con un asesor para una evaluación integral.
+        </p>
+      </div>
+
       {/* Back button */}
       <div className="pt-s2">
         <Button variant="ghost" onClick={onBack} className="w-full">
