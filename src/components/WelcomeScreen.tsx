@@ -19,6 +19,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [telefono, setTelefono] = useState('');
   const [esCliente, setEsCliente] = useState(false);
   const [tieneAsesor, setTieneAsesor] = useState(false);
+  const [politica, setPolitica] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
