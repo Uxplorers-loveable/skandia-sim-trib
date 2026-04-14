@@ -218,15 +218,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <Switch checked={esCliente} onCheckedChange={setEsCliente} />
           </div>
 
-          {/* Asesor asignado (conditional) */}
-          {esCliente && (
-            <div className="flex items-center justify-between py-2 animate-fade-in">
-              <span className="font-heading text-sm font-medium text-foreground">
-                ¿Tienes asesor asignado?
-              </span>
-              <Switch checked={tieneAsesor} onCheckedChange={setTieneAsesor} />
-            </div>
-          )}
         </div>
 
         <div className="flex items-start gap-2">
