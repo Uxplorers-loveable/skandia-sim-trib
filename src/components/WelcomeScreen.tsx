@@ -58,7 +58,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
 
   const handleContinue = () => {
     setShowPrepModal(false);
-    onNext({ nombre, email, telefono, esCliente, tieneAsesor });
+    onNext({ nombre, email, telefono: telefono ? `${countryCode} ${telefono}` : '', esCliente, tieneAsesor });
   };
 
   return (
