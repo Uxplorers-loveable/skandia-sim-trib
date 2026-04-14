@@ -25,6 +25,59 @@ const COUNTRY_CODES = [
   { code: '+507', iso: 'pa', label: 'Panamá' },
 ];
 
+const CountryCodePicker: React.FC<{ value: string; onChange: (v: string) => void }> = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selected = COUNTRY_CODES.find(c => c.code === value) || COUNTRY_CODES[0];
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative w-[105px] shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="h-12 w-full flex items-center gap-2 px-3 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary cursor-pointer"
+      >
+        <img
+          src={`https://flagcdn.com/w40/${selected.iso}.png`}
+          alt={selected.label}
+          className="w-6 h-4 object-cover rounded-sm"
+        />
+        <span>{selected.code}</span>
+        <i className="fa-solid fa-chevron-down text-[10px] text-muted-foreground ml-auto" />
+      </button>
+      {open && (
+        <ul className="absolute top-full left-0 mt-1 w-[220px] max-h-52 overflow-y-auto bg-card border border-border rounded-lg shadow-lg z-50 py-1">
+          {COUNTRY_CODES.map((c) => (
+            <li key={c.code}>
+              <button
+                type="button"
+                onClick={() => { onChange(c.code); setOpen(false); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm font-body hover:bg-secondary transition-colors ${c.code === value ? 'bg-secondary font-medium' : ''}`}
+              >
+                <img
+                  src={`https://flagcdn.com/w40/${c.iso}.png`}
+                  alt={c.label}
+                  className="w-6 h-4 object-cover rounded-sm"
+                />
+                <span className="text-foreground">{c.label}</span>
+                <span className="text-muted-foreground ml-auto">{c.code}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
