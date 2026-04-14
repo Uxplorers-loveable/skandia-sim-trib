@@ -349,7 +349,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             <div className="flex items-center justify-between py-2">
               <div>
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes auxilios o bonificaciones no salariales?</span>
-                <p className="text-xs text-muted-foreground mt-0.5">No forman parte de la base de seguridad social (INCNR)</p>
+                <p className="text-xs text-muted-foreground mt-0.5">No forman parte de la base de seguridad social (Ingresos No Constitutivos de Remuneración)</p>
               </div>
               <Switch checked={inputs.auxOn} onCheckedChange={(v) => update('auxOn', v)} />
             </div>
