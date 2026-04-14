@@ -7,6 +7,7 @@ interface ResultsScreenProps {
   inputs: SimulatorInputs;
   userData: { nombre: string; email: string; esCliente: boolean; tieneAsesor: boolean };
   onBack: () => void;
+  onOpenContact: () => void;
 }
 
 const MetricCard: React.FC<{
@@ -26,9 +27,8 @@ const MetricCard: React.FC<{
   );
 };
 
-const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack }) => {
+const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact }) => {
   const [showTable, setShowTable] = useState(false);
-  const [showContactModal, setShowContactModal] = useState(false);
 
   const results = useMemo(() => calculate(inputs), [inputs]);
 
