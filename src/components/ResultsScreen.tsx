@@ -92,6 +92,43 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         />
       </div>
 
+      {/* Actions module below metric cards */}
+      <div className="bg-card rounded-xl border border-border p-s3">
+        <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
+          <i className="fa-solid fa-bolt text-primary mr-2" />
+          Acciones recomendadas según tu simulación
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
+          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <i className="fa-solid fa-piggy-bank text-primary text-sm" />
+            </div>
+            <p className="font-heading text-xs font-bold text-foreground">Aumenta tu aporte voluntario</p>
+            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
+              Incrementar tu aporte mensual a FPV/AFC puede reducir tu base gravable y maximizar tu ahorro tributario.
+            </p>
+          </div>
+          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <i className="fa-solid fa-file-invoice-dollar text-primary text-sm" />
+            </div>
+            <p className="font-heading text-xs font-bold text-foreground">Revisa tus deducciones</p>
+            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
+              Verifica que estés incluyendo todos los gastos deducibles como medicina prepagada, intereses de vivienda y dependientes.
+            </p>
+          </div>
+          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <i className="fa-solid fa-calendar-check text-primary text-sm" />
+            </div>
+            <p className="font-heading text-xs font-bold text-foreground">Planifica antes de diciembre</p>
+            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
+              Los aportes realizados antes del 31 de diciembre aplican para la declaración de renta del año en curso.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Optimal contribution card */}
       <div className="rounded-xl border-2 border-primary bg-accent p-s3">
         <div className="flex items-start gap-3">
@@ -116,6 +153,34 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
               <div>
                 <p className="text-[10px] font-body font-bold uppercase text-muted-foreground">Retorno de la Inversión sobre aporte</p>
                 <p className="text-lg font-body font-bold text-primary">{results.roi.toFixed(1)}%</p>
+              </div>
+            </div>
+
+            {/* Actionable steps inside the card */}
+            <div className="mt-s3 pt-s2 border-t border-primary/20">
+              <p className="text-xs font-heading font-bold text-primary mb-2">
+                <i className="fa-solid fa-list-check mr-1.5" />
+                Pasos para implementar tu estrategia
+              </p>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Abre o ajusta tu FPV:</strong> Si aún no tienes un Fondo Voluntario de Pensiones, solicita la apertura con tu asesor Skandia.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Configura aportes automáticos:</strong> Programa un débito mensual de <strong className="text-primary">{fmtN(results.xOptAdicional / 12)}</strong> para mantener la disciplina de ahorro.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Solicita el certificado tributario:</strong> Al cierre del año, descarga tu certificado para incluirlo en tu declaración de renta.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
