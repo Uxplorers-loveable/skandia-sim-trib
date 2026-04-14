@@ -19,12 +19,16 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [telefono, setTelefono] = useState('');
   const [esCliente, setEsCliente] = useState(false);
   const [tieneAsesor, setTieneAsesor] = useState(false);
+  const [politica, setPolitica] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!nombre.trim()) errs.nombre = 'Ingresa tu nombre completo para personalizar tu simulación.';
     if (!email.trim()) errs.email = 'Necesitamos tu correo para enviarte los resultados.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      errs.email = 'Revisa que el correo tenga el formato correcto, por ejemplo: nombre@correo.com';
+    if (!politica) errs.politica = 'Debes aceptar la Política de Tratamiento de Datos Personales para continuar.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       errs.email = 'Revisa que el correo tenga el formato correcto, por ejemplo: nombre@correo.com';
     setErrors(errs);
@@ -153,7 +157,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
         <div className="flex items-start gap-2">
           <Checkbox
             id="politica"
-            defaultChecked={true}
+            checked={politica}
+            onCheckedChange={(checked) => setPolitica(checked === true)}
             className="mt-0.5"
           />
           <label htmlFor="politica" className="text-xs text-muted-foreground font-body cursor-pointer">
@@ -169,6 +174,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             de Skandia. Autorizo el tratamiento de mis datos para la personalización de esta simulación y, si lo solicito, para el contacto con un asesor.
           </label>
         </div>
+        {errors.politica && (
+          <p className="text-xs text-destructive font-body font-bold -mt-1">
+            {errors.politica}
+          </p>
+        )}
 
         <Button
           type="submit"
