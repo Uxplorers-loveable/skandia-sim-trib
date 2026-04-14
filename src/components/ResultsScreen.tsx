@@ -282,6 +282,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         </Button>
       </div>
 
+    </div>
   );
 };
 
