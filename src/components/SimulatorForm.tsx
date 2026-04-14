@@ -212,7 +212,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
   return (
     <div className="space-y-s2 animate-fade-in">
       {/* Section 1 — Tu ingreso base */}
-      <CollapsibleSection title="Tu ingreso base" icon="fa-solid fa-wallet" defaultOpen>
+      <CollapsibleSection title="Tu ingreso" icon="fa-solid fa-wallet" defaultOpen>
         <div className="space-y-s3">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-s2">
             <div>
