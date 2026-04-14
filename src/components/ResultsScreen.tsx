@@ -286,22 +286,46 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
       {showContactModal && (
         <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50 p-4">
           <div className="bg-card rounded-xl border border-border p-s3 max-w-md w-full space-y-s2 animate-fade-in">
-            <h3 className="font-heading text-lg font-bold text-foreground">Confirmar contacto</h3>
+            <h3 className="font-heading text-lg font-bold text-foreground">Contacta a tu asesor</h3>
             <p className="font-body text-sm text-muted-foreground">
-              Se enviará la siguiente información a tu asesor:
+              Estos son los datos de contacto de tu Fondo de Pensiones Voluntarias para que puedas comunicarte directamente:
             </p>
-            <div className="bg-secondary rounded-lg p-s2 space-y-1 text-sm font-body">
-              <p><strong>Nombre:</strong> {userData.nombre}</p>
-              <p><strong>Correo:</strong> {userData.email}</p>
-              <p><strong>Aporte óptimo sugerido:</strong> {fmtN(results.xOptAdicional / 12)}/mes</p>
-              <p><strong>Ahorro anual estimado:</strong> {fmtN(results.ahorroOpt)}</p>
+            <div className="bg-secondary rounded-lg p-s2 space-y-2 text-sm font-body">
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-user text-primary w-4 text-center" />
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Nombre</p>
+                  <p className="text-foreground font-medium">Skandia Colombia</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-envelope text-primary w-4 text-center" />
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Correo</p>
+                  <p className="text-foreground font-medium">asesoria@skandia.com.co</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-phone text-primary w-4 text-center" />
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground">Celular</p>
+                  <p className="text-foreground font-medium">+57 601 658 0000</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-accent/50 rounded-lg p-s2 border border-primary/20">
+              <p className="text-xs font-body text-muted-foreground">
+                <i className="fa-solid fa-circle-info mr-1 text-primary" />
+                Al aceptar, también le comunicaremos a tu Fondo de Pensiones tu necesidad de contacto para que puedan asistirte de manera oportuna.
+              </p>
             </div>
             <div className="flex gap-3">
               <Button variant="outline" className="flex-1" onClick={() => setShowContactModal(false)}>
                 Cancelar
               </Button>
               <Button className="flex-1" onClick={() => setShowContactModal(false)}>
-                Confirmar envío
+                <i className="fa-solid fa-check mr-2" />
+                Aceptar
               </Button>
             </div>
           </div>
