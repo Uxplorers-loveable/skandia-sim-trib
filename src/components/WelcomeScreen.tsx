@@ -143,17 +143,24 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               Teléfono de contacto <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
             </label>
             <div className="flex gap-2">
-              <select
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                className="h-12 px-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary w-[110px] shrink-0"
-              >
-                {COUNTRY_CODES.map((c) => (
-                  <option key={c.code} value={c.code}>
-                    {c.country} {c.code}
-                  </option>
-                ))}
-              </select>
+              <div className="relative w-[120px] shrink-0">
+                <select
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="h-12 w-full pl-10 pr-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary appearance-none cursor-pointer"
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.label} {c.code}
+                    </option>
+                  ))}
+                </select>
+                <img
+                  src={`https://flagcdn.com/w40/${COUNTRY_CODES.find(c => c.code === countryCode)?.iso || 'co'}.png`}
+                  alt=""
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-4 object-cover rounded-sm pointer-events-none"
+                />
+              </div>
               <input
                 type="tel"
                 value={telefono}
