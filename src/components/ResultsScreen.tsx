@@ -29,6 +29,7 @@ const MetricCard: React.FC<{
 
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact }) => {
   const [showTable, setShowTable] = useState(false);
+  const [showEmailConfirm, setShowEmailConfirm] = useState(false);
 
   const results = useMemo(() => calculate(inputs), [inputs]);
 
@@ -227,11 +228,26 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
             {ctaConfig.primary}
           </Button>
-          <Button variant="outline" className="flex-1">
+          <Button
+            variant="outline"
+            className="flex-1"
+            onClick={() => {
+              setShowEmailConfirm(true);
+              setTimeout(() => setShowEmailConfirm(false), 4000);
+            }}
+          >
             <i className="fa-solid fa-envelope mr-2" />
             Recibir resultados por correo
           </Button>
         </div>
+        {showEmailConfirm && (
+          <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg px-4 py-3 animate-fade-in">
+            <i className="fa-solid fa-circle-check text-primary" />
+            <p className="text-sm font-body text-foreground">
+              Hemos enviado los resultados de tu simulación a <span className="font-medium">{userData.email}</span>.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Corporate savings banner — only if user has salarial bonus */}
