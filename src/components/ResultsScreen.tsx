@@ -29,6 +29,7 @@ const MetricCard: React.FC<{
 
 const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact }) => {
   const [showTable, setShowTable] = useState(false);
+  const [showEmailConfirm, setShowEmailConfirm] = useState(false);
 
   const results = useMemo(() => calculate(inputs), [inputs]);
 
