@@ -288,7 +288,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
           <div className="bg-card rounded-xl border border-border p-s3 max-w-md w-full space-y-s2 animate-fade-in">
             <h3 className="font-heading text-lg font-bold text-foreground">Contacta a tu asesor</h3>
             <p className="font-body text-sm text-muted-foreground">
-              Estos son los datos de contacto de tu Fondo de Pensiones Voluntarias para que puedas comunicarte directamente:
+              Estos son los datos de contacto de tu asesor para que puedas comunicarte directamente:
             </p>
             <div className="bg-secondary rounded-lg p-s2 space-y-2 text-sm font-body">
               <div className="flex items-center gap-2">
