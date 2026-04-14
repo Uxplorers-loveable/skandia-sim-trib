@@ -240,6 +240,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             Recibir resultados por correo
           </Button>
         </div>
+        {showEmailConfirm && (
+          <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg px-4 py-3 animate-fade-in">
+            <i className="fa-solid fa-circle-check text-primary" />
+            <p className="text-sm font-body text-foreground">
+              Hemos enviado los resultados de tu simulación a <span className="font-medium">{userData.email}</span>.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Corporate savings banner — only if user has salarial bonus */}
