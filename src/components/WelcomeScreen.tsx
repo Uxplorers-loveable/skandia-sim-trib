@@ -14,15 +14,15 @@ interface WelcomeScreenProps {
 }
 
 const COUNTRY_CODES = [
-  { code: '+57', country: '🇨🇴 COL', label: 'Colombia' },
-  { code: '+1', country: '🇺🇸 USA', label: 'Estados Unidos' },
-  { code: '+52', country: '🇲🇽 MEX', label: 'México' },
-  { code: '+34', country: '🇪🇸 ESP', label: 'España' },
-  { code: '+51', country: '🇵🇪 PER', label: 'Perú' },
-  { code: '+56', country: '🇨🇱 CHL', label: 'Chile' },
-  { code: '+54', country: '🇦🇷 ARG', label: 'Argentina' },
-  { code: '+593', country: '🇪🇨 ECU', label: 'Ecuador' },
-  { code: '+507', country: '🇵🇦 PAN', label: 'Panamá' },
+  { code: '+57', iso: 'co', label: 'Colombia' },
+  { code: '+1', iso: 'us', label: 'Estados Unidos' },
+  { code: '+52', iso: 'mx', label: 'México' },
+  { code: '+34', iso: 'es', label: 'España' },
+  { code: '+51', iso: 'pe', label: 'Perú' },
+  { code: '+56', iso: 'cl', label: 'Chile' },
+  { code: '+54', iso: 'ar', label: 'Argentina' },
+  { code: '+593', iso: 'ec', label: 'Ecuador' },
+  { code: '+507', iso: 'pa', label: 'Panamá' },
 ];
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
@@ -143,17 +143,24 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               Teléfono de contacto <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
             </label>
             <div className="flex gap-2">
-              <select
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                className="h-12 px-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary w-[110px] shrink-0"
-              >
-                {COUNTRY_CODES.map((c) => (
-                  <option key={c.code} value={c.code}>
-                    {c.country} {c.code}
-                  </option>
-                ))}
-              </select>
+              <div className="relative w-[120px] shrink-0">
+                <select
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="h-12 w-full pl-10 pr-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary appearance-none cursor-pointer"
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.label} {c.code}
+                    </option>
+                  ))}
+                </select>
+                <img
+                  src={`https://flagcdn.com/w40/${COUNTRY_CODES.find(c => c.code === countryCode)?.iso || 'co'}.png`}
+                  alt=""
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-4 object-cover rounded-sm pointer-events-none"
+                />
+              </div>
               <input
                 type="tel"
                 value={telefono}
