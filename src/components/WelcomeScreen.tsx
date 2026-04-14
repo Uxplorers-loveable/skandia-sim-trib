@@ -14,15 +14,15 @@ interface WelcomeScreenProps {
 }
 
 const COUNTRY_CODES = [
-  { code: '+57', country: '🇨🇴 COL', label: 'Colombia' },
-  { code: '+1', country: '🇺🇸 USA', label: 'Estados Unidos' },
-  { code: '+52', country: '🇲🇽 MEX', label: 'México' },
-  { code: '+34', country: '🇪🇸 ESP', label: 'España' },
-  { code: '+51', country: '🇵🇪 PER', label: 'Perú' },
-  { code: '+56', country: '🇨🇱 CHL', label: 'Chile' },
-  { code: '+54', country: '🇦🇷 ARG', label: 'Argentina' },
-  { code: '+593', country: '🇪🇨 ECU', label: 'Ecuador' },
-  { code: '+507', country: '🇵🇦 PAN', label: 'Panamá' },
+  { code: '+57', iso: 'co', label: 'Colombia' },
+  { code: '+1', iso: 'us', label: 'Estados Unidos' },
+  { code: '+52', iso: 'mx', label: 'México' },
+  { code: '+34', iso: 'es', label: 'España' },
+  { code: '+51', iso: 'pe', label: 'Perú' },
+  { code: '+56', iso: 'cl', label: 'Chile' },
+  { code: '+54', iso: 'ar', label: 'Argentina' },
+  { code: '+593', iso: 'ec', label: 'Ecuador' },
+  { code: '+507', iso: 'pa', label: 'Panamá' },
 ];
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
