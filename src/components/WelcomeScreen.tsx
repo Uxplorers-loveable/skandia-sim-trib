@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface WelcomeScreenProps {
   onNext: (data: {
@@ -149,12 +150,24 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
           )}
         </div>
 
-        <div className="flex items-start gap-2 text-xs text-muted-foreground font-body">
-          <i className="fa-solid fa-shield-check text-primary mt-0.5" />
-          <p>
-            Tus datos se usan exclusivamente para personalizar tu simulación y facilitar el contacto con tu asesor.
-            No almacenamos información en el navegador.
-          </p>
+        <div className="flex items-start gap-2">
+          <Checkbox
+            id="politica"
+            defaultChecked={true}
+            className="mt-0.5"
+          />
+          <label htmlFor="politica" className="text-xs text-muted-foreground font-body cursor-pointer">
+            He leído y acepto la{' '}
+            <a
+              href="https://www.skandia.co/politica-de-tratamiento-de-informacion"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline hover:text-primary/80"
+            >
+              Política de Tratamiento de Datos Personales
+            </a>{' '}
+            de Skandia. Autorizo el tratamiento de mis datos para la personalización de esta simulación y, si lo solicito, para el contacto con un asesor.
+          </label>
         </div>
 
         <Button
