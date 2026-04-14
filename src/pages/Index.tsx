@@ -3,6 +3,7 @@ import ProgressSteps from '@/components/ProgressSteps';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SimulatorForm from '@/components/SimulatorForm';
 import ResultsScreen from '@/components/ResultsScreen';
+import ContactModal from '@/components/ContactModal';
 import { SimulatorInputs, UVT, SMLV } from '@/lib/taxEngine';
 import skandiaLogo from '@/assets/skandia-logo.svg';
 
@@ -38,6 +39,7 @@ const formatCurrency = (v: number) => v.toLocaleString('es-CO');
 
 const Index: React.FC = () => {
   const [step, setStep] = useState(1);
+  const [showContactModal, setShowContactModal] = useState(false);
   const [userData, setUserData] = useState({
     nombre: '',
     email: '',
@@ -53,9 +55,18 @@ const Index: React.FC = () => {
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
         <div className="max-w-[800px] mx-auto px-4 md:px-s6 py-s2 flex items-center justify-between">
           <img src={skandiaLogo} alt="Skandia" className="h-5" />
-          <span className="text-[10px] font-body text-muted-foreground bg-secondary px-3 py-1 rounded-full">
-            UVT ${formatCurrency(UVT)} · SMLV ${formatCurrency(SMLV)} · 2026
-          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowContactModal(true)}
+              className="flex items-center gap-1.5 text-[11px] font-body font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <i className="fa-solid fa-headset text-xs" />
+              ¿Necesitas ayuda?
+            </button>
+            <span className="text-[10px] font-body text-muted-foreground bg-secondary px-3 py-1 rounded-full">
+              UVT ${formatCurrency(UVT)} · SMLV ${formatCurrency(SMLV)} · 2026
+            </span>
+          </div>
         </div>
       </header>
 
@@ -99,9 +110,12 @@ const Index: React.FC = () => {
               setStep(2);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
+            onOpenContact={() => setShowContactModal(true)}
           />
         )}
       </main>
+
+      <ContactModal open={showContactModal} onClose={() => setShowContactModal(false)} />
     </div>
   );
 };
