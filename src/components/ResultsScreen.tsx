@@ -227,7 +227,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
             {ctaConfig.primary}
           </Button>
-          <Button variant="outline" className="flex-1">
+          <Button
+            variant="outline"
+            className="flex-1"
+            onClick={() => {
+              setShowEmailConfirm(true);
+              setTimeout(() => setShowEmailConfirm(false), 4000);
+            }}
+          >
             <i className="fa-solid fa-envelope mr-2" />
             Recibir resultados por correo
           </Button>
