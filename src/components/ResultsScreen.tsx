@@ -61,7 +61,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
 
   const ctaConfig = {
     A: {
-      title: 'Tu asesor puede ayudarte a implementar el aporte óptimo',
+      title: 'Tu asesor puede ayudarte a implementar el aporte sugerido',
       primary: 'Habla con tu asesor',
       primaryIcon: 'fa-user-tie',
     },
