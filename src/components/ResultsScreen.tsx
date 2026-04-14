@@ -121,7 +121,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
                 <p className="text-lg font-body font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
               </div>
               <div>
-                <p className="text-[10px] font-body font-bold uppercase text-muted-foreground">ROI sobre aporte</p>
+                <p className="text-[10px] font-body font-bold uppercase text-muted-foreground">Retorno de la Inversión sobre aporte</p>
                 <p className="text-lg font-body font-bold text-primary">{results.roi.toFixed(1)}%</p>
               </div>
             </div>
