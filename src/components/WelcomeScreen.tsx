@@ -21,6 +21,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [tieneAsesor, setTieneAsesor] = useState(false);
   const [politica, setPolitica] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showPrepModal, setShowPrepModal] = useState(false);
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -38,8 +39,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      onNext({ nombre, email, telefono, esCliente, tieneAsesor });
+      setShowPrepModal(true);
     }
+  };
+
+  const handleContinue = () => {
+    setShowPrepModal(false);
+    onNext({ nombre, email, telefono, esCliente, tieneAsesor });
   };
 
   return (
