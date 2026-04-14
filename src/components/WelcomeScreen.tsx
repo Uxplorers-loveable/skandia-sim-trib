@@ -29,6 +29,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [countryCode, setCountryCode] = useState('+57');
   const [esCliente, setEsCliente] = useState(false);
   const [tieneAsesor, setTieneAsesor] = useState(false);
   const [politica, setPolitica] = useState(false);
