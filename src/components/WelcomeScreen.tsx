@@ -43,7 +43,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
         <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
           Optimiza tus impuestos y paga menos en retención en la fuente.
         </h1>
-        <p className="font-heading text-base font-semibold text-foreground mb-3">Qué esperar con este simulador:</p>
+        <p className="font-heading text-base text-foreground mb-3 font-medium">Qué esperar con este simulador:</p>
         <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
           <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center text-center space-y-2">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
