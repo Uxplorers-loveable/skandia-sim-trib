@@ -275,6 +275,10 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
           <i className="fa-solid fa-circle-info mr-1 text-muted-foreground/60" />
           Esta simulación calcula el beneficio tributario estimado de aportar a un Fondo Voluntario de Pensiones. No constituye asesoría de inversión ni recomendación profesional. La decisión de invertir en un FPV debe considerar tu perfil de riesgo, horizonte de inversión y necesidades de liquidez. Las rentabilidades pasadas no garantizan rentabilidades futuras. Consulta con un asesor para una evaluación integral.
         </p>
+        <p className="text-[11px] font-body text-muted-foreground leading-relaxed">
+          <i className="fa-solid fa-circle-info mr-1 text-muted-foreground/60" />
+          El beneficio tributario de los aportes a FPV está condicionado a que los recursos permanezcan en el fondo por mínimo 10 años o hasta el cumplimiento de requisitos para acceder a la pensión (Art. 126-1 E.T.). El retiro anticipado genera retención en la fuente sobre el valor retirado.
+        </p>
       </div>
 
       {/* Back button */}
