@@ -187,7 +187,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
                 tickLine={false}
               />
               <YAxis
-                tick={{ fontSize: 11, fontFamily: 'IBM Plex Mono', fill: '#666666' }}
+                tick={{ fontSize: 11, fontFamily: 'Open Sans', fill: '#666666' }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => '$' + (v / 1000000).toFixed(1) + 'M'}
@@ -197,7 +197,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
                 contentStyle={{
                   borderRadius: '8px',
                   border: '1px solid #dddddd',
-                  fontFamily: 'IBM Plex Mono',
+                  fontFamily: 'Open Sans',
                   fontSize: '12px',
                   color: '#404040',
                 }}
