@@ -28,6 +28,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
     if (!email.trim()) errs.email = 'Necesitamos tu correo para enviarte los resultados.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       errs.email = 'Revisa que el correo tenga el formato correcto, por ejemplo: nombre@correo.com';
+    if (!politica) errs.politica = 'Debes aceptar la Política de Tratamiento de Datos Personales para continuar.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      errs.email = 'Revisa que el correo tenga el formato correcto, por ejemplo: nombre@correo.com';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
