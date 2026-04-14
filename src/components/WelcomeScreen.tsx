@@ -13,10 +13,23 @@ interface WelcomeScreenProps {
   }) => void;
 }
 
+const COUNTRY_CODES = [
+  { code: '+57', country: '🇨🇴 COL', label: 'Colombia' },
+  { code: '+1', country: '🇺🇸 USA', label: 'Estados Unidos' },
+  { code: '+52', country: '🇲🇽 MEX', label: 'México' },
+  { code: '+34', country: '🇪🇸 ESP', label: 'España' },
+  { code: '+51', country: '🇵🇪 PER', label: 'Perú' },
+  { code: '+56', country: '🇨🇱 CHL', label: 'Chile' },
+  { code: '+54', country: '🇦🇷 ARG', label: 'Argentina' },
+  { code: '+593', country: '🇪🇨 ECU', label: 'Ecuador' },
+  { code: '+507', country: '🇵🇦 PAN', label: 'Panamá' },
+];
+
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [countryCode, setCountryCode] = useState('+57');
   const [esCliente, setEsCliente] = useState(false);
   const [tieneAsesor, setTieneAsesor] = useState(false);
   const [politica, setPolitica] = useState(false);
@@ -45,7 +58,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
 
   const handleContinue = () => {
     setShowPrepModal(false);
-    onNext({ nombre, email, telefono, esCliente, tieneAsesor });
+    onNext({ nombre, email, telefono: telefono ? `${countryCode} ${telefono}` : '', esCliente, tieneAsesor });
   };
 
   return (
@@ -129,13 +142,26 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
               Teléfono de contacto <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
             </label>
-            <input
-              type="tel"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              placeholder="300 123 4567"
-              className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-            />
+            <div className="flex gap-2">
+              <select
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                className="h-12 px-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary w-[110px] shrink-0"
+              >
+                {COUNTRY_CODES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.country} {c.code}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                placeholder="300 123 4567"
+                className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+              />
+            </div>
             <p className="text-xs text-muted-foreground mt-1 font-body">
               Tu teléfono nos permite agilizar el contacto con tu asesor si lo necesitas.
             </p>
