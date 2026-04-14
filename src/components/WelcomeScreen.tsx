@@ -142,13 +142,26 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
               Teléfono de contacto <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
             </label>
-            <input
-              type="tel"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              placeholder="300 123 4567"
-              className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-            />
+            <div className="flex gap-2">
+              <select
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                className="h-12 px-2 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary w-[110px] shrink-0"
+              >
+                {COUNTRY_CODES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.country} {c.code}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                placeholder="300 123 4567"
+                className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+              />
+            </div>
             <p className="text-xs text-muted-foreground mt-1 font-body">
               Tu teléfono nos permite agilizar el contacto con tu asesor si lo necesitas.
             </p>
