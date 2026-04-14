@@ -182,12 +182,12 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
             <ComposedChart data={chartData} barGap={2}>
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 11, fontFamily: 'Open Sans' }}
+                tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fontSize: 11, fontFamily: 'IBM Plex Mono' }}
+                tick={{ fontSize: 11, fontFamily: 'IBM Plex Mono', fill: '#666666' }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => '$' + (v / 1000000).toFixed(1) + 'M'}
@@ -196,16 +196,17 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack 
                 formatter={(value: number) => formatTooltip(value)}
                 contentStyle={{
                   borderRadius: '8px',
-                  border: '1px solid hsl(var(--border))',
+                  border: '1px solid #dddddd',
                   fontFamily: 'IBM Plex Mono',
                   fontSize: '12px',
+                  color: '#404040',
                 }}
               />
               <Legend
-                wrapperStyle={{ fontFamily: 'Open Sans', fontSize: '12px', fontWeight: 700 }}
+                wrapperStyle={{ fontFamily: 'Open Sans', fontSize: '12px', fontWeight: 700, color: '#404040' }}
               />
-              <Bar name="Retención mes" dataKey="retencion" fill="#5a8a6a" radius={[4, 4, 0, 0]} />
-              <Line name="Alivios tributarios" dataKey="alivios" type="monotone" stroke="#c8922a" strokeWidth={2.5} dot={{ r: 4, fill: '#c8922a' }} />
+              <Bar name="Retención mes" dataKey="retencion" fill="#00c73d" radius={[4, 4, 0, 0]} />
+              <Line name="Alivios tributarios" dataKey="alivios" type="monotone" stroke="#ffae08" strokeWidth={2.5} dot={{ r: 4, fill: '#ffae08' }} />
             </ComposedChart>
           </ResponsiveContainer>
         </div>
