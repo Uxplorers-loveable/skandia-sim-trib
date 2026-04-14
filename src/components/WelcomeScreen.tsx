@@ -41,7 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
     <div className="animate-fade-in">
       <div className="text-center mb-s5">
         <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
-          Optimiza tu retención en la fuente y paga solo lo justo
+          Optimiza tus impuestos y paga menos en retención en la fuente.
         </h1>
         <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
           <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center text-center space-y-2">
