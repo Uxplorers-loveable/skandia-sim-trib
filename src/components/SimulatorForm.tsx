@@ -529,6 +529,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             </label>
             <MoneyInput value={inputs.volObl} onChange={(v) => update('volObl', v)} />
             <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+              <strong>RAIS:</strong> Régimen de Ahorro Individual con Solidaridad. Es el sistema de pensiones donde tus aportes se acumulan en una cuenta individual administrada por un fondo de pensiones.
+            </p>
+            <p className="text-[10px] text-muted-foreground font-body italic mt-1">
               <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
             </p>
           </div>
