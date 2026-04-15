@@ -523,7 +523,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
 
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Aporte voluntario al obl. (RAIS) mensual
+              Aporte voluntario al Fondo de Pensiones Obligatorias (RAIS) mensual
               <span className="ml-1.5 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">INCRGO</span>
               <HelpTooltip text="Aportes adicionales que haces directamente a tu fondo de pensiones obligatorio. Tienen tratamiento como INCRGO, diferente al FPV/AFC. Máx 25% del ingreso o 2.500 UVT/año." />
             </label>
