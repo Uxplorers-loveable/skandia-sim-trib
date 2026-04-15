@@ -318,7 +318,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                   <select
                     value={inputs.mesBono}
                     onChange={(e) => update('mesBono', Number(e.target.value))}
-                    className="w-full h-12 pl-3 pr-12 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                    className="w-full h-12 pl-3 pr-12 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary px-s2"
                   >
                     {MESES.map((m, i) => <option key={i} value={i + 1}>{m}</option>)}
                   </select>
