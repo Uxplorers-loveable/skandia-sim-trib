@@ -515,7 +515,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
         <div className="space-y-s3">
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Aportes al Fondo de Pensión Voluntaria/AFC mensual
+              Aporte mensual al Fondo de Pensión Voluntaria/AFC
               <HelpTooltip text="Los Fondos de Pensiones Voluntarias (FPV) y las cuentas de Ahorro para el Fomento de la Construcción (AFC) permiten hacer aportes que reducen tu base de retención. Es el mecanismo más eficiente de optimización tributaria para empleados." />
             </label>
             <MoneyInput value={inputs.volFPV} onChange={(v) => update('volFPV', v)} />
