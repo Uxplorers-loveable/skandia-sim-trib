@@ -505,6 +505,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <HelpTooltip text="Art. 336 num. 5 · Ley 2277/2022 — Se deduce el 1% del valor ingresado, tope 240 UVT. Fuera del 40%/1.340 UVT. No afecta retención en la fuente ni el aporte óptimo." />
             </label>
             <MoneyInput value={inputs.facturas} onChange={(v) => update('facturas', v)} />
+            <p className="text-[11px] font-body text-muted-foreground mt-1">Puedes ingresar un valor aproximado a tu última declaración de renta</p>
           </div>
         </div>
       </CollapsibleSection>
