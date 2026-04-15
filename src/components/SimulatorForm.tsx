@@ -310,7 +310,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           </div>
           {inputs.bonoOn && (
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.4fr] gap-s2">
                 <div>
                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
                   <MoneyInput
