@@ -75,7 +75,7 @@ const PillToggle: React.FC<{
         key={opt.value}
         type="button"
         onClick={() => onChange(opt.value)}
-        className={`flex-1 px-4 py-2.5 text-sm font-body font-bold transition-all whitespace-nowrap ${
+        className={`flex-1 px-5 py-2.5 text-sm font-body font-bold transition-all whitespace-nowrap text-center ${
           value === opt.value
             ? "bg-primary text-primary-foreground"
             : "bg-background text-muted-foreground hover:bg-secondary"
