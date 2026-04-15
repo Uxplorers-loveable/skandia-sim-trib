@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
-import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from '@/lib/taxEngine';
+import React, { useState, useCallback } from "react";
+import ReactDOM from "react-dom";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from "@/lib/taxEngine";
 
 interface SimulatorFormProps {
   onBack: () => void;
@@ -13,8 +13,8 @@ interface SimulatorFormProps {
 }
 
 // Format number with Colombian thousands separator
-const formatMoney = (v: number): string => v === 0 ? '0' : v.toLocaleString('es-CO');
-const parseMoney = (s: string): number => parseInt(s.replace(/\./g, '').replace(/[^0-9]/g, ''), 10) || 0;
+const formatMoney = (v: number): string => (v === 0 ? "0" : v.toLocaleString("es-CO"));
+const parseMoney = (s: string): number => parseInt(s.replace(/\./g, "").replace(/[^0-9]/g, ""), 10) || 0;
 
 const MoneyInput: React.FC<{
   value: number;
@@ -35,9 +35,9 @@ const MoneyInput: React.FC<{
     onChange(n);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/[^0-9]/g, '');
+    const raw = e.target.value.replace(/[^0-9]/g, "");
     const num = parseInt(raw, 10) || 0;
-    setDisplay(num === 0 ? '' : formatMoney(num));
+    setDisplay(num === 0 ? "" : formatMoney(num));
     onChange(num);
   };
 
@@ -75,10 +75,10 @@ const PillToggle: React.FC<{
         key={opt.value}
         type="button"
         onClick={() => onChange(opt.value)}
-        className={`flex-1 px-3 py-2.5 text-sm font-body font-bold transition-all whitespace-nowrap text-center ${
+        className={`flex-1 px-4 py-2.5 text-sm font-body font-bold transition-all whitespace-nowrap ${
           value === opt.value
-            ? 'bg-primary text-primary-foreground'
-            : 'bg-background text-muted-foreground hover:bg-secondary'
+            ? "bg-primary text-primary-foreground"
+            : "bg-background text-muted-foreground hover:bg-secondary"
         }`}
       >
         {opt.label}
@@ -86,7 +86,6 @@ const PillToggle: React.FC<{
     ))}
   </div>
 );
-
 
 const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
   const [open, setOpen] = useState(false);
@@ -115,8 +114,8 @@ const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
     const close = (e: MouseEvent) => {
       if (btnRef.current && !btnRef.current.contains(e.target as Node)) setOpen(false);
     };
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
   }, [open]);
 
   return (
@@ -129,15 +128,17 @@ const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
       >
         <i className="fa-solid fa-circle-question text-xs" />
       </button>
-      {open && pos && ReactDOM.createPortal(
-        <div
-          className="fixed z-[9999] max-w-[calc(100vw-24px)] w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg"
-          style={{ top: pos.top, left: pos.left, transform: 'translateX(-50%)' }}
-        >
-          {text}
-        </div>,
-        document.body
-      )}
+      {open &&
+        pos &&
+        ReactDOM.createPortal(
+          <div
+            className="fixed z-[9999] max-w-[calc(100vw-24px)] w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg"
+            style={{ top: pos.top, left: pos.left, transform: "translateX(-50%)" }}
+          >
+            {text}
+          </div>,
+          document.body,
+        )}
     </span>
   );
 };
@@ -159,16 +160,14 @@ const CollapsibleSection: React.FC<{
         <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
           <i className={`${icon} text-sm text-primary`} />
         </div>
-        <span className="font-heading text-sm font-medium text-foreground flex-1 text-left">
-          {title}
-        </span>
-        <i className={`fa-solid fa-chevron-${isOpen ? 'up' : 'down'} text-xs text-muted-foreground transition-transform`} />
+        <span className="font-heading text-sm font-medium text-foreground flex-1 text-left">{title}</span>
+        <i
+          className={`fa-solid fa-chevron-${isOpen ? "up" : "down"} text-xs text-muted-foreground transition-transform`}
+        />
       </button>
       {isOpen && (
         <div className="px-s3 pb-s3 animate-fade-in">
-          <div className="border-t border-border pt-s3">
-            {children}
-          </div>
+          <div className="border-t border-border pt-s3">{children}</div>
         </div>
       )}
     </div>
@@ -182,16 +181,16 @@ const BarIndicator: React.FC<{ value: number; max: number; label?: string }> = (
     <div className="mt-1.5">
       <div className="h-1 bg-secondary rounded-full overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-300 ${atLimit ? 'bg-warning' : 'bg-primary'}`}
+          className={`h-full rounded-full transition-all duration-300 ${atLimit ? "bg-warning" : "bg-primary"}`}
           style={{ width: `${pct}%` }}
         />
       </div>
       {value > 0 && (
         <p className="text-[10px] text-muted-foreground mt-0.5 font-body">
-          {label || (atLimit
-            ? `Tope alcanzado — $${Math.round(max).toLocaleString('es-CO')}/mes máx`
-            : `$${Math.round(Math.min(value, max)).toLocaleString('es-CO')} de $${Math.round(max).toLocaleString('es-CO')}/mes usados`
-          )}
+          {label ||
+            (atLimit
+              ? `Tope alcanzado — $${Math.round(max).toLocaleString("es-CO")}/mes máx`
+              : `$${Math.round(Math.min(value, max)).toLocaleString("es-CO")} de $${Math.round(max).toLocaleString("es-CO")}/mes usados`)}
         </p>
       )}
     </div>
@@ -201,13 +200,16 @@ const BarIndicator: React.FC<{ value: number; max: number; label?: string }> = (
 const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, setInputs }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const update = useCallback(<K extends keyof SimulatorInputs>(key: K, val: SimulatorInputs[K]) => {
-    setInputs(prev => ({ ...prev, [key]: val }));
-    if (key === 'salario') setErrors(prev => ({ ...prev, salario: '' }));
-  }, [setInputs]);
+  const update = useCallback(
+    <K extends keyof SimulatorInputs>(key: K, val: SimulatorInputs[K]) => {
+      setInputs((prev) => ({ ...prev, [key]: val }));
+      if (key === "salario") setErrors((prev) => ({ ...prev, salario: "" }));
+    },
+    [setInputs],
+  );
 
   const min13 = 13 * SMLV;
-  const integralInvalido = inputs.tipoSal === 'integral' && inputs.salario > 0 && inputs.salario < min13;
+  const integralInvalido = inputs.tipoSal === "integral" && inputs.salario > 0 && inputs.salario < min13;
 
   return (
     <div className="space-y-s2 animate-fade-in">
@@ -220,15 +222,13 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 Salario mensual
                 <HelpTooltip text="Tu salario mensual bruto antes de deducciones. Es la base principal para calcular tu retención." />
               </label>
-              <MoneyInput value={inputs.salario} onChange={(v) => update('salario', v)} />
+              <MoneyInput value={inputs.salario} onChange={(v) => update("salario", v)} />
               {errors.salario && (
-                <p className="text-xs text-destructive font-body font-bold mt-1.5">
-                  {errors.salario}
-                </p>
+                <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.salario}</p>
               )}
               {integralInvalido && (
                 <p className="text-xs text-destructive font-body font-bold mt-1.5">
-                  ⚠ Mínimo ${min13.toLocaleString('es-CO')} (13 SMLV) para salario integral.
+                  ⚠ Mínimo ${min13.toLocaleString("es-CO")} (13 SMLV) para salario integral.
                 </p>
               )}
             </div>
@@ -237,7 +237,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 Ingreso independiente mensual
                 <HelpTooltip text="Si tienes ingresos adicionales por actividades independientes, ingrésalos aquí. Se calcula seguridad social sobre el 40% de estos ingresos." />
               </label>
-              <MoneyInput value={inputs.indep} onChange={(v) => update('indep', v)} />
+              <MoneyInput value={inputs.indep} onChange={(v) => update("indep", v)} />
             </div>
           </div>
 
@@ -248,11 +248,11 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             </label>
             <PillToggle
               options={[
-                { label: 'Ordinario', value: 'ordinario' },
-                { label: 'Integral', value: 'integral' },
+                { label: "Ordinario", value: "ordinario" },
+                { label: "Integral", value: "integral" },
               ]}
               value={inputs.tipoSal}
-              onChange={(v) => update('tipoSal', v as 'ordinario' | 'integral')}
+              onChange={(v) => update("tipoSal", v as "ordinario" | "integral")}
             />
           </div>
 
@@ -262,15 +262,16 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             </label>
             <PillToggle
               options={[
-                { label: 'Procedimiento 1', value: '1' },
-                { label: 'Procedimiento 2', value: '2' },
+                { label: "Procedimiento 1", value: "1" },
+                { label: "Procedimiento 2", value: "2" },
               ]}
               value={String(inputs.proc)}
-              onChange={(v) => update('proc', Number(v) as 1 | 2)}
+              onChange={(v) => update("proc", Number(v) as 1 | 2)}
             />
             <p className="text-[10px] text-muted-foreground font-body italic mt-1.5">
               <strong>Procedimiento 1:</strong> la retención se calcula cada mes con base en tu ingreso de ese mes.
-              <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año anterior.
+              <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año
+              anterior.
             </p>
           </div>
 
@@ -283,7 +284,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <input
                 type="number"
                 value={inputs.pctProc2}
-                onChange={(e) => update('pctProc2', Number(e.target.value) || 0)}
+                onChange={(e) => update("pctProc2", Number(e.target.value) || 0)}
                 min={0}
                 max={100}
                 className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
@@ -301,26 +302,40 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           <div className="flex items-center justify-between py-2">
             <div>
               <span className="font-heading text-sm font-medium text-foreground">¿Recibes bono?</span>
-              <p className="text-xs text-muted-foreground mt-0.5">Prima extralegal, bono de desempeño u otro pago adicional</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Prima extralegal, bono de desempeño u otro pago adicional
+              </p>
             </div>
-            <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update('bonoOn', v)} />
+            <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update("bonoOn", v)} />
           </div>
           {inputs.bonoOn && (
             <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
                 <div>
-                   <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
-                  <MoneyInput value={inputs.bono} onChange={(v) => { update('bono', v); setErrors(prev => ({ ...prev, bono: '' })); }} />
+                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
+                  <MoneyInput
+                    value={inputs.bono}
+                    onChange={(v) => {
+                      update("bono", v);
+                      setErrors((prev) => ({ ...prev, bono: "" }));
+                    }}
+                  />
                   {errors.bono && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.bono}</p>}
                 </div>
                 <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Mes en que lo recibes</label>
+                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                    Mes en que lo recibes
+                  </label>
                   <select
                     value={inputs.mesBono}
-                    onChange={(e) => update('mesBono', Number(e.target.value))}
-                    className="w-full h-12 pl-3 pr-12 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary px-s2"
+                    onChange={(e) => update("mesBono", Number(e.target.value))}
+                    className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
-                    {MESES.map((m, i) => <option key={i} value={i + 1}>{m}</option>)}
+                    {MESES.map((m, i) => (
+                      <option key={i} value={i + 1}>
+                        {m}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -330,16 +345,17 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                   </label>
                   <PillToggle
                     options={[
-                      { label: 'No (no SS)', value: 'no' },
-                      { label: 'Sí (base SS)', value: 'si' },
+                      { label: "No (no SS)", value: "no" },
+                      { label: "Sí (base SS)", value: "si" },
                     ]}
-                    value={inputs.bonoSal ? 'si' : 'no'}
-                    onChange={(v) => update('bonoSal', v === 'si')}
+                    value={inputs.bonoSal ? "si" : "no"}
+                    onChange={(v) => update("bonoSal", v === "si")}
                   />
                 </div>
               </div>
               <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-                <strong>No SS:</strong> el bono no forma parte de la base para aportes a seguridad social. <strong>Base SS:</strong> el bono sí se incluye en la base de cotización a salud y pensión.
+                <strong>No SS:</strong> el bono no forma parte de la base para aportes a seguridad social.{" "}
+                <strong>Base SS:</strong> el bono sí se incluye en la base de cotización a salud y pensión.
               </p>
             </div>
           )}
@@ -348,38 +364,54 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           <div className="border-t border-border pt-s2">
             <div className="flex items-center justify-between py-2">
               <div>
-                <span className="font-heading text-sm font-medium text-foreground">¿Recibes auxilios o bonificaciones no salariales?</span>
-                <p className="text-xs text-muted-foreground mt-0.5">No forman parte de la base de seguridad social (Ingresos No Constitutivos de Remuneración)</p>
+                <span className="font-heading text-sm font-medium text-foreground">
+                  ¿Recibes auxilios o bonificaciones no salariales?
+                </span>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  No forman parte de la base de seguridad social (Ingresos No Constitutivos de Remuneración)
+                </p>
               </div>
-              <Switch checked={inputs.auxOn} onCheckedChange={(v) => update('auxOn', v)} />
+              <Switch checked={inputs.auxOn} onCheckedChange={(v) => update("auxOn", v)} />
             </div>
             {inputs.auxOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
                 <PillToggle
                   options={[
-                    { label: 'Fijo mensual', value: 'fijo' },
-                    { label: 'Variable por mes', value: 'variable' },
+                    { label: "Fijo mensual", value: "fijo" },
+                    { label: "Variable por mes", value: "variable" },
                   ]}
                   value={inputs.auxTipo}
-                  onChange={(v) => update('auxTipo', v as 'fijo' | 'variable')}
+                  onChange={(v) => update("auxTipo", v as "fijo" | "variable")}
                 />
-                {inputs.auxTipo === 'fijo' ? (
+                {inputs.auxTipo === "fijo" ? (
                   <div>
-                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del auxilio mensual</label>
-                    <MoneyInput value={inputs.auxFijo} onChange={(v) => { update('auxFijo', v); setErrors(prev => ({ ...prev, auxFijo: '' })); }} />
-                    {errors.auxFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>}
+                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                      Valor del auxilio mensual
+                    </label>
+                    <MoneyInput
+                      value={inputs.auxFijo}
+                      onChange={(v) => {
+                        update("auxFijo", v);
+                        setErrors((prev) => ({ ...prev, auxFijo: "" }));
+                      }}
+                    />
+                    {errors.auxFijo && (
+                      <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>
+                    )}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {MESES.map((m, i) => (
                       <div key={i}>
-                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">{m}</label>
+                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
+                          {m}
+                        </label>
                         <MoneyInput
                           value={inputs.auxMeses[i] || 0}
                           onChange={(v) => {
                             const newMeses = [...inputs.auxMeses];
                             newMeses[i] = v;
-                            update('auxMeses', newMeses);
+                            update("auxMeses", newMeses);
                           }}
                         />
                       </div>
@@ -397,35 +429,47 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                 <span className="font-heading text-sm font-medium text-foreground">¿Recibes comisiones?</span>
                 <p className="text-xs text-muted-foreground mt-0.5">Sí forman parte de la base de seguridad social</p>
               </div>
-              <Switch checked={inputs.comOn} onCheckedChange={(v) => update('comOn', v)} />
+              <Switch checked={inputs.comOn} onCheckedChange={(v) => update("comOn", v)} />
             </div>
             {inputs.comOn && (
               <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
                 <PillToggle
                   options={[
-                    { label: 'Fija mensual', value: 'fijo' },
-                    { label: 'Variable por mes', value: 'variable' },
+                    { label: "Fija mensual", value: "fijo" },
+                    { label: "Variable por mes", value: "variable" },
                   ]}
                   value={inputs.comTipo}
-                  onChange={(v) => update('comTipo', v as 'fijo' | 'variable')}
+                  onChange={(v) => update("comTipo", v as "fijo" | "variable")}
                 />
-                {inputs.comTipo === 'fijo' ? (
+                {inputs.comTipo === "fijo" ? (
                   <div>
-                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor de la comisión mensual</label>
-                    <MoneyInput value={inputs.comFijo} onChange={(v) => { update('comFijo', v); setErrors(prev => ({ ...prev, comFijo: '' })); }} />
-                    {errors.comFijo && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>}
+                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                      Valor de la comisión mensual
+                    </label>
+                    <MoneyInput
+                      value={inputs.comFijo}
+                      onChange={(v) => {
+                        update("comFijo", v);
+                        setErrors((prev) => ({ ...prev, comFijo: "" }));
+                      }}
+                    />
+                    {errors.comFijo && (
+                      <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>
+                    )}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {MESES.map((m, i) => (
                       <div key={i}>
-                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">{m}</label>
+                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
+                          {m}
+                        </label>
                         <MoneyInput
                           value={inputs.comMeses[i] || 0}
                           onChange={(v) => {
                             const newMeses = [...inputs.comMeses];
                             newMeses[i] = v;
-                            update('comMeses', newMeses);
+                            update("comMeses", newMeses);
                           }}
                         />
                       </div>
@@ -446,7 +490,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <HelpTooltip text="Prestación social equivalente a un mes de salario por cada año trabajado. Solo aplica para contratos de salario ordinario." />
             </label>
             <div className="h-12 px-4 flex items-center rounded-lg border border-border bg-secondary font-body text-sm text-muted-foreground">
-              ${inputs.tipoSal === 'ordinario' ? inputs.salario.toLocaleString('es-CO') : '0 (integral)'}
+              ${inputs.tipoSal === "ordinario" ? inputs.salario.toLocaleString("es-CO") : "0 (integral)"}
             </div>
           </div>
         </div>
@@ -462,19 +506,24 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             </label>
             <Slider
               value={[inputs.dep]}
-              onValueChange={([v]) => update('dep', v)}
+              onValueChange={([v]) => update("dep", v)}
               max={4}
               step={1}
               className="w-full"
             />
             <div className="flex justify-between text-xs text-muted-foreground mt-3">
-              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+              <span>0</span>
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
             </div>
             <p className="text-sm font-medium text-foreground font-body">
-              {inputs.dep === 0 ? 'Sin personas a cargo' : `${inputs.dep} persona${inputs.dep > 1 ? 's' : ''} a cargo`}
+              {inputs.dep === 0 ? "Sin personas a cargo" : `${inputs.dep} persona${inputs.dep > 1 ? "s" : ""} a cargo`}
             </p>
             <p className="text-[10px] text-muted-foreground mt-1 font-body italic">
-              <strong>Art. 387:</strong> descuenta el 10% del ingreso hasta 32 UVT/mes — afecta retención y aporte óptimo (solo aplica por el 1.er dependiente dentro del 40%).
+              <strong>Art. 387:</strong> descuenta el 10% del ingreso hasta 32 UVT/mes — afecta retención y aporte
+              óptimo (solo aplica por el 1.er dependiente dentro del 40%).
             </p>
           </div>
 
@@ -484,7 +533,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 100 UVT/mes · $5.237.400)</span>
               <HelpTooltip text="Si pagas un crédito hipotecario, puedes deducir los intereses pagados. El tope es de 100 UVT por mes ($5.237.400)." />
             </label>
-            <MoneyInput value={inputs.intViv} onChange={(v) => update('intViv', v)} />
+            <MoneyInput value={inputs.intViv} onChange={(v) => update("intViv", v)} />
             <BarIndicator value={inputs.intViv} max={TOPE_VIV_MES} />
           </div>
 
@@ -494,18 +543,22 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 16 UVT/mes · $837.984)</span>
               <HelpTooltip text="Los pagos de medicina prepagada son deducibles. El tope es de 16 UVT por mes ($837.984)." />
             </label>
-            <MoneyInput value={inputs.salud} onChange={(v) => update('salud', v)} />
+            <MoneyInput value={inputs.salud} onChange={(v) => update("salud", v)} />
             <BarIndicator value={inputs.salud} max={TOPE_SAL_MES} />
           </div>
 
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
               Compras con factura electrónica anual
-              <span className="text-[10px] text-muted-foreground font-normal ml-1">(deducción = 1% del valor, máx 240 UVT)</span>
+              <span className="text-[10px] text-muted-foreground font-normal ml-1">
+                (deducción = 1% del valor, máx 240 UVT)
+              </span>
               <HelpTooltip text="Art. 336 num. 5 · Ley 2277/2022 — Se deduce el 1% del valor ingresado, tope 240 UVT. Fuera del 40%/1.340 UVT. No afecta retención en la fuente ni el aporte óptimo." />
             </label>
-            <MoneyInput value={inputs.facturas} onChange={(v) => update('facturas', v)} />
-            <p className="text-[11px] font-body text-muted-foreground mt-1">Puedes ingresar un valor aproximado a tu última declaración de renta</p>
+            <MoneyInput value={inputs.facturas} onChange={(v) => update("facturas", v)} />
+            <p className="text-[11px] font-body text-muted-foreground mt-1">
+              Puedes ingresar un valor aproximado a tu última declaración de renta
+            </p>
           </div>
         </div>
       </CollapsibleSection>
@@ -518,21 +571,25 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               Aporte mensual al Fondo de Pensión Voluntaria/AFC
               <HelpTooltip text="Los Fondos de Pensiones Voluntarias (FPV) y las cuentas de Ahorro para el Fomento de la Construcción (AFC) permiten hacer aportes que reducen tu base de retención. Es el mecanismo más eficiente de optimización tributaria para empleados." />
             </label>
-            <MoneyInput value={inputs.volFPV} onChange={(v) => update('volFPV', v)} />
+            <MoneyInput value={inputs.volFPV} onChange={(v) => update("volFPV", v)} />
           </div>
 
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
               Aporte voluntario mensual al Fondo de Pensiones Obligatorias (RAIS)
-              <span className="ml-1.5 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">INCRGO</span>
+              <span className="ml-1.5 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">
+                INCRGO
+              </span>
               <HelpTooltip text="Aportes adicionales que haces directamente a tu fondo de pensiones obligatorio. Tienen tratamiento como INCRGO, diferente al FPV/AFC. Máx 25% del ingreso o 2.500 UVT/año." />
             </label>
-            <MoneyInput value={inputs.volObl} onChange={(v) => update('volObl', v)} />
+            <MoneyInput value={inputs.volObl} onChange={(v) => update("volObl", v)} />
             <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-              <strong>RAIS:</strong> Régimen de Ahorro Individual con Solidaridad. Es el sistema de pensiones donde tus aportes se acumulan en una cuenta individual administrada por un fondo de pensiones.
+              <strong>RAIS:</strong> Régimen de Ahorro Individual con Solidaridad. Es el sistema de pensiones donde tus
+              aportes se acumulan en una cuenta individual administrada por un fondo de pensiones.
             </p>
             <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-              <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
+              <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan
+              de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
             </p>
           </div>
         </div>
@@ -548,25 +605,25 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
           onClick={() => {
             const newErrors: Record<string, string> = {};
             if (!inputs.salario || inputs.salario <= 0) {
-              newErrors.salario = 'Ingresa tu salario mensual para continuar con la simulación.';
+              newErrors.salario = "Ingresa tu salario mensual para continuar con la simulación.";
             }
             if (inputs.bonoOn && (!inputs.bono || inputs.bono <= 0)) {
-              newErrors.bono = 'Ingresa el valor del bono o desactiva la opción.';
+              newErrors.bono = "Ingresa el valor del bono o desactiva la opción.";
             }
             if (inputs.auxOn) {
-              if (inputs.auxTipo === 'fijo' && (!inputs.auxFijo || inputs.auxFijo <= 0)) {
-                newErrors.auxFijo = 'Ingresa el valor del auxilio o desactiva la opción.';
+              if (inputs.auxTipo === "fijo" && (!inputs.auxFijo || inputs.auxFijo <= 0)) {
+                newErrors.auxFijo = "Ingresa el valor del auxilio o desactiva la opción.";
               }
-              if (inputs.auxTipo === 'variable' && (!inputs.auxMeses || inputs.auxMeses.every(v => !v || v <= 0))) {
-                newErrors.auxVar = 'Ingresa al menos un valor de auxilio mensual o desactiva la opción.';
+              if (inputs.auxTipo === "variable" && (!inputs.auxMeses || inputs.auxMeses.every((v) => !v || v <= 0))) {
+                newErrors.auxVar = "Ingresa al menos un valor de auxilio mensual o desactiva la opción.";
               }
             }
             if (inputs.comOn) {
-              if (inputs.comTipo === 'fijo' && (!inputs.comFijo || inputs.comFijo <= 0)) {
-                newErrors.comFijo = 'Ingresa el valor de la comisión o desactiva la opción.';
+              if (inputs.comTipo === "fijo" && (!inputs.comFijo || inputs.comFijo <= 0)) {
+                newErrors.comFijo = "Ingresa el valor de la comisión o desactiva la opción.";
               }
-              if (inputs.comTipo === 'variable' && (!inputs.comMeses || inputs.comMeses.every(v => !v || v <= 0))) {
-                newErrors.comVar = 'Ingresa al menos un valor de comisión mensual o desactiva la opción.';
+              if (inputs.comTipo === "variable" && (!inputs.comMeses || inputs.comMeses.every((v) => !v || v <= 0))) {
+                newErrors.comVar = "Ingresa al menos un valor de comisión mensual o desactiva la opción.";
               }
             }
             if (Object.keys(newErrors).length > 0) {
