@@ -79,27 +79,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
 
   return (
     <div className="space-y-s3 animate-fade-in">
-      {/* Top metric cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
-        <MetricCard
-          label="Retención mensual actual"
-          value={fmtN(reteMensualActual)}
-          tooltip="Es el promedio mensual que tu empleador te descuenta del salario como retención en la fuente con tu configuración actual."
-        />
-        <MetricCard
-          label="Retención mensual óptima"
-          value={fmtN(reteMensualOptima)}
-          variant="highlight"
-          tooltip="Es la retención mensual que tendrías si aplicas el aporte voluntario sugerido para optimizar tu carga tributaria."
-        />
-        <MetricCard
-          label="Ahorro mensual potencial"
-          value={fmtN(ahorroMensual)}
-          variant="savings"
-          tooltip="Es la diferencia entre tu retención actual y la óptima: el dinero que dejarías de descontarte cada mes al optimizar."
-        />
-      </div>
-
       {/* Annual tax summary */}
       <div className="bg-secondary/20 rounded-lg border border-border/60 p-s2">
         <h3 className="font-heading text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center">
@@ -133,41 +112,25 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         </div>
       </div>
 
-      {/* Actions module below metric cards */}
-      <div className="bg-card rounded-xl border border-border p-s3">
-        <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
-          <i className="fa-solid fa-bolt text-primary mr-2" />
-          Acciones recomendadas según tu simulación
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
-          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <i className="fa-solid fa-piggy-bank text-primary text-sm" />
-            </div>
-            <p className="font-heading text-xs font-bold text-foreground">Aumenta tu aporte voluntario</p>
-            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
-              Incrementar tu aporte mensual a FPV puede reducir tu base gravable y maximizar tu ahorro tributario.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <i className="fa-solid fa-file-invoice-dollar text-primary text-sm" />
-            </div>
-            <p className="font-heading text-xs font-bold text-foreground">Revisa tus deducciones</p>
-            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
-              Verifica que estés incluyendo todos los gastos deducibles como medicina prepagada, intereses de vivienda y dependientes.
-            </p>
-          </div>
-          <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <i className="fa-solid fa-calendar-check text-primary text-sm" />
-            </div>
-            <p className="font-heading text-xs font-bold text-foreground">Planifica antes de diciembre</p>
-            <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
-              Los aportes realizados antes del 31 de diciembre aplican para la declaración de renta del año en curso.
-            </p>
-          </div>
-        </div>
+      {/* Monthly retention metric cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
+        <MetricCard
+          label="Retención mensual actual"
+          value={fmtN(reteMensualActual)}
+          tooltip="Es el promedio mensual que tu empleador te descuenta del salario como retención en la fuente con tu configuración actual."
+        />
+        <MetricCard
+          label="Retención mensual óptima"
+          value={fmtN(reteMensualOptima)}
+          variant="highlight"
+          tooltip="Es la retención mensual que tendrías si aplicas el aporte voluntario sugerido para optimizar tu carga tributaria."
+        />
+        <MetricCard
+          label="Ahorro mensual potencial"
+          value={fmtN(ahorroMensual)}
+          variant="savings"
+          tooltip="Es la diferencia entre tu retención actual y la óptima: el dinero que dejarías de descontarte cada mes al optimizar."
+        />
       </div>
 
       {/* Optimal contribution card */}
