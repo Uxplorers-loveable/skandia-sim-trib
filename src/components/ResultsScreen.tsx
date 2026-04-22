@@ -15,14 +15,18 @@ const MetricCard: React.FC<{
   label: string;
   value: string;
   variant?: 'default' | 'highlight' | 'savings';
-}> = ({ label, value, variant = 'default' }) => {
+  tooltip?: string;
+}> = ({ label, value, variant = 'default', tooltip }) => {
   const bg = variant === 'highlight' ? 'bg-accent border-primary' :
     variant === 'savings' ? 'bg-accent border-primary' : 'bg-card border-border';
   const textColor = variant === 'savings' ? 'text-primary' : 'text-foreground';
 
   return (
     <div className={`rounded-xl border p-s3 ${bg}`}>
-      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1">{label}</p>
+      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1 flex items-center gap-1">
+        {label}
+        {tooltip && <InfoTooltip text={tooltip} />}
+      </p>
       <p className={`text-2xl font-heading font-bold font-body tracking-tight ${textColor}`}>{value}</p>
     </div>
   );
