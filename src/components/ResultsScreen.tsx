@@ -93,6 +93,39 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         />
       </div>
 
+      {/* Annual tax summary */}
+      <div className="bg-card rounded-xl border border-border p-s3">
+        <h3 className="font-heading text-sm font-bold text-foreground mb-s2 flex items-center">
+          <i className="fa-solid fa-file-invoice text-primary mr-2" />
+          Resumen tributario anual
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
+          <div className="rounded-lg border border-border bg-secondary/30 p-3">
+            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+              Impuesto de renta anual
+              <InfoTooltip text="Es el impuesto que tendrías que pagar al declarar renta, calculado sobre tu base gravable anual según la tabla del Art. 241 ET." />
+            </p>
+            <p className="text-lg font-heading font-bold text-foreground mt-1">{fmtN(results.impActual)}</p>
+          </div>
+          <div className="rounded-lg border border-border bg-secondary/30 p-3">
+            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+              Retención en la fuente anual
+              <InfoTooltip text="Es el total de retenciones que tu empleador descontará de tu salario durante el año como anticipo del impuesto de renta." />
+            </p>
+            <p className="text-lg font-heading font-bold text-foreground mt-1">{fmtN(results.reteTot)}</p>
+          </div>
+          <div className="rounded-lg border border-border bg-secondary/30 p-3">
+            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+              {results.impCargo >= 0 ? 'Saldo a pagar estimado' : 'Saldo a favor estimado'}
+              <InfoTooltip text="Diferencia entre tu impuesto de renta anual y la retención en la fuente. Si es positivo, deberás pagar al declarar; si es negativo, tendrías saldo a favor." />
+            </p>
+            <p className={`text-lg font-heading font-bold mt-1 ${results.impCargo >= 0 ? 'text-foreground' : 'text-primary'}`}>
+              {fmtN(Math.abs(results.impCargo))}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Actions module below metric cards */}
       <div className="bg-card rounded-xl border border-border p-s3">
         <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
