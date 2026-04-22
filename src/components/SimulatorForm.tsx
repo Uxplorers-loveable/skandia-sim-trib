@@ -370,7 +370,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
                   ¿Recibes auxilios o bonificaciones no salariales?
                 </span>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  No forman parte de la base de seguridad social (Ingresos No Constitutivos de Remuneración)
+                  Ingresos que no hacen parte de tu salario, como auxilios o beneficios.
                 </p>
               </div>
               <Switch checked={inputs.auxOn} onCheckedChange={(v) => update("auxOn", v)} />
