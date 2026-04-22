@@ -162,9 +162,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
   return (
     <div className="space-y-s2 animate-fade-in">
       {/* Section header */}
-      <div className="pt-s2 pb-s1">
-        <h2 className="font-heading text-xl font-bold text-foreground">Simulación</h2>
-        <p className="font-body text-sm text-muted-foreground mt-1">
+      <div className="pt-s2 pb-s1 text-center">
+        <p className="font-body text-sm text-muted-foreground">
           Completa tu información para calcular cuánto podrías ahorrar en impuestos.
         </p>
       </div>
