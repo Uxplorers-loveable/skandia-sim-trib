@@ -273,7 +273,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año
               anterior.
               <br />
-              ¿No sabes cuál es tu procedimiento? Selecciona el Procedimiento 1, generalmente es el más común.
+              <strong>¿No sabes cuál es tu procedimiento?</strong> Selecciona el Procedimiento 1, generalmente es el más común.
             </p>
           </div>
 
