@@ -127,7 +127,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
               <i className="fa-solid fa-chart-line text-primary text-lg" />
             </div>
             <p className="font-heading text-sm font-semibold text-foreground">Ahorro fiscal</p>
-            <p className="font-body text-xs text-muted-foreground">Descubre cuánto puedes ahorrar con tu aporte óptimo a FPV/AFC.</p>
+            <p className="font-body text-xs text-muted-foreground">Descubre cuánto puedes ahorrar con tu aporte óptimo al Fondo de Pensión Voluntaria.</p>
           </div>
           <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center text-center space-y-2">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
