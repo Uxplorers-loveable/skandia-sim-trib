@@ -79,6 +79,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
 
   return (
     <div className="space-y-s3 animate-fade-in">
+      {/* Section header */}
+      <div className="pt-s2 pb-s1">
+        <h2 className="font-heading text-xl font-bold text-foreground">Resultados</h2>
+        <p className="font-body text-sm text-muted-foreground mt-1">
+          Estos son los resultados de tu simulación y el ahorro potencial que puedes obtener al optimizar tus aportes.
+        </p>
+      </div>
+
       {/* Annual tax summary */}
       <div className="bg-secondary/20 rounded-lg border border-border/60 p-s2">
         <h3 className="font-heading text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center">
