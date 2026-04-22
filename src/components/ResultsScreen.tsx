@@ -23,9 +23,13 @@ const MetricCard: React.FC<{
 
   return (
     <div className={`rounded-xl border p-s3 ${bg}`}>
-      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1 flex items-center gap-1">
-        {label}
-        {tooltip && <InfoTooltip text={tooltip} />}
+      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1 flex items-start gap-1">
+        <span className="flex-1">{label}</span>
+        {tooltip && (
+          <span className="leading-[1.1] flex items-center h-[1em]">
+            <InfoTooltip text={tooltip} />
+          </span>
+        )}
       </p>
       <p className={`text-2xl font-heading font-bold font-body tracking-tight ${textColor}`}>{value}</p>
     </div>
