@@ -105,7 +105,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             </div>
             <p className="font-heading text-xs font-bold text-foreground">Aumenta tu aporte voluntario</p>
             <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
-              Incrementar tu aporte mensual a FPV/AFC puede reducir tu base gravable y maximizar tu ahorro tributario.
+              Incrementar tu aporte mensual a FPV puede reducir tu base gravable y maximizar tu ahorro tributario.
             </p>
           </div>
           <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
