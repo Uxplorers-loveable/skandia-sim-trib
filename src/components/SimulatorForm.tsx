@@ -491,9 +491,12 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               </span>
               <HelpTooltip text="Prestación social equivalente a un mes de salario por cada año trabajado. Solo aplica para contratos de salario ordinario." />
             </label>
-            <div className="h-12 px-4 flex items-center rounded-lg border border-border bg-secondary font-body text-sm text-muted-foreground">
-              ${inputs.tipoSal === "ordinario" ? inputs.salario.toLocaleString("es-CO") : "0 (integral)"}
-            </div>
+            <MoneyInput
+              value={inputs.tipoSal === "ordinario" ? inputs.salario : 0}
+              onChange={(v) => update("salario", v)}
+              disabled={inputs.tipoSal !== "ordinario"}
+              placeholder={inputs.tipoSal === "ordinario" ? "0" : "0 (integral)"}
+            />
           </div>
         </div>
       </CollapsibleSection>
