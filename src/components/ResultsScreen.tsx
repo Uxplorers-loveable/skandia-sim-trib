@@ -137,7 +137,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           </div>
           <div className="flex-1">
             <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1">
-              Aporte sugerido para maximizar tu beneficio tributario FPV/AFC — mensual
+              Aporte sugerido para maximizar tu beneficio tributario FPV — mensual
             </p>
             <p className="text-3xl font-heading font-bold font-body tracking-tight text-primary">
               {fmtN(results.xOptAdicional / 12)}
