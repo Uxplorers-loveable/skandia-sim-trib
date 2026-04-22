@@ -527,8 +527,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               {inputs.dep === 0 ? "Sin personas a cargo" : `${inputs.dep} persona${inputs.dep > 1 ? "s" : ""} a cargo`}
             </p>
             <p className="text-[10px] text-muted-foreground mt-1 font-body italic">
-              <strong>Art. 387:</strong> descuenta el 10% del ingreso hasta 32 UVT/mes — afecta retención y aporte
-              óptimo (solo aplica por el 1.er dependiente dentro del 40%).
+              Si tienes personas a tu cargo, puedes reducir tus impuestos con este beneficio.
             </p>
           </div>
 
