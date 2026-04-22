@@ -15,14 +15,18 @@ const MetricCard: React.FC<{
   label: string;
   value: string;
   variant?: 'default' | 'highlight' | 'savings';
-}> = ({ label, value, variant = 'default' }) => {
+  tooltip?: string;
+}> = ({ label, value, variant = 'default', tooltip }) => {
   const bg = variant === 'highlight' ? 'bg-accent border-primary' :
     variant === 'savings' ? 'bg-accent border-primary' : 'bg-card border-border';
   const textColor = variant === 'savings' ? 'text-primary' : 'text-foreground';
 
   return (
     <div className={`rounded-xl border p-s3 ${bg}`}>
-      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1">{label}</p>
+      <p className="text-xs font-heading font-bold uppercase tracking-wider text-muted-foreground mb-1 flex items-center gap-1">
+        {label}
+        {tooltip && <InfoTooltip text={tooltip} />}
+      </p>
       <p className={`text-2xl font-heading font-bold font-body tracking-tight ${textColor}`}>{value}</p>
     </div>
   );
@@ -80,46 +84,49 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         <MetricCard
           label="Retención mensual actual"
           value={fmtN(reteMensualActual)}
+          tooltip="Es el promedio mensual que tu empleador te descuenta del salario como retención en la fuente con tu configuración actual."
         />
         <MetricCard
           label="Retención mensual óptima"
           value={fmtN(reteMensualOptima)}
           variant="highlight"
+          tooltip="Es la retención mensual que tendrías si aplicas el aporte voluntario sugerido para optimizar tu carga tributaria."
         />
         <MetricCard
           label="Ahorro mensual potencial"
           value={fmtN(ahorroMensual)}
           variant="savings"
+          tooltip="Es la diferencia entre tu retención actual y la óptima: el dinero que dejarías de descontarte cada mes al optimizar."
         />
       </div>
 
       {/* Annual tax summary */}
-      <div className="bg-card rounded-xl border border-border p-s3">
-        <h3 className="font-heading text-sm font-bold text-foreground mb-s2 flex items-center">
-          <i className="fa-solid fa-file-invoice text-primary mr-2" />
+      <div className="bg-secondary/20 rounded-lg border border-border/60 p-s2">
+        <h3 className="font-heading text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center">
+          <i className="fa-solid fa-file-invoice text-muted-foreground/70 mr-1.5 text-[11px]" />
           Resumen tributario anual
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
-          <div className="rounded-lg border border-border bg-secondary/30 p-3">
-            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div className="p-2">
+            <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               Impuesto de renta anual
               <InfoTooltip text="Es el impuesto que tendrías que pagar al declarar renta, calculado sobre tu base gravable anual según la tabla del Art. 241 ET." />
             </p>
-            <p className="text-lg font-heading font-bold text-foreground mt-1">{fmtN(results.impActual)}</p>
+            <p className="text-sm font-body font-semibold text-foreground/80 mt-0.5">{fmtN(results.impActual)}</p>
           </div>
-          <div className="rounded-lg border border-border bg-secondary/30 p-3">
-            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+          <div className="p-2">
+            <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               Retención en la fuente anual
               <InfoTooltip text="Es el total de retenciones que tu empleador descontará de tu salario durante el año como anticipo del impuesto de renta." />
             </p>
-            <p className="text-lg font-heading font-bold text-foreground mt-1">{fmtN(results.reteTot)}</p>
+            <p className="text-sm font-body font-semibold text-foreground/80 mt-0.5">{fmtN(results.reteTot)}</p>
           </div>
-          <div className="rounded-lg border border-border bg-secondary/30 p-3">
-            <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+          <div className="p-2">
+            <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               {results.impCargo >= 0 ? 'Saldo a pagar estimado' : 'Saldo a favor estimado'}
               <InfoTooltip text="Diferencia entre tu impuesto de renta anual y la retención en la fuente. Si es positivo, deberás pagar al declarar; si es negativo, tendrías saldo a favor." />
             </p>
-            <p className={`text-lg font-heading font-bold mt-1 ${results.impCargo >= 0 ? 'text-foreground' : 'text-primary'}`}>
+            <p className={`text-sm font-body font-semibold mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'}`}>
               {fmtN(Math.abs(results.impCargo))}
             </p>
           </div>
