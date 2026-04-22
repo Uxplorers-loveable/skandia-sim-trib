@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
-import ReactDOM from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from "@/lib/taxEngine";
+import InfoTooltip from "@/components/InfoTooltip";
 
 interface SimulatorFormProps {
   onBack: () => void;
@@ -87,61 +87,9 @@ const PillToggle: React.FC<{
   </div>
 );
 
-const HelpTooltip: React.FC<{ text: string }> = ({ text }) => {
-  const [open, setOpen] = useState(false);
-  const btnRef = React.useRef<HTMLButtonElement>(null);
-  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
-
-  const toggle = () => {
-    if (!open && btnRef.current) {
-      const rect = btnRef.current.getBoundingClientRect();
-      const tooltipWidth = 288; // w-72 = 18rem = 288px
-      let left = rect.left + rect.width / 2;
-      const margin = 12;
-
-      // Clamp horizontally so tooltip doesn't overflow viewport
-      const minLeft = margin + tooltipWidth / 2;
-      const maxLeft = window.innerWidth - margin - tooltipWidth / 2;
-      left = Math.max(minLeft, Math.min(maxLeft, left));
-
-      setPos({ top: rect.bottom + 8, left });
-    }
-    setOpen(!open);
-  };
-
-  React.useEffect(() => {
-    if (!open) return;
-    const close = (e: MouseEvent) => {
-      if (btnRef.current && !btnRef.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("click", close);
-    return () => document.removeEventListener("click", close);
-  }, [open]);
-
-  return (
-    <span className="inline-block ml-1.5">
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={toggle}
-        className="text-muted-foreground hover:text-primary transition-colors"
-      >
-        <i className="fa-solid fa-circle-question text-xs" />
-      </button>
-      {open &&
-        pos &&
-        ReactDOM.createPortal(
-          <div
-            className="fixed z-[9999] max-w-[calc(100vw-24px)] w-72 p-3 bg-foreground text-primary-foreground text-xs font-body rounded-lg shadow-lg"
-            style={{ top: pos.top, left: pos.left, transform: "translateX(-50%)" }}
-          >
-            {text}
-          </div>,
-          document.body,
-        )}
-    </span>
-  );
-};
+const HelpTooltip: React.FC<{ text: React.ReactNode }> = ({ text }) => (
+  <InfoTooltip text={text} />
+);
 
 const CollapsibleSection: React.FC<{
   title: string;

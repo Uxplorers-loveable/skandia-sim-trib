@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { SimulatorResults, SimulatorInputs, fmtN, MESES, calculate } from '@/lib/taxEngine';
 import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import InfoTooltip from '@/components/InfoTooltip';
 
 interface ResultsScreenProps {
   inputs: SimulatorInputs;
@@ -150,36 +150,14 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
               <div>
                 <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
                   Ahorro impuesto anual
-                  <TooltipProvider delayDuration={150}>
-                    <UITooltip>
-                      <TooltipTrigger asChild>
-                        <button type="button" aria-label="Más información" className="text-muted-foreground hover:text-primary transition-colors">
-                          <i className="fa-solid fa-circle-info text-[11px]" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" className="max-w-[220px] text-[11px] font-body normal-case font-normal leading-snug">
-                        Es el dinero que dejarías de pagar en impuestos durante el año al realizar este aporte.
-                      </TooltipContent>
-                    </UITooltip>
-                  </TooltipProvider>
+                  <InfoTooltip text="Es el dinero que dejarías de pagar en impuestos durante el año al realizar este aporte." />
                 </p>
                 <p className="text-lg font-body font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
               </div>
               <div>
                 <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
                   Retorno de la Inversión sobre aporte
-                  <TooltipProvider delayDuration={150}>
-                    <UITooltip>
-                      <TooltipTrigger asChild>
-                        <button type="button" aria-label="Más información" className="text-muted-foreground hover:text-primary transition-colors">
-                          <i className="fa-solid fa-circle-info text-[11px]" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" className="max-w-[220px] text-[11px] font-body normal-case font-normal leading-snug">
-                        Indica cuánto recuperas en ahorro tributario por cada peso aportado.
-                      </TooltipContent>
-                    </UITooltip>
-                  </TooltipProvider>
+                  <InfoTooltip text="Indica cuánto recuperas en ahorro tributario por cada peso aportado." />
                 </p>
                 <p className="text-lg font-body font-bold text-primary">{results.roi.toFixed(1)}%</p>
               </div>
