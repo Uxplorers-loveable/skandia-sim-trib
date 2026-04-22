@@ -272,6 +272,8 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <strong>Procedimiento 1:</strong> la retención se calcula cada mes con base en tu ingreso de ese mes.
               <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año
               anterior.
+              <br />
+              ¿No sabes cuál es tu procedimiento? Selecciona el Procedimiento 1, generalmente es el más común.
             </p>
           </div>
 
