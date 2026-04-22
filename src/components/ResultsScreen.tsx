@@ -80,9 +80,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
   return (
     <div className="space-y-s3 animate-fade-in">
       {/* Section header */}
-      <div className="pt-s2 pb-s1">
-        <h2 className="font-heading text-xl font-bold text-foreground">Resultados</h2>
-        <p className="font-body text-sm text-muted-foreground mt-1">
+      <div className="pt-s2 pb-s1 text-center">
+        <p className="font-body text-sm text-muted-foreground">
           Estos son los resultados de tu simulación y el ahorro potencial que puedes obtener al optimizar tus aportes.
         </p>
       </div>
