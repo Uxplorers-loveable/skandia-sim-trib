@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
-import ReactDOM from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from "@/lib/taxEngine";
+import InfoTooltip from "@/components/InfoTooltip";
 
 interface SimulatorFormProps {
   onBack: () => void;
