@@ -478,6 +478,9 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             </label>
             <MoneyInput value={inputs.intViv} onChange={(v) => update("intViv", v)} />
             <BarIndicator value={inputs.intViv} max={TOPE_VIV_MES} />
+            <p className="text-[11px] font-body text-muted-foreground mt-1">
+              Aplica crédito hipotecario y leasing habitacional.
+            </p>
           </div>
 
           <div>
