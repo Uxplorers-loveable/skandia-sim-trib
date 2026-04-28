@@ -6,6 +6,7 @@ import ResultsScreen from '@/components/ResultsScreen';
 import ContactModalNoCliente from '@/components/ContactModalNoCliente';
 import { SimulatorInputs, UVT, SMLV } from '@/lib/taxEngine';
 import skandiaLogo from '@/assets/skandia-logo.svg';
+import accaiLegal from '@/assets/accai-legal.png';
 
 const STEPS = ['Tus datos', 'Simulación', 'Resultados'];
 
@@ -116,6 +117,12 @@ const IndexNoCliente: React.FC = () => {
       </main>
 
       <ContactModalNoCliente open={showContactModal} onClose={() => setShowContactModal(false)} />
+
+      <footer className="border-t border-border mt-8 py-6 px-4">
+        <div className="max-w-[800px] mx-auto flex justify-center">
+          <img src={accaiLegal} alt="Vigilado Superintendencia Financiera de Colombia - Skandia AFP - ACCAI S.A." className="max-w-full h-auto opacity-80" />
+        </div>
+      </footer>
     </div>
   );
 };
