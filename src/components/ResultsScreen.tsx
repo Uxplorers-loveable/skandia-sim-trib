@@ -133,13 +133,11 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         <MetricCard
           label="Retención mensual óptima"
           value={fmtN(reteMensualOptima)}
-          variant="highlight"
           tooltip="Es la retención mensual que tendrías si aplicas el aporte voluntario sugerido para optimizar tu carga tributaria."
         />
         <MetricCard
           label="Ahorro mensual potencial"
           value={fmtN(ahorroMensual)}
-          variant="savings"
           tooltip="Es la diferencia entre tu retención actual y la óptima: el dinero que dejarías de descontarte cada mes al optimizar."
         />
       </div>
