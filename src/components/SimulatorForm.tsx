@@ -477,7 +477,6 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
               <HelpTooltip text="Si pagas un crédito hipotecario, puedes deducir los intereses pagados. El tope es de 100 UVT por mes ($5.237.400)." />
             </label>
             <MoneyInput value={inputs.intViv} onChange={(v) => update("intViv", v)} />
-            <BarIndicator value={inputs.intViv} max={TOPE_VIV_MES} />
             <p className="text-[11px] font-body text-muted-foreground mt-1">
               Aplica crédito hipotecario y leasing habitacional.
             </p>
