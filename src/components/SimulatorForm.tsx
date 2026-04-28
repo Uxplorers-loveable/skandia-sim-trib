@@ -437,22 +437,6 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
             )}
           </div>
 
-          {/* Cesantías (read-only) */}
-          <div className="border-t border-border pt-s2">
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Cesantías del año
-              <span className="ml-2 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">
-                Calculado automáticamente
-              </span>
-              <HelpTooltip text="Prestación social equivalente a un mes de salario por cada año trabajado. Solo aplica para contratos de salario ordinario." />
-            </label>
-            <MoneyInput
-              value={inputs.tipoSal === "ordinario" ? inputs.salario : 0}
-              onChange={(v) => update("salario", v)}
-              disabled={inputs.tipoSal !== "ordinario"}
-              placeholder={inputs.tipoSal === "ordinario" ? "0" : "0 (integral)"}
-            />
-          </div>
         </div>
       </CollapsibleSection>
 
