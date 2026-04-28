@@ -160,20 +160,13 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             <p className="text-sm font-body text-muted-foreground mt-1">
               {results.subMsg}
             </p>
-            <div className="grid grid-cols-2 gap-s2 mt-s2">
+            <div className="mt-s2">
               <div>
                 <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
                   Ahorro impuesto anual
                   <InfoTooltip text="Es el dinero que dejarías de pagar en impuestos durante el año al realizar este aporte." />
                 </p>
                 <p className="text-lg font-body font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
-              </div>
-              <div>
-                <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
-                  Retorno de la Inversión sobre aporte
-                  <InfoTooltip text="Indica cuánto recuperas en ahorro tributario por cada peso aportado." />
-                </p>
-                <p className="text-lg font-body font-bold text-primary">{results.roi.toFixed(1)}%</p>
               </div>
             </div>
 
