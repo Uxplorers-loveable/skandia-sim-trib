@@ -233,7 +233,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             </div>
             <p className="font-heading text-xs font-bold text-foreground">Planifica antes de diciembre</p>
             <p className="font-body text-[11px] text-muted-foreground leading-relaxed">
-              Los aportes realizados antes del 31 de diciembre aplican para la declaración de renta del año en curso.
+              Si no actúas este año, este ahorro se pierde. Solo los aportes realizados antes del 31 de diciembre aplican para tu próxima declaración de renta.
             </p>
           </div>
         </div>
