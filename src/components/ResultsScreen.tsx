@@ -169,6 +169,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             </div>
 
             {/* Actionable steps inside the card */}
+            {results.ahorroOpt > 0 && (
             <div className="mt-s3 pt-s2 border-t border-primary/20">
               <p className="text-xs font-heading font-bold text-primary mb-2">
                 <i className="fa-solid fa-list-check mr-1.5" />
@@ -195,11 +196,13 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
                 </div>
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Actions module */}
+      {results.ahorroOpt > 0 && (
       <div className="bg-card rounded-xl border border-border p-s3">
         <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
           <i className="fa-solid fa-bolt text-primary mr-2" />
@@ -235,6 +238,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           </div>
         </div>
       </div>
+      )}
 
       {/* Monthly table (collapsible) */}
       <div className="bg-card rounded-xl border border-border overflow-hidden">
