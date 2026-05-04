@@ -87,7 +87,7 @@
 .skandia-client-shell [role="combobox"],
 .skandia-client-shell [class*="rounded-xl"][class*="border"],
 .skandia-client-shell [class*="rounded-lg"][class*="border"] {
-  box-shadow: 0 4px 14px -4px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.05);
+  box-shadow: 0 0 14px 0 hsl(0 0% 0% / 0.08), 0 0 4px 0 hsl(0 0% 0% / 0.05);
   border-color: transparent !important;
 }
 /* Preserve emphasis borders (primary / accent) */
