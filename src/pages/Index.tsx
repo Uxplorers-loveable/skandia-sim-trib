@@ -119,6 +119,7 @@ const Index: React.FC = () => {
       <main className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pb-20">
         {step === 1 && (
           <WelcomeScreen
+            hideClienteSwitch
             onNext={(data) => {
               setUserData(data);
               setStep(2);
