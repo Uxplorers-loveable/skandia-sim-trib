@@ -158,7 +158,7 @@ const Index: React.FC = () => {
       <ContactModal open={showContactModal} onClose={() => setShowContactModal(false)} />
 
       <footer className="border-t border-border mt-8 py-6 px-4">
-        <div className="max-w-[800px] mx-auto flex flex-col items-center gap-4">
+        <div className="max-w-[800px] mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
           <button
             onClick={() => setShowContactModal(true)}
             className="flex items-center gap-1.5 text-[12px] font-body font-medium text-primary hover:text-primary/80 transition-colors"
@@ -166,7 +166,7 @@ const Index: React.FC = () => {
             <i className="fa-solid fa-headset text-xs" />
             ¿Necesitas ayuda?
           </button>
-          <img src={accaiLegal} alt="Vigilado Superintendencia Financiera de Colombia - Skandia AFP - ACCAI S.A." className="h-auto opacity-80" style={{ width: "34%" }} />
+          <img src={accaiLegal} alt="Vigilado Superintendencia Financiera de Colombia - Skandia AFP - ACCAI S.A." className="h-auto opacity-80" style={{ width: "180px" }} />
           <span className="text-[10px] font-body text-muted-foreground bg-secondary px-3 py-1 rounded-full">
             UVT ${formatCurrency(UVT)} · SMLV ${formatCurrency(SMLV)} · 2026
           </span>
