@@ -11,6 +11,7 @@ interface WelcomeScreenProps {
     esCliente: boolean;
     tieneAsesor: boolean;
   }) => void;
+  hideClienteSwitch?: boolean;
 }
 
 const COUNTRY_CODES = [
@@ -78,12 +79,12 @@ const CountryCodePicker: React.FC<{ value: string; onChange: (v: string) => void
   );
 };
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch = false }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
   const [countryCode, setCountryCode] = useState('+57');
-  const [esCliente, setEsCliente] = useState(false);
+  const [esCliente, setEsCliente] = useState(hideClienteSwitch);
   const [tieneAsesor, setTieneAsesor] = useState(false);
   const [politica, setPolitica] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -211,12 +212,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext }) => {
           </div>
 
           {/* Cliente Skandia */}
-          <div className="flex items-center justify-between py-2">
-            <span className="font-heading text-sm font-medium text-foreground">
-              ¿Eres cliente Skandia?
-            </span>
-            <Switch checked={esCliente} onCheckedChange={setEsCliente} />
-          </div>
+          {!hideClienteSwitch && (
+            <div className="flex items-center justify-between py-2">
+              <span className="font-heading text-sm font-medium text-foreground">
+                ¿Eres cliente Skandia?
+              </span>
+              <Switch checked={esCliente} onCheckedChange={setEsCliente} />
+            </div>
+          )}
 
         </div>
 
