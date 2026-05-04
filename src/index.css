@@ -79,3 +79,13 @@
 .font-mono {
   font-family: 'IBM Plex Mono', monospace;
 }
+
+/* Soft shadows scoped to the cliente shell */
+.skandia-client-shell input:not([type="checkbox"]):not([type="radio"]),
+.skandia-client-shell textarea,
+.skandia-client-shell select,
+.skandia-client-shell [role="combobox"],
+.skandia-client-shell [class*="rounded-xl"][class*="border"],
+.skandia-client-shell [class*="rounded-lg"][class*="border"] {
+  box-shadow: 0 4px 14px -4px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.05);
+}
