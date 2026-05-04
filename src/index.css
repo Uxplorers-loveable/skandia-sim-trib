@@ -80,7 +80,7 @@
   font-family: 'IBM Plex Mono', monospace;
 }
 
-/* Soft shadows scoped to the cliente shell */
+/* Soft shadows + borderless cards scoped to the cliente shell */
 .skandia-client-shell input:not([type="checkbox"]):not([type="radio"]),
 .skandia-client-shell textarea,
 .skandia-client-shell select,
@@ -88,4 +88,14 @@
 .skandia-client-shell [class*="rounded-xl"][class*="border"],
 .skandia-client-shell [class*="rounded-lg"][class*="border"] {
   box-shadow: 0 4px 14px -4px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.05);
+  border-color: transparent !important;
+}
+/* Preserve emphasis borders (primary / accent) */
+.skandia-client-shell [class*="border-primary"],
+.skandia-client-shell [class*="border-destructive"],
+.skandia-client-shell [class*="border-warning"] {
+  border-color: hsl(var(--primary)) !important;
+}
+.skandia-client-shell [class*="border-destructive"] {
+  border-color: hsl(var(--destructive)) !important;
 }
