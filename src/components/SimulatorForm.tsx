@@ -198,7 +198,7 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
 
           <div>
             <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Tipo de contrato
+              Tipo de salario
               <HelpTooltip text="El salario integral incluye todas las prestaciones sociales. Para aplicar, debe ser mínimo 13 veces el salario mínimo ($22.761.765 en 2026)." />
             </label>
             <PillToggle
