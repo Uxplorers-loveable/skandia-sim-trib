@@ -31,7 +31,7 @@ const MetricCard: React.FC<{
           </span>
         )}
       </p>
-      <p className={`text-2xl font-heading font-bold font-body tracking-tight ${textColor}`}>{value}</p>
+      <p className={`text-2xl font-heading font-bold tracking-tight ${textColor}`}>{value}</p>
     </div>
   );
 };
@@ -102,21 +102,21 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
               Impuesto de renta anual
               <InfoTooltip text="Es el impuesto que tendrías que pagar al declarar renta, calculado sobre tu base gravable anual según la tabla del Art. 241 ET." />
             </p>
-            <p className="text-sm font-body font-semibold text-foreground/80 mt-0.5">{fmtN(results.impActual)}</p>
+            <p className="text-sm font-heading font-semibold text-foreground/80 mt-0.5">{fmtN(results.impActual)}</p>
           </div>
           <div className="p-2">
             <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               Retención en la fuente anual
               <InfoTooltip text="Es el total de retenciones que tu empleador descontará de tu salario durante el año como anticipo del impuesto de renta." />
             </p>
-            <p className="text-sm font-body font-semibold text-foreground/80 mt-0.5">{fmtN(results.reteTot)}</p>
+            <p className="text-sm font-heading font-semibold text-foreground/80 mt-0.5">{fmtN(results.reteTot)}</p>
           </div>
           <div className="p-2">
             <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               {results.impCargo >= 0 ? 'Saldo a pagar estimado' : 'Saldo a favor estimado'}
               <InfoTooltip text="Diferencia entre tu impuesto de renta anual y la retención en la fuente. Si es positivo, deberás pagar al declarar; si es negativo, tendrías saldo a favor." />
             </p>
-            <p className={`text-sm font-body font-semibold mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'}`}>
+            <p className={`text-sm font-heading font-semibold mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'}`}>
               {fmtN(Math.abs(results.impCargo))}
             </p>
           </div>
@@ -152,7 +152,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1">
               Aporte sugerido para maximizar tu beneficio tributario FPV — mensual
             </p>
-            <p className="text-3xl font-heading font-bold font-body tracking-tight text-primary">
+            <p className="text-3xl font-heading font-bold tracking-tight text-primary">
               {fmtN(results.xOptAdicional / 12)}
             </p>
             <p className="text-sm font-body text-muted-foreground mt-1">
@@ -164,7 +164,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
                   Ahorro impuesto anual
                   <InfoTooltip text="Es el dinero que dejarías de pagar en impuestos durante el año al realizar este aporte." />
                 </p>
-                <p className="text-lg font-body font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
+                <p className="text-lg font-heading font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
               </div>
             </div>
 
@@ -272,20 +272,20 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
                 {results.dataMes.map((d, i) => (
                   <tr key={i} className="border-b border-border/50 hover:bg-secondary/30">
                     <td className="py-2 px-2 font-heading font-bold text-foreground">{MESES[d.m]}</td>
-                    <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(d.ingM)}</td>
-                    <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(d.incrgoM)}</td>
-                    <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(d.alivM)}</td>
-                    <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(d.baseM)}</td>
-                    <td className="py-2 px-2 text-right font-body font-bold text-foreground">{fmtN(d.reteM)}</td>
+                    <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(d.ingM)}</td>
+                    <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(d.incrgoM)}</td>
+                    <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(d.alivM)}</td>
+                    <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(d.baseM)}</td>
+                    <td className="py-2 px-2 text-right font-heading font-bold text-foreground">{fmtN(d.reteM)}</td>
                   </tr>
                 ))}
                 <tr className="bg-secondary font-bold">
                   <td className="py-2 px-2 font-heading text-foreground">Total</td>
-                  <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.ingM, 0))}</td>
-                  <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.incrgoM, 0))}</td>
-                  <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.alivM, 0))}</td>
-                  <td className="py-2 px-2 text-right font-body text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.baseM, 0))}</td>
-                  <td className="py-2 px-2 text-right font-body font-bold text-foreground">{fmtN(results.reteTot)}</td>
+                  <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.ingM, 0))}</td>
+                  <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.incrgoM, 0))}</td>
+                  <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.alivM, 0))}</td>
+                  <td className="py-2 px-2 text-right font-heading text-foreground">{fmtN(results.dataMes.reduce((s, d) => s + d.baseM, 0))}</td>
+                  <td className="py-2 px-2 text-right font-heading font-bold text-foreground">{fmtN(results.reteTot)}</td>
                 </tr>
               </tbody>
             </table>
@@ -301,12 +301,12 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             <ComposedChart data={chartData} barGap={2}>
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
+                tick={{ fontSize: 12, fontFamily: 'Montserrat', fill: '#666666' }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fontSize: 11, fontFamily: 'Open Sans', fill: '#666666' }}
+                tick={{ fontSize: 11, fontFamily: 'Montserrat', fill: '#666666' }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => '$' + (v / 1000000).toFixed(1) + 'M'}
@@ -316,7 +316,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
                 contentStyle={{
                   borderRadius: '8px',
                   border: '1px solid #dddddd',
-                  fontFamily: 'Open Sans',
+                  fontFamily: 'Montserrat',
                   fontSize: '12px',
                   color: '#404040',
                 }}
