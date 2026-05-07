@@ -110,9 +110,8 @@ const Index: React.FC = () => {
         </div>
       </header>
 
-      {/* Progress Steps */}
-      <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
-        {/* Breadcrumb */}
+      {/* Breadcrumb + title aligned with logo */}
+      <div className="w-full px-4 md:px-s4 pt-s3">
         <nav aria-label="Breadcrumb" className="font-body text-sm text-muted-foreground mb-s2">
           <ol className="flex items-center gap-2">
             <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
@@ -122,7 +121,6 @@ const Index: React.FC = () => {
             <li className="text-primary font-semibold">Beneficio tributario</li>
           </ol>
         </nav>
-        {/* Title & subtitle */}
         <div className="mb-s2">
           <h1 className="flex items-center gap-2 font-heading font-bold text-[32px] leading-[40px] text-foreground">
             <button
@@ -139,6 +137,10 @@ const Index: React.FC = () => {
             Optimiza tus impuestos y paga menos en retención en la fuente.
           </p>
         </div>
+      </div>
+
+      {/* Progress Steps centered */}
+      <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6">
         <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
       </div>
 
