@@ -135,17 +135,9 @@ const Index: React.FC = () => {
         </nav>
         <div className="mb-s2">
           <h1 className="flex items-center gap-2 font-heading font-bold leading-[40px] text-foreground text-2xl">
-            <button
-              type="button"
-              onClick={() => step > 1 && setStep(step - 1)}
-              className="text-primary hover:text-primary/80 transition-colors"
-              aria-label="Volver"
-            >
-              <i className="fa-solid fa-arrow-left text-xl" />
-            </button>
             Beneficio tributario
           </h1>
-          <p className="font-body text-sm text-muted-foreground mt-1 ml-9">
+          <p className="font-body text-sm text-muted-foreground mt-1">
             Optimiza tus impuestos y paga menos en retención en la fuente.
           </p>
         </div>
