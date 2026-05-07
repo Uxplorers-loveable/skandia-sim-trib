@@ -19,8 +19,9 @@ const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, steps, varia
               <div
                 key={index}
                 className={`flex-1 h-2 rounded-full transition-colors ${
-                  filled ? 'bg-primary' : 'bg-border'
+                  filled ? '' : 'bg-border'
                 }`}
+                style={filled ? { backgroundColor: '#8FE000' } : undefined}
               />
             );
           })}
