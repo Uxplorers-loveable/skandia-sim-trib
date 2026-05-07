@@ -122,7 +122,7 @@ const Index: React.FC = () => {
           </ol>
         </nav>
         <div className="mb-s2">
-          <h1 className="flex items-center gap-2 font-heading font-bold text-[32px] leading-[40px] text-foreground">
+          <h1 className="flex items-center gap-2 font-heading font-bold leading-[40px] text-foreground text-2xl">
             <button
               type="button"
               onClick={() => step > 1 && setStep(step - 1)}
