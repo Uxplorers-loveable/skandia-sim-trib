@@ -342,20 +342,19 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           <strong className="text-primary">{fmtN(results.ahorroOpt)}</strong> al año en impuestos.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button className="flex-1" onClick={onOpenContact}>
-            <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
-            {ctaConfig.primary}
-          </Button>
           <Button
-            variant="outline"
             className="flex-1"
             onClick={() => {
               setShowEmailConfirm(true);
               setTimeout(() => setShowEmailConfirm(false), 4000);
             }}
           >
-            <i className="fa-solid fa-envelope mr-2" />
-            Recibir resultados por correo
+            <i className="fa-solid fa-hand-holding-dollar mr-2" />
+            Haz tu aporte ahora
+          </Button>
+          <Button variant="outline" className="flex-1 bg-card" onClick={onOpenContact}>
+            <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
+            {ctaConfig.primary}
           </Button>
         </div>
         {showEmailConfirm && (
