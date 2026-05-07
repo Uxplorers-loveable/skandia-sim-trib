@@ -11,7 +11,7 @@ const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, steps, varia
     const total = steps.length;
     const pct = (currentStep / total) * 100;
     return (
-      <div className="w-full max-w-md mx-auto py-s3">
+      <div className="w-full py-s3">
         <div className="relative w-full h-2 rounded-full bg-border overflow-hidden">
           <div
             className="absolute inset-y-0 left-0 rounded-full transition-all duration-300"
