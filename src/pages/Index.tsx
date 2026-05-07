@@ -112,13 +112,13 @@ const Index: React.FC = () => {
 
       {/* Breadcrumb + title aligned with logo */}
       <div className="w-full px-4 md:px-s4 pt-s3">
-        <nav aria-label="Breadcrumb" className="font-body text-sm text-muted-foreground mb-s2">
+        <nav aria-label="Breadcrumb" className="font-body text-muted-foreground mb-s2">
           <ol className="flex items-center gap-2">
-            <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
+            <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
             <li aria-hidden="true">/</li>
-            <li><a href="#" className="hover:text-primary transition-colors">Simuladores</a></li>
+            <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
             <li aria-hidden="true">/</li>
-            <li className="text-primary font-semibold">Beneficio tributario</li>
+            <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
           </ol>
         </nav>
         <div className="mb-s2">
