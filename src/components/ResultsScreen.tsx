@@ -342,13 +342,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           <strong className="text-primary">{fmtN(results.ahorroOpt)}</strong> al año en impuestos.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            className="flex-1"
-            onClick={() => {
-              setShowEmailConfirm(true);
-              setTimeout(() => setShowEmailConfirm(false), 4000);
-            }}
-          >
+          <Button className="flex-1">
             <i className="fa-solid fa-hand-holding-dollar mr-2" />
             Haz tu aporte ahora
           </Button>
@@ -357,14 +351,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             {ctaConfig.primary}
           </Button>
         </div>
-        {showEmailConfirm && (
-          <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg px-4 py-3 animate-fade-in">
-            <i className="fa-solid fa-circle-check text-primary" />
-            <p className="text-sm font-body text-foreground">
-              Hemos enviado los resultados de tu simulación a <span className="font-medium">{userData.email}</span>.
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Corporate savings banner — only if user has salarial bonus */}
