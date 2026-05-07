@@ -341,16 +341,44 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           <strong className="text-primary">{fmtN(results.xOptAdicional / 12)}/mes</strong> a tu Fondo de Ahorro Voluntario y ahorrar{' '}
           <strong className="text-primary">{fmtN(results.ahorroOpt)}</strong> al año en impuestos.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button className="flex-1">
-            <i className="fa-solid fa-hand-holding-dollar mr-2" />
-            Haz tu aporte ahora
-          </Button>
-          <Button variant="outline" className="flex-1 bg-card" onClick={onOpenContact}>
-            <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
-            {ctaConfig.primary}
-          </Button>
-        </div>
+        {scenario === 'C' ? (
+          <>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button className="flex-1" onClick={onOpenContact}>
+                <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
+                {ctaConfig.primary}
+              </Button>
+              <Button
+                variant="outline"
+                className="flex-1 bg-card"
+                onClick={() => setShowEmailConfirm(true)}
+              >
+                <i className="fa-solid fa-envelope mr-2" />
+                Recibir resultados por correo
+              </Button>
+            </div>
+            {showEmailConfirm && userData.email && (
+              <div className="flex items-center gap-2 bg-accent border border-primary/30 rounded-lg px-s2 py-2 mt-s2">
+                <i className="fa-solid fa-circle-check text-primary" />
+                <p className="font-body text-xs text-foreground">
+                  Hemos enviado los resultados de tu simulación a{' '}
+                  <strong>{userData.email}</strong>.
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button className="flex-1">
+              <i className="fa-solid fa-hand-holding-dollar mr-2" />
+              Haz tu aporte ahora
+            </Button>
+            <Button variant="outline" className="flex-1 bg-card" onClick={onOpenContact}>
+              <i className={`fa-solid ${ctaConfig.primaryIcon} mr-2`} />
+              {ctaConfig.primary}
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Corporate savings banner — only if user has salarial bonus */}
