@@ -337,8 +337,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           {ctaConfig.title}
         </h3>
         <p className="font-body text-sm text-muted-foreground">
-          Con base en tu simulación, {userData.nombre.split(' ')[0]}, puedes optimizar tu retención aportando{' '}
-          <strong className="text-primary">{fmtN(results.xOptAdicional / 12)}/mes</strong> a FPV/AFC y ahorrar{' '}
+          Con base en tu simulación, puedes optimizar tu retención aportando{' '}
+          <strong className="text-primary">{fmtN(results.xOptAdicional / 12)}/mes</strong> a tu Fondo de Ahorro Voluntario y ahorrar{' '}
           <strong className="text-primary">{fmtN(results.ahorroOpt)}</strong> al año en impuestos.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
