@@ -111,8 +111,35 @@ const Index: React.FC = () => {
       </header>
 
       {/* Progress Steps */}
-      <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6">
-        <ProgressSteps currentStep={step} steps={STEPS} />
+      <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="font-body text-sm text-muted-foreground mb-s2">
+          <ol className="flex items-center gap-2">
+            <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="#" className="hover:text-primary transition-colors">Simuladores</a></li>
+            <li aria-hidden="true">/</li>
+            <li className="text-primary font-semibold">Beneficio tributario</li>
+          </ol>
+        </nav>
+        {/* Title & subtitle */}
+        <div className="mb-s2">
+          <h1 className="flex items-center gap-2 font-heading font-bold text-[32px] leading-[40px] text-foreground">
+            <button
+              type="button"
+              onClick={() => step > 1 && setStep(step - 1)}
+              className="text-primary hover:text-primary/80 transition-colors"
+              aria-label="Volver"
+            >
+              <i className="fa-solid fa-arrow-left text-xl" />
+            </button>
+            Beneficio tributario
+          </h1>
+          <p className="font-body text-sm text-muted-foreground mt-1 ml-9">
+            Optimiza tus impuestos y paga menos en retención en la fuente.
+          </p>
+        </div>
+        <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
       </div>
 
       {/* Content */}
@@ -120,6 +147,8 @@ const Index: React.FC = () => {
         {step === 1 && (
           <WelcomeScreen
             hideClienteSwitch
+            hideDataModule
+            hideHeading
             onNext={(data) => {
               setUserData(data);
               setStep(2);

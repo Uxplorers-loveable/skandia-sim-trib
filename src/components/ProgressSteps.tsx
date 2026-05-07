@@ -3,9 +3,35 @@ import React from 'react';
 interface ProgressStepsProps {
   currentStep: number;
   steps: string[];
+  variant?: 'circles' | 'bar';
 }
 
-const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, steps }) => {
+const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, steps, variant = 'circles' }) => {
+  if (variant === 'bar') {
+    const total = steps.length;
+    return (
+      <div className="w-full max-w-md mx-auto py-s3">
+        <div className="flex items-center gap-1.5">
+          {steps.map((_, index) => {
+            const stepNum = index + 1;
+            const filled = stepNum <= currentStep;
+            return (
+              <div
+                key={index}
+                className={`flex-1 h-2 rounded-full transition-colors ${
+                  filled ? 'bg-primary' : 'bg-border'
+                }`}
+              />
+            );
+          })}
+        </div>
+        <p className="text-center text-xs font-body text-muted-foreground mt-2">
+          {currentStep} de {total}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center justify-center gap-0 w-full max-w-md mx-auto py-s3">
       {steps.map((label, index) => {
