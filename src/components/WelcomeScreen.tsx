@@ -125,7 +125,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
     <div className="animate-fade-in">
       <div className="text-center mb-s5">
         {!hideHeading && (
-          <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
+          <h1 className="font-heading font-bold leading-[40px] text-foreground mb-s2 text-xl">
             Optimiza tus impuestos y paga menos en retención en la fuente.
           </h1>
         )}
