@@ -68,7 +68,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
       primaryIcon: 'fa-user-tie',
     },
     B: {
-      title: 'Solicita un asesor especializado en optimización tributaria',
+      title: 'Activa tu estategia tributaria',
       primary: 'Solicitar asesoría personalizada',
       primaryIcon: 'fa-user-plus',
     },
