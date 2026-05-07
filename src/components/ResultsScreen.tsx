@@ -31,7 +31,7 @@ const MetricCard: React.FC<{
           </span>
         )}
       </p>
-      <p className={`text-2xl font-heading font-bold tracking-tight ${textColor}`}>{value}</p>
+      <p className={`text-2xl font-heading tracking-tight ${textColor} font-medium`}>{value}</p>
     </div>
   );
 };
@@ -102,21 +102,21 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
               Impuesto de renta anual
               <InfoTooltip text="Es el impuesto que tendrías que pagar al declarar renta, calculado sobre tu base gravable anual según la tabla del Art. 241 ET." />
             </p>
-            <p className="text-sm font-heading font-semibold text-foreground/80 mt-0.5">{fmtN(results.impActual)}</p>
+            <p className="text-sm font-heading text-foreground/80 mt-0.5 font-normal">{fmtN(results.impActual)}</p>
           </div>
           <div className="p-2">
             <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               Retención en la fuente anual
               <InfoTooltip text="Es el total de retenciones que tu empleador descontará de tu salario durante el año como anticipo del impuesto de renta." />
             </p>
-            <p className="text-sm font-heading font-semibold text-foreground/80 mt-0.5">{fmtN(results.reteTot)}</p>
+            <p className="text-sm font-heading text-foreground/80 mt-0.5 font-normal">{fmtN(results.reteTot)}</p>
           </div>
           <div className="p-2">
             <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
               {results.impCargo >= 0 ? 'Saldo a pagar estimado' : 'Saldo a favor estimado'}
               <InfoTooltip text="Diferencia entre tu impuesto de renta anual y la retención en la fuente. Si es positivo, deberás pagar al declarar; si es negativo, tendrías saldo a favor." />
             </p>
-            <p className={`text-sm font-heading font-semibold mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'}`}>
+            <p className={`text-sm font-heading mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'} font-normal`}>
               {fmtN(Math.abs(results.impCargo))}
             </p>
           </div>
