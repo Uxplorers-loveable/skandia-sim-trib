@@ -9,24 +9,23 @@ interface ProgressStepsProps {
 const ProgressSteps: React.FC<ProgressStepsProps> = ({ currentStep, steps, variant = 'circles' }) => {
   if (variant === 'bar') {
     const total = steps.length;
+    const pct = (currentStep / total) * 100;
     return (
       <div className="w-full max-w-md mx-auto py-s3">
-        <div className="flex items-center gap-1.5">
-          {steps.map((_, index) => {
-            const stepNum = index + 1;
-            const filled = stepNum <= currentStep;
-            return (
-              <div
-                key={index}
-                className={`flex-1 h-2 rounded-full transition-colors ${
-                  filled ? '' : 'bg-border'
-                }`}
-                style={filled ? { backgroundColor: '#8FE000' } : undefined}
-              />
-            );
-          })}
+        <div className="relative w-full h-2 rounded-full bg-border overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full transition-all duration-300"
+            style={{ width: `${pct}%`, backgroundColor: '#8FE000' }}
+          />
+          {Array.from({ length: total - 1 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute top-0 bottom-0 w-[3px] bg-background"
+              style={{ left: `calc(${((i + 1) / total) * 100}% - 1.5px)` }}
+            />
+          ))}
         </div>
-        <p className="text-center text-xs font-body text-muted-foreground mt-2">
+        <p className="text-left text-xs font-body text-muted-foreground mt-2">
           {currentStep} de {total}
         </p>
       </div>
