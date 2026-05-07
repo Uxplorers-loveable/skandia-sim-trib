@@ -31,7 +31,7 @@ const MetricCard: React.FC<{
           </span>
         )}
       </p>
-      <p className={`text-2xl font-heading font-bold font-body tracking-tight ${textColor}`}>{value}</p>
+      <p className={`text-2xl font-heading font-bold tracking-tight ${textColor}`}>{value}</p>
     </div>
   );
 };
