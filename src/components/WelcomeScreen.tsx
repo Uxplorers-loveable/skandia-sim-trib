@@ -130,7 +130,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
           </h1>
         )}
         <p className="font-heading text-base text-foreground mb-3 font-medium">Qué puedes esperar con este simulador:</p>
-        <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
           <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center text-center space-y-2">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
               <i className="fa-solid fa-chart-line text-primary text-lg" />
