@@ -12,6 +12,8 @@ interface WelcomeScreenProps {
     tieneAsesor: boolean;
   }) => void;
   hideClienteSwitch?: boolean;
+  hideDataModule?: boolean;
+  hideHeading?: boolean;
 }
 
 const COUNTRY_CODES = [
@@ -79,7 +81,7 @@ const CountryCodePicker: React.FC<{ value: string; onChange: (v: string) => void
   );
 };
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch = false }) => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch = false, hideDataModule = false, hideHeading = false }) => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -105,6 +107,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (hideDataModule) {
+      setShowPrepModal(true);
+      return;
+    }
     if (validate()) {
       setShowPrepModal(true);
     }
@@ -118,9 +124,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
   return (
     <div className="animate-fade-in">
       <div className="text-center mb-s5">
-        <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
-          Optimiza tus impuestos y paga menos en retención en la fuente.
-        </h1>
+        {!hideHeading && (
+          <h1 className="font-heading font-bold text-[32px] leading-[40px] text-foreground mb-s2">
+            Optimiza tus impuestos y paga menos en retención en la fuente.
+          </h1>
+        )}
         <p className="font-heading text-base text-foreground mb-3 font-medium">Qué puedes esperar con este simulador:</p>
         <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
           <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center text-center space-y-2">
@@ -148,6 +156,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-s3">
+        {!hideDataModule && (
         <div className="bg-card rounded-xl border border-border p-s3 space-y-s3">
           {/* Nombre */}
           <div>
@@ -222,7 +231,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
           )}
 
         </div>
+        )}
 
+        {!hideDataModule && (
+        <>
         <div className="flex items-start gap-2">
           <Checkbox
             id="politica"
@@ -247,6 +259,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNext, hideClienteSwitch
           <p className="text-xs text-destructive font-body font-bold -mt-1">
             {errors.politica}
           </p>
+        )}
+        </>
         )}
 
         <Button
