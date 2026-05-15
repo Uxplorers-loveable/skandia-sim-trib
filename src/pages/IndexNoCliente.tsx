@@ -118,7 +118,7 @@ const IndexNoCliente: React.FC = () => {
 
       <ContactModalNoCliente open={showContactModal} onClose={() => setShowContactModal(false)} />
 
-      <footer className="border-t border-border mt-8 py-6 px-4">
+      <footer className="mt-8 py-6 px-4">
         <div className="max-w-[800px] mx-auto flex justify-center">
           <img src={accaiLegal} alt="Vigilado Superintendencia Financiera de Colombia - Skandia AFP - ACCAI S.A." className="h-auto opacity-80" style={{ width: "34%" }} />
         </div>

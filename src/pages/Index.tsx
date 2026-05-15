@@ -193,7 +193,7 @@ const Index: React.FC = () => {
 
       <ContactModal open={showContactModal} onClose={() => setShowContactModal(false)} />
 
-      <footer className="border-t border-border mt-8 py-6 px-4">
+      <footer className="mt-8 py-6 px-4">
         <div className="max-w-[800px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-[3.3rem]">
           <button
             onClick={() => setShowContactModal(true)}
