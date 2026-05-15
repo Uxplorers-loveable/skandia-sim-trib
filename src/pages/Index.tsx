@@ -192,10 +192,9 @@ const Index: React.FC = () => {
       </main>
 
       <ContactModal open={showContactModal} onClose={() => setShowContactModal(false)} />
-      </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 md:left-[88px] z-30 border-t border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 py-3 px-4">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-[3.3rem]">
+      <footer className="border-t border-border mt-8 py-6 px-4">
+        <div className="max-w-[800px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-[3.3rem]">
           <button
             onClick={() => setShowContactModal(true)}
             className="flex items-center gap-1.5 text-[12px] font-body font-medium text-primary hover:text-primary/80 transition-colors"
@@ -209,6 +208,7 @@ const Index: React.FC = () => {
           </span>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
