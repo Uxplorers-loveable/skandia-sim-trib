@@ -86,7 +86,7 @@ const IndexPortalClientes: React.FC = () => {
   };
 
   return (
-    <div className="skandia-client-shell skandia-portal-shell h-screen overflow-hidden bg-background flex">
+    <div className="skandia-client-shell skandia-portal-shell lg:h-screen lg:overflow-hidden bg-background flex">
       {/* Sidebar (decorative, non-functional) - mismo que versión clientes */}
       <aside className="hidden md:flex sticky top-0 h-screen w-[88px] flex-col items-stretch border-r border-border bg-card z-40">
         <button type="button" className="h-14 flex items-center justify-center text-foreground/70 hover:text-primary" aria-label="Menú">
@@ -119,7 +119,7 @@ const IndexPortalClientes: React.FC = () => {
         </button>
       </aside>
 
-      <div className="flex-1 min-w-0 flex flex-col h-screen">
+      <div className="flex-1 min-w-0 flex flex-col lg:h-screen">
         {/* Header - mismo que versión clientes */}
         <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
           <div className="px-4 md:px-s4 py-s2 flex items-center justify-between gap-3">
@@ -198,22 +198,48 @@ const IndexPortalClientes: React.FC = () => {
 
           {/* Right column - simulator (scrollable) */}
           <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
+            {/* Miga de pan mobile/tablet - todas las páginas */}
+            <div className="lg:hidden bg-[#EDFEFA] px-4 pt-4 pb-2">
+              <nav aria-label="Breadcrumb" className="font-body text-muted-foreground">
+                <ol className="flex items-center gap-2">
+                  {step > 1 && (
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => setStep(step - 1)}
+                        className="text-primary hover:text-primary/80 transition-colors mr-1"
+                        aria-label="Volver"
+                      >
+                        <i className="fa-solid fa-arrow-left text-sm" />
+                      </button>
+                    </li>
+                  )}
+                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
+                  <li aria-hidden="true">/</li>
+                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
+                  <li aria-hidden="true">/</li>
+                  <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
+                </ol>
+              </nav>
+            </div>
             {/* Encabezado simplificado mobile/tablet - solo primer paso */}
             {step === STEP_DATOS && (
-              <div className="lg:hidden bg-[#EDFEFA] px-4 py-6 text-center">
-                <h1 className="font-heading font-bold text-foreground text-2xl mb-2">
-                  Beneficio tributario
-                </h1>
-                <p className="font-body text-sm text-muted-foreground mb-3">
+              <div className="lg:hidden bg-[#EDFEFA] px-4 pb-6">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <h1 className="font-heading font-bold text-foreground text-2xl">
+                    Beneficio tributario
+                  </h1>
+                  <button
+                    onClick={() => setShowContactModal(true)}
+                    className="inline-flex items-center gap-1.5 text-sm font-body font-medium text-[#0099DE] hover:opacity-80 transition-opacity mt-1 shrink-0"
+                  >
+                    <i className="fa-regular fa-circle-question" />
+                    Ayuda
+                  </button>
+                </div>
+                <p className="font-body text-sm text-muted-foreground">
                   Optimiza tus impuestos y paga menos en retención en la fuente, de forma ágil, fácil y segura.
                 </p>
-                <button
-                  onClick={() => setShowContactModal(true)}
-                  className="inline-flex items-center gap-1.5 text-sm font-body font-medium text-[#0099DE] hover:opacity-80 transition-opacity"
-                >
-                  <i className="fa-regular fa-circle-question" />
-                  Ayuda
-                </button>
               </div>
             )}
             <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
