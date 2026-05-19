@@ -199,7 +199,7 @@ const IndexPortalClientes: React.FC = () => {
           {/* Right column - simulator (scrollable) */}
           <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
             {/* Miga de pan mobile/tablet - todas las páginas */}
-            <div className="lg:hidden bg-[#EDFEFA] px-4 pt-4 pb-2">
+            <div className="lg:hidden bg-background px-4 pt-4 pb-2">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground">
                 <ol className="flex items-center gap-2">
                   {step > 1 && (
@@ -224,7 +224,7 @@ const IndexPortalClientes: React.FC = () => {
             </div>
             {/* Encabezado simplificado mobile/tablet - solo primer paso */}
             {step === STEP_DATOS && (
-              <div className="lg:hidden bg-[#EDFEFA] px-4 pb-6">
+              <div className="lg:hidden bg-background px-4 pb-6">
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h1 className="font-heading font-bold text-foreground text-2xl">
                     Beneficio tributario
