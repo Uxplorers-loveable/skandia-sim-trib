@@ -49,6 +49,7 @@ const defaultInputs: SimulatorInputs = {
 const formatCurrency = (v: number) => v.toLocaleString('es-CO');
 
 const IndexPortalClientes: React.FC = () => {
+  const [view, setView] = useState<'simuladores' | 'simulator'>('simuladores');
   const [step, setStep] = useState(1);
   const [showContactModal, setShowContactModal] = useState(false);
   const [userData, setUserData] = useState({
@@ -146,6 +147,68 @@ const IndexPortalClientes: React.FC = () => {
         </header>
 
         {/* Two-column layout */}
+        {view === 'simuladores' ? (
+          <main className="flex-1 min-h-0 overflow-y-auto bg-background">
+            <div className="max-w-[1200px] mx-auto w-full px-4 md:px-s6 py-s4">
+              <nav aria-label="Breadcrumb" className="font-body text-muted-foreground mb-s3">
+                <ol className="flex items-center gap-2 text-xs">
+                  <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
+                  <li aria-hidden="true">/</li>
+                  <li className="text-primary font-semibold">Simuladores</li>
+                </ol>
+              </nav>
+              <h1 className="font-heading font-bold text-foreground text-3xl md:text-4xl mb-2">
+                Simuladores
+              </h1>
+              <p className="font-body text-sm md:text-base text-muted-foreground mb-s4 max-w-2xl">
+                Explora nuestros simuladores y proyecta tus decisiones financieras de forma ágil, fácil y segura.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {/* Card 1 - Beneficio tributario */}
+                <button
+                  type="button"
+                  onClick={() => setView('simulator')}
+                  className="group text-left bg-card border border-border rounded-2xl p-6 hover:border-primary hover:shadow-lg transition-all flex flex-col"
+                >
+                  <div className="w-16 h-16 rounded-full bg-[#EDFEFA] flex items-center justify-center mb-s3">
+                    <i className="fa-solid fa-receipt text-2xl text-primary" />
+                  </div>
+                  <h2 className="font-heading font-bold text-foreground text-lg mb-2">
+                    Simulador de beneficio tributario
+                  </h2>
+                  <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
+                    Optimiza tus impuestos y paga menos en retención en la fuente.
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary group-hover:gap-2.5 transition-all">
+                    Ingresar
+                    <i className="fa-solid fa-arrow-right text-xs" />
+                  </span>
+                </button>
+
+                {/* Card 2 - Flujo de caja */}
+                <button
+                  type="button"
+                  className="group text-left bg-card border border-border rounded-2xl p-6 hover:border-primary hover:shadow-lg transition-all flex flex-col"
+                >
+                  <div className="w-16 h-16 rounded-full bg-[#EDFEFA] flex items-center justify-center mb-s3">
+                    <i className="fa-solid fa-chart-line text-2xl text-primary" />
+                  </div>
+                  <h2 className="font-heading font-bold text-foreground text-lg mb-2">
+                    Simulador de flujo de caja
+                  </h2>
+                  <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
+                    Planea y proyecta tus ingresos y gastos para tomar mejores decisiones.
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary group-hover:gap-2.5 transition-all">
+                    Ingresar
+                    <i className="fa-solid fa-arrow-right text-xs" />
+                  </span>
+                </button>
+              </div>
+            </div>
+          </main>
+        ) : (
         <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
           {/* Left column - illustration (solo desktop) */}
           <div className="hidden lg:flex lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex-col px-6">
@@ -164,9 +227,9 @@ const IndexPortalClientes: React.FC = () => {
                     </button>
                   </li>
                 )}
-                <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
+                <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Inicio</button></li>
                 <li aria-hidden="true">/</li>
-                <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
+                <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Simuladores</button></li>
                 <li aria-hidden="true">/</li>
                 <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
               </ol>
@@ -214,9 +277,9 @@ const IndexPortalClientes: React.FC = () => {
                       </button>
                     </li>
                   )}
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
+                  <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Inicio</button></li>
                   <li aria-hidden="true">/</li>
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
+                  <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Simuladores</button></li>
                   <li aria-hidden="true">/</li>
                   <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
                 </ol>
@@ -299,6 +362,7 @@ const IndexPortalClientes: React.FC = () => {
             </footer>
           </div>
         </div>
+        )}
       </div>
 
       <ContactModal open={showContactModal} onClose={() => setShowContactModal(false)} />
