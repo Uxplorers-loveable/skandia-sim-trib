@@ -277,9 +277,9 @@ const IndexPortalClientes: React.FC = () => {
                       </button>
                     </li>
                   )}
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
+                  <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Inicio</button></li>
                   <li aria-hidden="true">/</li>
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
+                  <li><button type="button" onClick={() => setView('simuladores')} className="hover:text-primary transition-colors text-xs">Simuladores</button></li>
                   <li aria-hidden="true">/</li>
                   <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
                 </ol>
