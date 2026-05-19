@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import skandiaLogo from '@/assets/skandia-logo.svg';
 import accaiLegal from '@/assets/accai-legal.png';
 import portalIllustration from '@/assets/portal-clientes-illustration.webp';
+import simBeneficio from '@/assets/sim-beneficio.webp';
+import simFlujoCaja from '@/assets/sim-flujo-caja.webp';
 
 const STEPS = ['Tus datos', 'Tu ingreso', 'Otros ingresos', 'Deducciones', 'Aportes voluntarios', 'Resultados'];
 
@@ -167,13 +169,13 @@ const IndexPortalClientes: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {[
                   {
-                    icon: 'fa-receipt',
+                    img: simBeneficio,
                     title: 'Simulador de beneficio tributario',
                     desc: 'Optimiza tus impuestos y paga menos en retención en la fuente.',
                     onClick: () => setView('simulator'),
                   },
                   {
-                    icon: 'fa-chart-line',
+                    img: simFlujoCaja,
                     title: 'Simulador de flujo de caja',
                     desc: 'Planea y proyecta tus ingresos y gastos para tomar mejores decisiones.',
                     onClick: () => {},
@@ -183,9 +185,7 @@ const IndexPortalClientes: React.FC = () => {
                     key={card.title}
                     className="group w-full bg-card rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition-shadow p-6 flex flex-col items-center text-center"
                   >
-                    <div className="w-24 h-24 rounded-full bg-[#D6F5C8] flex items-center justify-center mb-s3">
-                      <i className={`fa-solid ${card.icon} text-3xl text-foreground`} />
-                    </div>
+                    <img src={card.img} alt={card.title} className="h-[108px] w-auto object-contain mb-s3" />
                     <h2 className="font-heading font-bold text-foreground text-lg mb-2">
                       {card.title}
                     </h2>
