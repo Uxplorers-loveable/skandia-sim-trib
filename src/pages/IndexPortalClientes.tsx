@@ -49,6 +49,7 @@ const defaultInputs: SimulatorInputs = {
 const formatCurrency = (v: number) => v.toLocaleString('es-CO');
 
 const IndexPortalClientes: React.FC = () => {
+  const [view, setView] = useState<'simuladores' | 'simulator'>('simuladores');
   const [step, setStep] = useState(1);
   const [showContactModal, setShowContactModal] = useState(false);
   const [userData, setUserData] = useState({
