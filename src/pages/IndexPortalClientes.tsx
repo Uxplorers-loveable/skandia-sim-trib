@@ -147,8 +147,8 @@ const IndexPortalClientes: React.FC = () => {
 
         {/* Two-column layout */}
         <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
-          {/* Left column - illustration */}
-          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex flex-col px-6">
+          {/* Left column - illustration (solo desktop) */}
+          <div className="hidden lg:flex lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex-col px-6">
             {/* Breadcrumb aligned with progress bar */}
             <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full pt-s3">
               <ol className="flex items-center gap-2">
@@ -198,6 +198,24 @@ const IndexPortalClientes: React.FC = () => {
 
           {/* Right column - simulator (scrollable) */}
           <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
+            {/* Encabezado simplificado mobile/tablet - solo primer paso */}
+            {step === STEP_DATOS && (
+              <div className="lg:hidden bg-[#EDFEFA] px-4 py-6 text-center">
+                <h1 className="font-heading font-bold text-foreground text-2xl mb-2">
+                  Beneficio tributario
+                </h1>
+                <p className="font-body text-sm text-muted-foreground mb-3">
+                  Optimiza tus impuestos y paga menos en retención en la fuente, de forma ágil, fácil y segura.
+                </p>
+                <button
+                  onClick={() => setShowContactModal(true)}
+                  className="inline-flex items-center gap-1.5 text-sm font-body font-medium text-[#0099DE] hover:opacity-80 transition-opacity"
+                >
+                  <i className="fa-regular fa-circle-question" />
+                  Ayuda
+                </button>
+              </div>
+            )}
             <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
