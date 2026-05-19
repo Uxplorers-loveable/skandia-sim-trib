@@ -148,7 +148,7 @@ const IndexPortalClientes: React.FC = () => {
         {/* Two-column layout */}
         <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
           {/* Left column - illustration */}
-          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#CCFDF2] flex flex-col items-center justify-center px-6 py-12 lg:py-16">
+          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex flex-col items-center justify-center px-6 py-12 lg:py-16">
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full max-w-sm mb-6 self-start">
               <ol className="flex items-center gap-2">
