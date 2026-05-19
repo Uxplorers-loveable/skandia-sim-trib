@@ -160,7 +160,7 @@ const IndexPortalClientes: React.FC = () => {
               <h1 className="font-heading font-bold text-foreground text-3xl md:text-4xl mb-2">
                 Simuladores
               </h1>
-              <p className="font-body text-sm md:text-base text-muted-foreground mb-s4 max-w-2xl">
+              <p className="font-body text-sm md:text-base text-muted-foreground mb-s4 w-full">
                 Explora nuestros simuladores y proyecta tus decisiones financieras de forma ágil, fácil y segura.
               </p>
 
