@@ -164,7 +164,7 @@ const IndexPortalClientes: React.FC = () => {
                 Explora nuestros simuladores y proyecta tus decisiones financieras de forma ágil, fácil y segura.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {[
                   {
                     icon: 'fa-receipt',
@@ -195,7 +195,7 @@ const IndexPortalClientes: React.FC = () => {
                     <button
                       type="button"
                       onClick={card.onClick}
-                      className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-body font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-heading font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
                       Seleccionar
                     </button>
