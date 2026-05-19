@@ -11,6 +11,7 @@ import accaiLegal from '@/assets/accai-legal.png';
 import portalIllustration from '@/assets/portal-clientes-illustration.webp';
 import simBeneficio from '@/assets/sim-beneficio.webp';
 import simFlujoCaja from '@/assets/sim-flujo-caja.webp';
+import simOtros from '@/assets/sim-otros.webp';
 
 const STEPS = ['Tus datos', 'Tu ingreso', 'Otros ingresos', 'Deducciones', 'Aportes voluntarios', 'Resultados'];
 
@@ -166,7 +167,7 @@ const IndexPortalClientes: React.FC = () => {
                 Explora nuestros simuladores y proyecta tus decisiones financieras de forma ágil, fácil y segura.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                 {[
                   {
                     img: simBeneficio,
@@ -178,6 +179,12 @@ const IndexPortalClientes: React.FC = () => {
                     img: simFlujoCaja,
                     title: 'Simulador de flujo de caja',
                     desc: 'Planea y proyecta tus ingresos y gastos para tomar mejores decisiones.',
+                    onClick: () => {},
+                  },
+                  {
+                    img: simOtros,
+                    title: 'Otros simuladores',
+                    desc: 'Herramientas que te ayudarán a conocer la proyección de tus inversiones a futuro.',
                     onClick: () => {},
                   },
                 ].map((card) => (
