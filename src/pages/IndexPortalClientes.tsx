@@ -226,12 +226,10 @@ const IndexPortalClientes: React.FC = () => {
                   )}
                   <div className="flex gap-3 pt-s3">
                     <Button variant="outline" onClick={() => goTo(step - 1)} className="flex-1">
-                      <i className="fa-solid fa-arrow-left mr-1" />
                       Volver
                     </Button>
                     <Button onClick={handleNextFromForm} className="flex-[2]">
                       {step === STEP_APORTES ? 'Ver mis resultados' : 'Continuar'}
-                      <i className="fa-solid fa-arrow-right ml-1" />
                     </Button>
                   </div>
                 </div>
