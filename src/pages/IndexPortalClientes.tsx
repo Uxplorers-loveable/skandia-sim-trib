@@ -149,7 +149,7 @@ const IndexPortalClientes: React.FC = () => {
         {/* Two-column layout */}
         {view === 'simuladores' ? (
           <main className="flex-1 min-h-0 overflow-y-auto bg-background">
-            <div className="max-w-[1200px] mx-auto w-full px-4 md:px-s6 py-s4">
+            <div className="w-full px-4 md:px-s6 py-s4">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground mb-s3">
                 <ol className="flex items-center gap-2 text-xs">
                   <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
@@ -164,47 +164,43 @@ const IndexPortalClientes: React.FC = () => {
                 Explora nuestros simuladores y proyecta tus decisiones financieras de forma ágil, fácil y segura.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {/* Card 1 - Beneficio tributario */}
-                <button
-                  type="button"
-                  onClick={() => setView('simulator')}
-                  className="group text-left bg-card border border-border rounded-2xl p-6 hover:border-primary hover:shadow-lg transition-all flex flex-col"
-                >
-                  <div className="w-16 h-16 rounded-full bg-[#EDFEFA] flex items-center justify-center mb-s3">
-                    <i className="fa-solid fa-receipt text-2xl text-primary" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+                {[
+                  {
+                    icon: 'fa-receipt',
+                    title: 'Simulador de beneficio tributario',
+                    desc: 'Optimiza tus impuestos y paga menos en retención en la fuente.',
+                    onClick: () => setView('simulator'),
+                  },
+                  {
+                    icon: 'fa-chart-line',
+                    title: 'Simulador de flujo de caja',
+                    desc: 'Planea y proyecta tus ingresos y gastos para tomar mejores decisiones.',
+                    onClick: () => {},
+                  },
+                ].map((card) => (
+                  <div
+                    key={card.title}
+                    className="group w-full bg-card rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition-shadow p-6 flex flex-col items-center text-center"
+                  >
+                    <div className="w-24 h-24 rounded-full bg-[#D6F5C8] flex items-center justify-center mb-s3">
+                      <i className={`fa-solid ${card.icon} text-3xl text-foreground`} />
+                    </div>
+                    <h2 className="font-heading font-bold text-foreground text-lg mb-2">
+                      {card.title}
+                    </h2>
+                    <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
+                      {card.desc}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={card.onClick}
+                      className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-body font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      Seleccionar
+                    </button>
                   </div>
-                  <h2 className="font-heading font-bold text-foreground text-lg mb-2">
-                    Simulador de beneficio tributario
-                  </h2>
-                  <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
-                    Optimiza tus impuestos y paga menos en retención en la fuente.
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary group-hover:gap-2.5 transition-all">
-                    Ingresar
-                    <i className="fa-solid fa-arrow-right text-xs" />
-                  </span>
-                </button>
-
-                {/* Card 2 - Flujo de caja */}
-                <button
-                  type="button"
-                  className="group text-left bg-card border border-border rounded-2xl p-6 hover:border-primary hover:shadow-lg transition-all flex flex-col"
-                >
-                  <div className="w-16 h-16 rounded-full bg-[#EDFEFA] flex items-center justify-center mb-s3">
-                    <i className="fa-solid fa-chart-line text-2xl text-primary" />
-                  </div>
-                  <h2 className="font-heading font-bold text-foreground text-lg mb-2">
-                    Simulador de flujo de caja
-                  </h2>
-                  <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
-                    Planea y proyecta tus ingresos y gastos para tomar mejores decisiones.
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary group-hover:gap-2.5 transition-all">
-                    Ingresar
-                    <i className="fa-solid fa-arrow-right text-xs" />
-                  </span>
-                </button>
+                ))}
               </div>
             </div>
           </main>
