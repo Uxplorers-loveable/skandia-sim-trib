@@ -240,6 +240,7 @@ const IndexPortalClientes: React.FC = () => {
                   userData={userData}
                   onBack={() => goTo(STEP_APORTES)}
                   onOpenContact={() => setShowContactModal(true)}
+                  portalClientes
                 />
               )}
             </main>
