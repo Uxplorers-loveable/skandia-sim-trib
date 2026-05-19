@@ -343,7 +343,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
       )}
 
       {/* Actions module */}
-      {results.ahorroOpt > 0 && (
+      {!portalClientes && results.ahorroOpt > 0 && (
       <div className="bg-card rounded-xl border border-border p-s3">
         <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
           <i className="fa-solid fa-bolt text-primary mr-2" />
