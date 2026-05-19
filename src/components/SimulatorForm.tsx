@@ -524,8 +524,18 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
 
   // Single-section render mode (for Portal Clientes split steps)
   if (section) {
+    const sectionMeta = {
+      ingreso: { title: "Tu ingreso", icon: "fa-solid fa-wallet" },
+      otros: { title: "Otros ingresos", icon: "fa-solid fa-coins" },
+      deducciones: { title: "Tus deducciones", icon: "fa-solid fa-file-invoice-dollar" },
+      aportes: { title: "Tus aportes voluntarios", icon: "fa-solid fa-piggy-bank" },
+    }[section];
     return (
       <div className="space-y-s2 animate-fade-in pt-s2">
+        <div className="flex items-center gap-2 pb-s1">
+          <i className={`${sectionMeta.icon} text-primary text-lg`} />
+          <h2 className="font-heading font-bold text-foreground text-xl">{sectionMeta.title}</h2>
+        </div>
         {section === "ingreso" && ingresoBody}
         {section === "otros" && otrosBody}
         {section === "deducciones" && deduccionesBody}
