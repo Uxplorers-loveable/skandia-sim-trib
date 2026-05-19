@@ -5,11 +5,20 @@ import SimulatorForm from '@/components/SimulatorForm';
 import ResultsScreen from '@/components/ResultsScreen';
 import ContactModal from '@/components/ContactModal';
 import { SimulatorInputs, UVT, SMLV } from '@/lib/taxEngine';
+import { Button } from '@/components/ui/button';
 import skandiaLogo from '@/assets/skandia-logo.svg';
 import accaiLegal from '@/assets/accai-legal.png';
 import portalIllustration from '@/assets/portal-clientes-illustration.png';
 
-const STEPS = ['Tus datos', 'Simulación', 'Resultados'];
+const STEPS = ['Tus datos', 'Tu ingreso', 'Otros ingresos', 'Deducciones', 'Aportes voluntarios', 'Resultados'];
+
+// Step indices (1-based to match `step` state)
+const STEP_DATOS = 1;
+const STEP_INGRESO = 2;
+const STEP_OTROS = 3;
+const STEP_DEDUC = 4;
+const STEP_APORTES = 5;
+const STEP_RESULTS = 6;
 
 const defaultInputs: SimulatorInputs = {
   salario: 25000000,
@@ -52,6 +61,29 @@ const IndexPortalClientes: React.FC = () => {
   const [inputs, setInputs] = useState<SimulatorInputs>(defaultInputs);
   const rightColRef = useRef<HTMLDivElement>(null);
   const scrollTop = () => rightColRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  const [salarioError, setSalarioError] = useState<string>('');
+
+  const goTo = (s: number) => {
+    setStep(s);
+    scrollTop();
+  };
+
+  const sectionFor = (s: number): 'ingreso' | 'otros' | 'deducciones' | 'aportes' | null => {
+    if (s === STEP_INGRESO) return 'ingreso';
+    if (s === STEP_OTROS) return 'otros';
+    if (s === STEP_DEDUC) return 'deducciones';
+    if (s === STEP_APORTES) return 'aportes';
+    return null;
+  };
+
+  const handleNextFromForm = () => {
+    if (step === STEP_INGRESO && (!inputs.salario || inputs.salario <= 0)) {
+      setSalarioError('Ingresa tu salario mensual para continuar.');
+      return;
+    }
+    setSalarioError('');
+    goTo(step + 1);
+  };
 
   return (
     <div className="skandia-client-shell h-screen overflow-hidden bg-background flex">
@@ -171,31 +203,44 @@ const IndexPortalClientes: React.FC = () => {
             </div>
 
             <main className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pb-20 flex-1">
-              {step === 1 && (
+              {step === STEP_DATOS && (
                 <WelcomeScreen
                   hideClienteSwitch
                   hideDataModule
                   hideHeading
                   onNext={(data) => {
                     setUserData(data);
-                    setStep(2);
-                    scrollTop();
+                    goTo(STEP_INGRESO);
                   }}
                 />
               )}
-              {step === 2 && (
-                <SimulatorForm
-                  inputs={inputs}
-                  setInputs={setInputs}
-                  onBack={() => { setStep(1); scrollTop(); }}
-                  onNext={() => { setStep(3); scrollTop(); }}
-                />
+              {sectionFor(step) && (
+                <div className="animate-fade-in">
+                  <SimulatorForm
+                    inputs={inputs}
+                    setInputs={setInputs}
+                    section={sectionFor(step)!}
+                  />
+                  {step === STEP_INGRESO && salarioError && (
+                    <p className="text-xs text-destructive font-body font-bold mt-2">{salarioError}</p>
+                  )}
+                  <div className="flex gap-3 pt-s3">
+                    <Button variant="outline" onClick={() => goTo(step - 1)} className="flex-1">
+                      <i className="fa-solid fa-arrow-left mr-1" />
+                      Volver
+                    </Button>
+                    <Button onClick={handleNextFromForm} className="flex-[2]">
+                      {step === STEP_APORTES ? 'Ver mis resultados' : 'Continuar'}
+                      <i className="fa-solid fa-arrow-right ml-1" />
+                    </Button>
+                  </div>
+                </div>
               )}
-              {step === 3 && (
+              {step === STEP_RESULTS && (
                 <ResultsScreen
                   inputs={inputs}
                   userData={userData}
-                  onBack={() => { setStep(2); scrollTop(); }}
+                  onBack={() => goTo(STEP_APORTES)}
                   onOpenContact={() => setShowContactModal(true)}
                 />
               )}
