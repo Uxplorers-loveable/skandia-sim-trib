@@ -99,3 +99,15 @@
 .skandia-client-shell [class*="border-destructive"] {
   border-color: hsl(var(--destructive)) !important;
 }
+
+/* Portal Clientes — tooltips estilo "ayuda" en azul */
+.skandia-portal-shell button[aria-label="Más información"] {
+  color: #0099DE !important;
+}
+.skandia-portal-shell button[aria-label="Más información"]:hover {
+  color: #0088c5 !important;
+}
+.skandia-portal-shell button[aria-label="Más información"] .fa-circle-info::before {
+  content: "\f059"; /* fa-circle-question */
+  font-weight: 400; /* regular style */
+}
