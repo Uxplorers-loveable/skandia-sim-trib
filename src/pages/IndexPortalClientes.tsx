@@ -8,7 +8,7 @@ import { SimulatorInputs, UVT, SMLV } from '@/lib/taxEngine';
 import { Button } from '@/components/ui/button';
 import skandiaLogo from '@/assets/skandia-logo.svg';
 import accaiLegal from '@/assets/accai-legal.png';
-import portalIllustration from '@/assets/portal-clientes-illustration.png';
+import portalIllustration from '@/assets/portal-clientes-illustration.webp';
 
 const STEPS = ['Tus datos', 'Tu ingreso', 'Otros ingresos', 'Deducciones', 'Aportes voluntarios', 'Resultados'];
 
@@ -148,7 +148,7 @@ const IndexPortalClientes: React.FC = () => {
         {/* Two-column layout */}
         <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
           {/* Left column - illustration */}
-          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-accent/40 flex flex-col items-center justify-center px-6 py-12 lg:py-16">
+          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#CCFDF2] flex flex-col items-center justify-center px-6 py-12 lg:py-16">
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full max-w-sm mb-6 self-start">
               <ol className="flex items-center gap-2">
@@ -175,10 +175,10 @@ const IndexPortalClientes: React.FC = () => {
               <img
                 src={portalIllustration}
                 alt="Beneficio tributario"
-                width={280}
-                height={280}
+                width={180}
+                height={180}
                 loading="lazy"
-                className="w-[220px] h-[220px] lg:w-[280px] lg:h-[280px] object-contain mb-6"
+                className="w-[180px] h-[180px] object-contain mb-6"
               />
               <h1 className="font-heading font-bold text-foreground text-2xl lg:text-3xl mb-3">
                 Beneficio tributario
