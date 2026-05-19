@@ -9,6 +9,7 @@ interface ResultsScreenProps {
   userData: { nombre: string; email: string; esCliente: boolean; tieneAsesor: boolean };
   onBack: () => void;
   onOpenContact: () => void;
+  portalClientes?: boolean;
 }
 
 const MetricCard: React.FC<{
@@ -36,9 +37,10 @@ const MetricCard: React.FC<{
   );
 };
 
-const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact }) => {
+const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact, portalClientes = false }) => {
   const [showTable, setShowTable] = useState(false);
   const [showEmailConfirm, setShowEmailConfirm] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
 
   const results = useMemo(() => calculate(inputs), [inputs]);
 
@@ -90,7 +92,136 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         </p>
       </div>
 
-      {/* Annual tax summary */}
+      {portalClientes && (
+      <div className="rounded-xl border-2 border-primary bg-accent p-s3">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+            <i className="fa-solid fa-check text-primary-foreground" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1">
+              Aporte sugerido para maximizar tu beneficio tributario FPV — mensual
+            </p>
+            <p className="text-3xl font-heading font-bold tracking-tight text-primary">
+              {fmtN(results.xOptAdicional / 12)}
+            </p>
+            <p className="text-sm font-body text-muted-foreground mt-1">
+              {results.subMsg}
+            </p>
+            <div className="mt-s2">
+              <div>
+                <p className="text-[10px] font-body font-bold uppercase text-muted-foreground flex items-center gap-1">
+                  Ahorro impuesto anual
+                  <InfoTooltip text="Es el dinero que dejarías de pagar en impuestos durante el año al realizar este aporte." />
+                </p>
+                <p className="text-lg font-heading font-bold text-primary">{fmtN(results.ahorroOpt)}</p>
+              </div>
+            </div>
+
+            {results.ahorroOpt > 0 && (
+            <div className="mt-s3 pt-s2 border-t border-primary/20">
+              <p className="text-xs font-heading font-bold text-primary mb-2">
+                <i className="fa-solid fa-list-check mr-1.5" />
+                Pasos para implementar tu estrategia
+              </p>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Abre o ajusta tu FPV:</strong> Si aún no tienes un Fondo Voluntario de Pensiones, solicita la apertura con tu asesor Skandia.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Configura aportes automáticos:</strong> Programa un débito mensual de <strong className="text-primary">{fmtN(results.xOptAdicional / 12)}</strong> para mantener la disciplina de ahorro.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                  <p className="font-body text-xs text-foreground">
+                    <strong>Solicita el certificado tributario:</strong> Al cierre del año, descarga tu certificado para incluirlo en tu declaración de renta.
+                  </p>
+                </div>
+              </div>
+            </div>
+            )}
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* Annual tax summary + monthly retention cards */}
+      {portalClientes ? (
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setShowSummary(!showSummary)}
+            className="w-full flex items-center gap-3 p-s3 hover:bg-secondary/50 transition-colors"
+          >
+            <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+              <i className="fa-solid fa-file-invoice text-sm text-primary" />
+            </div>
+            <span className="font-heading text-sm font-medium text-foreground flex-1 text-left">
+              Ver resumen tributario
+            </span>
+            <i className={`fa-solid fa-chevron-${showSummary ? 'up' : 'down'} text-xs text-muted-foreground`} />
+          </button>
+          {showSummary && (
+            <div className="px-s3 pb-s3 space-y-s3 animate-fade-in">
+              <div className="bg-secondary/20 rounded-lg border border-border/60 p-s2">
+                <h3 className="font-heading text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center">
+                  <i className="fa-solid fa-file-invoice text-muted-foreground/70 mr-1.5 text-[11px]" />
+                  Resumen tributario anual
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  <div className="p-2">
+                    <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
+                      Impuesto de renta anual
+                      <InfoTooltip text="Es el impuesto que tendrías que pagar al declarar renta, calculado sobre tu base gravable anual según la tabla del Art. 241 ET." />
+                    </p>
+                    <p className="text-sm font-heading text-foreground/80 mt-0.5 font-normal">{fmtN(results.impActual)}</p>
+                  </div>
+                  <div className="p-2">
+                    <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
+                      Retención en la fuente anual
+                      <InfoTooltip text="Es el total de retenciones que tu empleador descontará de tu salario durante el año como anticipo del impuesto de renta." />
+                    </p>
+                    <p className="text-sm font-heading text-foreground/80 mt-0.5 font-normal">{fmtN(results.reteTot)}</p>
+                  </div>
+                  <div className="p-2">
+                    <p className="text-[10px] font-body uppercase text-muted-foreground/80 flex items-center gap-1">
+                      {results.impCargo >= 0 ? 'Saldo a pagar estimado' : 'Saldo a favor estimado'}
+                      <InfoTooltip text="Diferencia entre tu impuesto de renta anual y la retención en la fuente. Si es positivo, deberás pagar al declarar; si es negativo, tendrías saldo a favor." />
+                    </p>
+                    <p className={`text-sm font-heading mt-0.5 ${results.impCargo >= 0 ? 'text-foreground/80' : 'text-primary/90'} font-normal`}>
+                      {fmtN(Math.abs(results.impCargo))}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
+                <MetricCard
+                  label="Retención mensual actual"
+                  value={fmtN(reteMensualActual)}
+                  tooltip="Es el promedio mensual que tu empleador te descuenta del salario como retención en la fuente con tu configuración actual."
+                />
+                <MetricCard
+                  label="Retención mensual óptima"
+                  value={fmtN(reteMensualOptima)}
+                  tooltip="Es la retención mensual que tendrías si aplicas el aporte voluntario sugerido para optimizar tu carga tributaria."
+                />
+                <MetricCard
+                  label="Ahorro mensual potencial"
+                  value={fmtN(ahorroMensual)}
+                  tooltip="Es la diferencia entre tu retención actual y la óptima: el dinero que dejarías de descontarte cada mes al optimizar."
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+      <>
       <div className="bg-secondary/20 rounded-lg border border-border/60 p-s2">
         <h3 className="font-heading text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center">
           <i className="fa-solid fa-file-invoice text-muted-foreground/70 mr-1.5 text-[11px]" />
@@ -123,7 +254,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         </div>
       </div>
 
-      {/* Monthly retention metric cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
         <MetricCard
           label="Retención mensual actual"
@@ -142,7 +272,6 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         />
       </div>
 
-      {/* Optimal contribution card */}
       <div className="rounded-xl border-2 border-primary bg-accent p-s3">
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
@@ -200,6 +329,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
           </div>
         </div>
       </div>
+      </>
+      )}
 
       {/* Actions module */}
       {results.ahorroOpt > 0 && (
