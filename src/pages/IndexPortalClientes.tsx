@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ProgressSteps from '@/components/ProgressSteps';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SimulatorForm from '@/components/SimulatorForm';
@@ -50,6 +50,8 @@ const IndexPortalClientes: React.FC = () => {
     tieneAsesor: false,
   });
   const [inputs, setInputs] = useState<SimulatorInputs>(defaultInputs);
+  const rightColRef = useRef<HTMLDivElement>(null);
+  const scrollTop = () => rightColRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <div className="skandia-client-shell h-screen overflow-hidden bg-background flex">
@@ -163,7 +165,7 @@ const IndexPortalClientes: React.FC = () => {
           </div>
 
           {/* Right column - simulator (scrollable) */}
-          <div className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
+          <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
             <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
@@ -177,7 +179,7 @@ const IndexPortalClientes: React.FC = () => {
                   onNext={(data) => {
                     setUserData(data);
                     setStep(2);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    scrollTop();
                   }}
                 />
               )}
@@ -185,15 +187,15 @@ const IndexPortalClientes: React.FC = () => {
                 <SimulatorForm
                   inputs={inputs}
                   setInputs={setInputs}
-                  onBack={() => { setStep(1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  onNext={() => { setStep(3); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onBack={() => { setStep(1); scrollTop(); }}
+                  onNext={() => { setStep(3); scrollTop(); }}
                 />
               )}
               {step === 3 && (
                 <ResultsScreen
                   inputs={inputs}
                   userData={userData}
-                  onBack={() => { setStep(2); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onBack={() => { setStep(2); scrollTop(); }}
                   onOpenContact={() => setShowContactModal(true)}
                 />
               )}
