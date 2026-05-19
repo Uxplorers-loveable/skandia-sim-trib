@@ -53,7 +53,7 @@ const IndexPortalClientes: React.FC = () => {
 
   return (
     <div className="skandia-client-shell min-h-screen bg-background flex">
-      {/* Sidebar (decorative) */}
+      {/* Sidebar (decorative, non-functional) - mismo que versión clientes */}
       <aside className="hidden md:flex sticky top-0 h-screen w-[88px] flex-col items-stretch border-r border-border bg-card z-40">
         <button type="button" className="h-14 flex items-center justify-center text-foreground/70 hover:text-primary" aria-label="Menú">
           <i className="fa-solid fa-bars text-lg" />
@@ -61,7 +61,10 @@ const IndexPortalClientes: React.FC = () => {
         <nav className="flex-1 flex flex-col items-stretch py-2">
           {[
             { icon: 'fa-house', label: 'Inicio', active: true },
-            { icon: 'fa-hand-holding-dollar', label: 'Retiros' },
+            { icon: 'fa-arrows-rotate', label: 'Transacciones' },
+            { icon: 'fa-chart-pie', label: 'Gestión' },
+            { icon: 'fa-file-lines', label: 'Documentos' },
+            { icon: 'fa-circle-question', label: 'Ayuda' },
           ].map((it) => (
             <button
               key={it.label}
@@ -76,15 +79,35 @@ const IndexPortalClientes: React.FC = () => {
             </button>
           ))}
         </nav>
+        <button type="button" className="flex flex-col items-center gap-1 py-4 text-[10px] font-body text-foreground/60 hover:text-primary border-t border-border">
+          <i className="fa-solid fa-right-from-bracket text-lg" />
+          <span>Salir</span>
+        </button>
       </aside>
 
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Header */}
+        {/* Header - mismo que versión clientes */}
         <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-          <div className="px-4 md:px-s4 py-s2 flex items-center gap-3">
+          <div className="px-4 md:px-s4 py-s2 flex items-center justify-between gap-3">
             <img src={skandiaLogo} alt="Skandia" className="h-6" />
-            <span className="text-muted-foreground/40 text-lg font-light">|</span>
-            <span className="font-heading font-semibold text-foreground text-sm">Portal Clientes</span>
+            <div className="flex items-center gap-3">
+              <button type="button" className="relative w-10 h-10 rounded-full border border-primary/30 bg-card flex items-center justify-center text-primary hover:bg-accent transition-colors" aria-label="Notificaciones">
+                <i className="fa-solid fa-bell" />
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">1</span>
+              </button>
+              <button type="button" className="hidden sm:flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-body font-semibold px-4 h-10 rounded-full transition-colors">
+                <i className="fa-solid fa-bolt" />
+                Acciones rápidas
+                <i className="fa-solid fa-chevron-down text-xs" />
+              </button>
+              <div className="hidden md:flex items-center gap-2 pl-2">
+                <div className="w-9 h-9 rounded-full border-2 border-primary flex items-center justify-center text-primary text-[11px] font-bold font-heading">AP</div>
+                <span className="text-xs font-body text-foreground">
+                  Hola, <span className="font-bold">Apellido</span>
+                </span>
+                <i className="fa-solid fa-chevron-down text-[10px] text-muted-foreground" />
+              </div>
+            </div>
           </div>
         </header>
 
@@ -92,6 +115,28 @@ const IndexPortalClientes: React.FC = () => {
         <div className="flex-1 flex flex-col lg:flex-row">
           {/* Left column - illustration */}
           <div className="lg:w-[42%] lg:min-h-[calc(100vh-57px)] bg-accent/40 flex flex-col items-center justify-center px-6 py-12 lg:py-16">
+            {/* Breadcrumb */}
+            <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full max-w-sm mb-6 self-start">
+              <ol className="flex items-center gap-2">
+                {step > 1 && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => setStep(step - 1)}
+                      className="text-primary hover:text-primary/80 transition-colors"
+                      aria-label="Volver"
+                    >
+                      <i className="fa-solid fa-arrow-left text-xs" />
+                    </button>
+                  </li>
+                )}
+                <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
+                <li aria-hidden="true">/</li>
+                <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
+                <li aria-hidden="true">/</li>
+                <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
+              </ol>
+            </nav>
             <div className="max-w-sm w-full flex flex-col items-center text-center">
               <img
                 src={portalIllustration}
@@ -119,32 +164,7 @@ const IndexPortalClientes: React.FC = () => {
 
           {/* Right column - simulator */}
           <div className="lg:w-[58%] flex flex-col">
-            {/* Breadcrumb */}
-            <div className="w-full px-4 md:px-s4 pt-s3">
-              <nav aria-label="Breadcrumb" className="font-body text-muted-foreground mb-s2">
-                <ol className="flex items-center gap-2">
-                  {step > 1 && (
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => setStep(step - 1)}
-                        className="text-primary hover:text-primary/80 transition-colors"
-                        aria-label="Volver"
-                      >
-                        <i className="fa-solid fa-arrow-left text-xs" />
-                      </button>
-                    </li>
-                  )}
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Inicio</a></li>
-                  <li aria-hidden="true">/</li>
-                  <li><a href="#" className="hover:text-primary transition-colors text-xs">Simuladores</a></li>
-                  <li aria-hidden="true">/</li>
-                  <li className="text-primary font-semibold text-xs">Beneficio tributario</li>
-                </ol>
-              </nav>
-            </div>
-
-            <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6">
+            <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
 
