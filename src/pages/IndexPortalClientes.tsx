@@ -86,7 +86,7 @@ const IndexPortalClientes: React.FC = () => {
   };
 
   return (
-    <div className="skandia-client-shell h-screen overflow-hidden bg-background flex">
+    <div className="skandia-client-shell skandia-portal-shell h-screen overflow-hidden bg-background flex">
       {/* Sidebar (decorative, non-functional) - mismo que versión clientes */}
       <aside className="hidden md:flex sticky top-0 h-screen w-[88px] flex-col items-stretch border-r border-border bg-card z-40">
         <button type="button" className="h-14 flex items-center justify-center text-foreground/70 hover:text-primary" aria-label="Menú">
@@ -188,7 +188,7 @@ const IndexPortalClientes: React.FC = () => {
               </p>
               <button
                 onClick={() => setShowContactModal(true)}
-                className="flex items-center gap-1.5 text-sm font-body font-medium text-primary hover:text-primary/80 transition-colors"
+                className="flex items-center gap-1.5 text-sm font-body font-medium text-[#0099DE] hover:opacity-80 transition-opacity"
               >
                 <i className="fa-regular fa-circle-question" />
                 Ayuda
