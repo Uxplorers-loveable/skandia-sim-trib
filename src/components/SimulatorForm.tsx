@@ -6,10 +6,12 @@ import { SimulatorInputs, SMLV, TOPE_VIV_MES, TOPE_SAL_MES, MESES } from "@/lib/
 import InfoTooltip from "@/components/InfoTooltip";
 
 interface SimulatorFormProps {
-  onBack: () => void;
-  onNext: () => void;
+  onBack?: () => void;
+  onNext?: () => void;
   inputs: SimulatorInputs;
   setInputs: React.Dispatch<React.SetStateAction<SimulatorInputs>>;
+  /** Render only one section without the accordion wrapper or nav buttons. */
+  section?: "ingreso" | "otros" | "deducciones" | "aportes";
 }
 
 // Format number with Colombian thousands separator
@@ -145,7 +147,7 @@ const BarIndicator: React.FC<{ value: number; max: number; label?: string }> = (
   );
 };
 
-const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, setInputs }) => {
+const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, setInputs, section }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const update = useCallback(
@@ -159,6 +161,379 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
   const min13 = 13 * SMLV;
   const integralInvalido = inputs.tipoSal === "integral" && inputs.salario > 0 && inputs.salario < min13;
 
+  // Section bodies (the same JSX used inside each CollapsibleSection)
+  const ingresoBody = (
+    <div className="space-y-s3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-s2">
+        <div>
+          <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+            Salario mensual
+            <HelpTooltip text="Tu salario mensual bruto antes de deducciones. Es la base principal para calcular tu retención." />
+          </label>
+          <MoneyInput value={inputs.salario} onChange={(v) => update("salario", v)} />
+          {errors.salario && (
+            <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.salario}</p>
+          )}
+          {integralInvalido && (
+            <p className="text-xs text-destructive font-body font-bold mt-1.5">
+              ⚠ Mínimo ${min13.toLocaleString("es-CO")} (13 SMLV) para salario integral.
+            </p>
+          )}
+        </div>
+        <div>
+          <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+            Ingreso independiente mensual
+            <HelpTooltip text="Si tienes ingresos adicionales por actividades independientes, ingrésalos aquí. Se calcula seguridad social sobre el 40% de estos ingresos." />
+          </label>
+          <MoneyInput value={inputs.indep} onChange={(v) => update("indep", v)} />
+        </div>
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Tipo de salario
+          <HelpTooltip text="El salario integral incluye todas las prestaciones sociales. Para aplicar, debe ser mínimo 13 veces el salario mínimo ($22.761.765 en 2026)." />
+        </label>
+        <PillToggle
+          options={[
+            { label: "Ordinario", value: "ordinario" },
+            { label: "Integral", value: "integral" },
+          ]}
+          value={inputs.tipoSal}
+          onChange={(v) => update("tipoSal", v as "ordinario" | "integral")}
+        />
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Procedimiento de retención
+        </label>
+        <PillToggle
+          options={[
+            { label: "Procedimiento 1", value: "1" },
+            { label: "Procedimiento 2", value: "2" },
+          ]}
+          value={String(inputs.proc)}
+          onChange={(v) => update("proc", Number(v) as 1 | 2)}
+        />
+        <p className="text-[10px] text-muted-foreground font-body italic mt-1.5">
+          <strong>Procedimiento 1:</strong> la retención se calcula cada mes con base en tu ingreso de ese mes.
+          <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año
+          anterior.
+          <br />
+          <strong>Tip: ¿No sabes cuál es tu procedimiento?</strong> Selecciona el 1, generalmente es el más común.
+        </p>
+      </div>
+      {inputs.proc === 2 && (
+        <div className="animate-fade-in">
+          <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+            Porcentaje fijo (Proc. 2)
+            <HelpTooltip text="Porcentaje calculado por el empleador (Art. 386 ET). Ingresa el valor sin el símbolo %." />
+          </label>
+          <input
+            type="number"
+            value={inputs.pctProc2}
+            onChange={(e) => update("pctProc2", Number(e.target.value) || 0)}
+            min={0}
+            max={100}
+            className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+            placeholder="ej. 15"
+          />
+        </div>
+      )}
+    </div>
+  );
+
+  const otrosBody = (
+    <div className="space-y-s2">
+      {/* Bono */}
+      <div className="flex items-center justify-between py-2">
+        <div>
+          <span className="font-heading text-sm font-medium text-foreground">¿Recibes bono?</span>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Prima extralegal, bono de desempeño u otro pago adicional
+          </p>
+        </div>
+        <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update("bonoOn", v)} />
+      </div>
+      {inputs.bonoOn && (
+        <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.4fr] gap-s2">
+            <div>
+              <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
+              <MoneyInput
+                value={inputs.bono}
+                onChange={(v) => {
+                  update("bono", v);
+                  setErrors((prev) => ({ ...prev, bono: "" }));
+                }}
+              />
+              {errors.bono && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.bono}</p>}
+            </div>
+            <div>
+              <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                Mes en que lo recibes
+              </label>
+              <select
+                value={inputs.mesBono}
+                onChange={(e) => update("mesBono", Number(e.target.value))}
+                className="w-full h-12 pl-3 pr-12 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+              >
+                {MESES.map((m, i) => (
+                  <option key={i} value={i + 1}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                ¿Es salarial?
+                <HelpTooltip text="Si no conoces este dato, consúltalo con el equipo de nómina de tu empresa." />
+              </label>
+              <PillToggle
+                options={[
+                  { label: "No (no SS)", value: "no" },
+                  { label: "Sí (base SS)", value: "si" },
+                ]}
+                value={inputs.bonoSal ? "si" : "no"}
+                onChange={(v) => update("bonoSal", v === "si")}
+              />
+            </div>
+          </div>
+          <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+            <strong>No SS:</strong> el bono no forma parte de la base para aportes a seguridad social.{" "}
+            <strong>Base SS:</strong> el bono sí se incluye en la base de cotización a salud y pensión.
+          </p>
+        </div>
+      )}
+
+      {/* Auxilios */}
+      <div className="border-t border-border pt-s2">
+        <div className="flex items-center justify-between py-2">
+          <div>
+            <span className="font-heading text-sm font-medium text-foreground">
+              ¿Recibes auxilios o bonificaciones no salariales?
+            </span>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Ingresos que no hacen parte de tu salario, como auxilios o beneficios.
+            </p>
+          </div>
+          <Switch checked={inputs.auxOn} onCheckedChange={(v) => update("auxOn", v)} />
+        </div>
+        {inputs.auxOn && (
+          <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
+            <PillToggle
+              options={[
+                { label: "Fijo mensual", value: "fijo" },
+                { label: "Variable por mes", value: "variable" },
+              ]}
+              value={inputs.auxTipo}
+              onChange={(v) => update("auxTipo", v as "fijo" | "variable")}
+            />
+            {inputs.auxTipo === "fijo" ? (
+              <div>
+                <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                  Valor del auxilio mensual
+                </label>
+                <MoneyInput
+                  value={inputs.auxFijo}
+                  onChange={(v) => {
+                    update("auxFijo", v);
+                    setErrors((prev) => ({ ...prev, auxFijo: "" }));
+                  }}
+                />
+                {errors.auxFijo && (
+                  <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>
+                )}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {MESES.map((m, i) => (
+                  <div key={i}>
+                    <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
+                      {m}
+                    </label>
+                    <MoneyInput
+                      value={inputs.auxMeses[i] || 0}
+                      onChange={(v) => {
+                        const newMeses = [...inputs.auxMeses];
+                        newMeses[i] = v;
+                        update("auxMeses", newMeses);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Comisiones */}
+      <div className="border-t border-border pt-s2">
+        <div className="flex items-center justify-between py-2">
+          <div>
+            <span className="font-heading text-sm font-medium text-foreground">¿Recibes comisiones?</span>
+            <p className="text-xs text-muted-foreground mt-0.5">Sí forman parte de la base de seguridad social</p>
+          </div>
+          <Switch checked={inputs.comOn} onCheckedChange={(v) => update("comOn", v)} />
+        </div>
+        {inputs.comOn && (
+          <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
+            <PillToggle
+              options={[
+                { label: "Fija mensual", value: "fijo" },
+                { label: "Variable por mes", value: "variable" },
+              ]}
+              value={inputs.comTipo}
+              onChange={(v) => update("comTipo", v as "fijo" | "variable")}
+            />
+            {inputs.comTipo === "fijo" ? (
+              <div>
+                <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
+                  Valor de la comisión mensual
+                </label>
+                <MoneyInput
+                  value={inputs.comFijo}
+                  onChange={(v) => {
+                    update("comFijo", v);
+                    setErrors((prev) => ({ ...prev, comFijo: "" }));
+                  }}
+                />
+                {errors.comFijo && (
+                  <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>
+                )}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {MESES.map((m, i) => (
+                  <div key={i}>
+                    <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
+                      {m}
+                    </label>
+                    <MoneyInput
+                      value={inputs.comMeses[i] || 0}
+                      onChange={(v) => {
+                        const newMeses = [...inputs.comMeses];
+                        newMeses[i] = v;
+                        update("comMeses", newMeses);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const deduccionesBody = (
+    <div className="space-y-s3">
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Número de dependientes (máx. 4)
+          <HelpTooltip text="Persona que depende económicamente de ti: cónyuge sin ingresos, hijos menores de 18 años, hijos entre 18 y 23 años que estudian, o familiares con limitación física o mental. Cada dependiente reduce tu base de retención. (Art. 387 + Ley 2277/2022)" />
+        </label>
+        <Slider
+          value={[inputs.dep]}
+          onValueChange={([v]) => update("dep", v)}
+          max={4}
+          step={1}
+          className="w-full"
+        />
+        <div className="flex justify-between text-xs text-muted-foreground mt-3">
+          <span>0</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+        </div>
+        <p className="text-sm font-medium text-foreground font-body">
+          {inputs.dep === 0 ? "Sin personas a cargo" : `${inputs.dep} persona${inputs.dep > 1 ? "s" : ""} a cargo`}
+        </p>
+        <p className="text-[10px] text-muted-foreground mt-1 font-body italic">
+          Si tienes personas a tu cargo, puedes reducir tus impuestos con este beneficio.
+        </p>
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Intereses vivienda mensual
+          <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 100 UVT/mes · $5.237.400)</span>
+          <HelpTooltip text="Si pagas un crédito hipotecario, puedes deducir los intereses pagados. El tope es de 100 UVT por mes ($5.237.400)." />
+        </label>
+        <MoneyInput value={inputs.intViv} onChange={(v) => update("intViv", v)} />
+        <p className="text-[11px] font-body text-muted-foreground mt-1">
+          Aplica crédito hipotecario y leasing habitacional.
+        </p>
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Salud prepagada mensual
+          <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 16 UVT/mes · $837.984)</span>
+          <HelpTooltip text="Los pagos de medicina prepagada son deducibles. El tope es de 16 UVT por mes ($837.984)." />
+        </label>
+        <MoneyInput value={inputs.salud} onChange={(v) => update("salud", v)} />
+        <BarIndicator value={inputs.salud} max={TOPE_SAL_MES} />
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Compras con factura electrónica anual
+          <span className="text-[10px] text-muted-foreground font-normal ml-1">
+            (deducción = 1% del valor, máx 240 UVT)
+          </span>
+          <HelpTooltip text="Art. 336 num. 5 · Ley 2277/2022 — Se deduce el 1% del valor ingresado, tope 240 UVT. Fuera del 40%/1.340 UVT. No afecta retención en la fuente ni el aporte óptimo." />
+        </label>
+        <MoneyInput value={inputs.facturas} onChange={(v) => update("facturas", v)} />
+        <p className="text-[11px] font-body text-muted-foreground mt-1">
+          Puedes ingresar un valor aproximado a tu última declaración de renta
+        </p>
+      </div>
+    </div>
+  );
+
+  const aportesBody = (
+    <div className="space-y-s3">
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Aporte mensual al Fondo de Pensión Voluntaria/AFC
+          <HelpTooltip text="Los Fondos de Pensiones Voluntarias (FPV) y las cuentas de Ahorro para el Fomento de la Construcción (AFC) permiten hacer aportes que reducen tu base de retención. Es el mecanismo más eficiente de optimización tributaria para empleados." />
+        </label>
+        <MoneyInput value={inputs.volFPV} onChange={(v) => update("volFPV", v)} />
+      </div>
+      <div>
+        <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
+          Aporte voluntario mensual al Fondo de Pensiones Obligatorias (RAIS)
+          <span className="ml-1.5 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">
+            INCRGO
+          </span>
+          <HelpTooltip text="Aportes adicionales que haces directamente a tu fondo de pensiones obligatorio. Tienen tratamiento como INCRGO, diferente al FPV/AFC. Máx 25% del ingreso o 2.500 UVT/año." />
+        </label>
+        <MoneyInput value={inputs.volObl} onChange={(v) => update("volObl", v)} />
+        <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+          <strong>RAIS:</strong> Régimen de Ahorro Individual con Solidaridad. Es el sistema de pensiones donde tus
+          aportes se acumulan en una cuenta individual administrada por un fondo de pensiones.
+        </p>
+        <p className="text-[10px] text-muted-foreground font-body italic mt-1">
+          <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan
+          de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
+        </p>
+      </div>
+    </div>
+  );
+
+  // Single-section render mode (for Portal Clientes split steps)
+  if (section) {
+    return (
+      <div className="space-y-s2 animate-fade-in pt-s2">
+        {section === "ingreso" && ingresoBody}
+        {section === "otros" && otrosBody}
+        {section === "deducciones" && deduccionesBody}
+        {section === "aportes" && aportesBody}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-s2 animate-fade-in">
       {/* Section header */}
@@ -170,374 +545,22 @@ const SimulatorForm: React.FC<SimulatorFormProps> = ({ onBack, onNext, inputs, s
 
       {/* Section 1 — Tu ingreso base */}
       <CollapsibleSection title="Tu ingreso" icon="fa-solid fa-wallet" defaultOpen>
-        <div className="space-y-s3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-s2">
-            <div>
-              <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-                Salario mensual
-                <HelpTooltip text="Tu salario mensual bruto antes de deducciones. Es la base principal para calcular tu retención." />
-              </label>
-              <MoneyInput value={inputs.salario} onChange={(v) => update("salario", v)} />
-              {errors.salario && (
-                <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.salario}</p>
-              )}
-              {integralInvalido && (
-                <p className="text-xs text-destructive font-body font-bold mt-1.5">
-                  ⚠ Mínimo ${min13.toLocaleString("es-CO")} (13 SMLV) para salario integral.
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-                Ingreso independiente mensual
-                <HelpTooltip text="Si tienes ingresos adicionales por actividades independientes, ingrésalos aquí. Se calcula seguridad social sobre el 40% de estos ingresos." />
-              </label>
-              <MoneyInput value={inputs.indep} onChange={(v) => update("indep", v)} />
-            </div>
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Tipo de salario
-              <HelpTooltip text="El salario integral incluye todas las prestaciones sociales. Para aplicar, debe ser mínimo 13 veces el salario mínimo ($22.761.765 en 2026)." />
-            </label>
-            <PillToggle
-              options={[
-                { label: "Ordinario", value: "ordinario" },
-                { label: "Integral", value: "integral" },
-              ]}
-              value={inputs.tipoSal}
-              onChange={(v) => update("tipoSal", v as "ordinario" | "integral")}
-            />
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Procedimiento de retención
-            </label>
-            <PillToggle
-              options={[
-                { label: "Procedimiento 1", value: "1" },
-                { label: "Procedimiento 2", value: "2" },
-              ]}
-              value={String(inputs.proc)}
-              onChange={(v) => update("proc", Number(v) as 1 | 2)}
-            />
-            <p className="text-[10px] text-muted-foreground font-body italic mt-1.5">
-              <strong>Procedimiento 1:</strong> la retención se calcula cada mes con base en tu ingreso de ese mes.
-              <strong> Procedimiento 2:</strong> tu empleador calcula un porcentaje fijo en diciembre o junio del año
-              anterior.
-              <br />
-            <strong>Tip: ¿No sabes cuál es tu procedimiento?</strong> Selecciona el 1, generalmente es el más común.
-            </p>
-          </div>
-
-          {inputs.proc === 2 && (
-            <div className="animate-fade-in">
-              <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-                Porcentaje fijo (Proc. 2)
-                <HelpTooltip text="Porcentaje calculado por el empleador (Art. 386 ET). Ingresa el valor sin el símbolo %." />
-              </label>
-              <input
-                type="number"
-                value={inputs.pctProc2}
-                onChange={(e) => update("pctProc2", Number(e.target.value) || 0)}
-                min={0}
-                max={100}
-                className="w-full h-12 px-4 rounded-lg border border-border font-body text-sm text-foreground bg-background text-right transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                placeholder="ej. 15"
-              />
-            </div>
-          )}
-        </div>
+        {ingresoBody}
       </CollapsibleSection>
 
       {/* Section 2 — Otros ingresos */}
       <CollapsibleSection title="Otros ingresos" icon="fa-solid fa-coins">
-        <div className="space-y-s2">
-          {/* Bono */}
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <span className="font-heading text-sm font-medium text-foreground">¿Recibes bono?</span>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Prima extralegal, bono de desempeño u otro pago adicional
-              </p>
-            </div>
-            <Switch checked={inputs.bonoOn} onCheckedChange={(v) => update("bonoOn", v)} />
-          </div>
-          {inputs.bonoOn && (
-            <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.4fr] gap-s2">
-                <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">Valor del bono</label>
-                  <MoneyInput
-                    value={inputs.bono}
-                    onChange={(v) => {
-                      update("bono", v);
-                      setErrors((prev) => ({ ...prev, bono: "" }));
-                    }}
-                  />
-                  {errors.bono && <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.bono}</p>}
-                </div>
-                <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
-                    Mes en que lo recibes
-                  </label>
-                  <select
-                    value={inputs.mesBono}
-                    onChange={(e) => update("mesBono", Number(e.target.value))}
-                    className="w-full h-12 pl-3 pr-12 rounded-lg border border-border font-body text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  >
-                    {MESES.map((m, i) => (
-                      <option key={i} value={i + 1}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
-                    ¿Es salarial?
-                    <HelpTooltip text="Si no conoces este dato, consúltalo con el equipo de nómina de tu empresa." />
-                  </label>
-                  <PillToggle
-                    options={[
-                      { label: "No (no SS)", value: "no" },
-                      { label: "Sí (base SS)", value: "si" },
-                    ]}
-                    value={inputs.bonoSal ? "si" : "no"}
-                    onChange={(v) => update("bonoSal", v === "si")}
-                  />
-                </div>
-              </div>
-              <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-                <strong>No SS:</strong> el bono no forma parte de la base para aportes a seguridad social.{" "}
-                <strong>Base SS:</strong> el bono sí se incluye en la base de cotización a salud y pensión.
-              </p>
-            </div>
-          )}
-
-          {/* Auxilios */}
-          <div className="border-t border-border pt-s2">
-            <div className="flex items-center justify-between py-2">
-              <div>
-                <span className="font-heading text-sm font-medium text-foreground">
-                  ¿Recibes auxilios o bonificaciones no salariales?
-                </span>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Ingresos que no hacen parte de tu salario, como auxilios o beneficios.
-                </p>
-              </div>
-              <Switch checked={inputs.auxOn} onCheckedChange={(v) => update("auxOn", v)} />
-            </div>
-            {inputs.auxOn && (
-              <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
-                <PillToggle
-                  options={[
-                    { label: "Fijo mensual", value: "fijo" },
-                    { label: "Variable por mes", value: "variable" },
-                  ]}
-                  value={inputs.auxTipo}
-                  onChange={(v) => update("auxTipo", v as "fijo" | "variable")}
-                />
-                {inputs.auxTipo === "fijo" ? (
-                  <div>
-                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
-                      Valor del auxilio mensual
-                    </label>
-                    <MoneyInput
-                      value={inputs.auxFijo}
-                      onChange={(v) => {
-                        update("auxFijo", v);
-                        setErrors((prev) => ({ ...prev, auxFijo: "" }));
-                      }}
-                    />
-                    {errors.auxFijo && (
-                      <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.auxFijo}</p>
-                    )}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    {MESES.map((m, i) => (
-                      <div key={i}>
-                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
-                          {m}
-                        </label>
-                        <MoneyInput
-                          value={inputs.auxMeses[i] || 0}
-                          onChange={(v) => {
-                            const newMeses = [...inputs.auxMeses];
-                            newMeses[i] = v;
-                            update("auxMeses", newMeses);
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Comisiones */}
-          <div className="border-t border-border pt-s2">
-            <div className="flex items-center justify-between py-2">
-              <div>
-                <span className="font-heading text-sm font-medium text-foreground">¿Recibes comisiones?</span>
-                <p className="text-xs text-muted-foreground mt-0.5">Sí forman parte de la base de seguridad social</p>
-              </div>
-              <Switch checked={inputs.comOn} onCheckedChange={(v) => update("comOn", v)} />
-            </div>
-            {inputs.comOn && (
-              <div className="bg-secondary rounded-lg p-s2 space-y-s2 animate-fade-in">
-                <PillToggle
-                  options={[
-                    { label: "Fija mensual", value: "fijo" },
-                    { label: "Variable por mes", value: "variable" },
-                  ]}
-                  value={inputs.comTipo}
-                  onChange={(v) => update("comTipo", v as "fijo" | "variable")}
-                />
-                {inputs.comTipo === "fijo" ? (
-                  <div>
-                    <label className="block text-xs font-body font-bold text-muted-foreground mb-1">
-                      Valor de la comisión mensual
-                    </label>
-                    <MoneyInput
-                      value={inputs.comFijo}
-                      onChange={(v) => {
-                        update("comFijo", v);
-                        setErrors((prev) => ({ ...prev, comFijo: "" }));
-                      }}
-                    />
-                    {errors.comFijo && (
-                      <p className="text-xs text-destructive font-body font-bold mt-1.5">{errors.comFijo}</p>
-                    )}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    {MESES.map((m, i) => (
-                      <div key={i}>
-                        <label className="block text-[10px] font-body font-bold text-muted-foreground uppercase mb-0.5">
-                          {m}
-                        </label>
-                        <MoneyInput
-                          value={inputs.comMeses[i] || 0}
-                          onChange={(v) => {
-                            const newMeses = [...inputs.comMeses];
-                            newMeses[i] = v;
-                            update("comMeses", newMeses);
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-        </div>
+        {otrosBody}
       </CollapsibleSection>
 
       {/* Section 3 — Tus deducciones */}
       <CollapsibleSection title="Tus deducciones" icon="fa-solid fa-file-invoice-dollar">
-        <div className="space-y-s3">
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Número de dependientes (máx. 4)
-              <HelpTooltip text="Persona que depende económicamente de ti: cónyuge sin ingresos, hijos menores de 18 años, hijos entre 18 y 23 años que estudian, o familiares con limitación física o mental. Cada dependiente reduce tu base de retención. (Art. 387 + Ley 2277/2022)" />
-            </label>
-            <Slider
-              value={[inputs.dep]}
-              onValueChange={([v]) => update("dep", v)}
-              max={4}
-              step={1}
-              className="w-full"
-            />
-            <div className="flex justify-between text-xs text-muted-foreground mt-3">
-              <span>0</span>
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-            </div>
-            <p className="text-sm font-medium text-foreground font-body">
-              {inputs.dep === 0 ? "Sin personas a cargo" : `${inputs.dep} persona${inputs.dep > 1 ? "s" : ""} a cargo`}
-            </p>
-            <p className="text-[10px] text-muted-foreground mt-1 font-body italic">
-              Si tienes personas a tu cargo, puedes reducir tus impuestos con este beneficio.
-            </p>
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Intereses vivienda mensual
-              <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 100 UVT/mes · $5.237.400)</span>
-              <HelpTooltip text="Si pagas un crédito hipotecario, puedes deducir los intereses pagados. El tope es de 100 UVT por mes ($5.237.400)." />
-            </label>
-            <MoneyInput value={inputs.intViv} onChange={(v) => update("intViv", v)} />
-            <p className="text-[11px] font-body text-muted-foreground mt-1">
-              Aplica crédito hipotecario y leasing habitacional.
-            </p>
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Salud prepagada mensual
-              <span className="text-[10px] text-muted-foreground font-normal ml-1">(máx 16 UVT/mes · $837.984)</span>
-              <HelpTooltip text="Los pagos de medicina prepagada son deducibles. El tope es de 16 UVT por mes ($837.984)." />
-            </label>
-            <MoneyInput value={inputs.salud} onChange={(v) => update("salud", v)} />
-            <BarIndicator value={inputs.salud} max={TOPE_SAL_MES} />
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Compras con factura electrónica anual
-              <span className="text-[10px] text-muted-foreground font-normal ml-1">
-                (deducción = 1% del valor, máx 240 UVT)
-              </span>
-              <HelpTooltip text="Art. 336 num. 5 · Ley 2277/2022 — Se deduce el 1% del valor ingresado, tope 240 UVT. Fuera del 40%/1.340 UVT. No afecta retención en la fuente ni el aporte óptimo." />
-            </label>
-            <MoneyInput value={inputs.facturas} onChange={(v) => update("facturas", v)} />
-            <p className="text-[11px] font-body text-muted-foreground mt-1">
-              Puedes ingresar un valor aproximado a tu última declaración de renta
-            </p>
-          </div>
-        </div>
+        {deduccionesBody}
       </CollapsibleSection>
 
       {/* Section 4 — Tus aportes voluntarios */}
       <CollapsibleSection title="Tus aportes voluntarios" icon="fa-solid fa-piggy-bank">
-        <div className="space-y-s3">
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Aporte mensual al Fondo de Pensión Voluntaria/AFC
-              <HelpTooltip text="Los Fondos de Pensiones Voluntarias (FPV) y las cuentas de Ahorro para el Fomento de la Construcción (AFC) permiten hacer aportes que reducen tu base de retención. Es el mecanismo más eficiente de optimización tributaria para empleados." />
-            </label>
-            <MoneyInput value={inputs.volFPV} onChange={(v) => update("volFPV", v)} />
-          </div>
-
-          <div>
-            <label className="block font-heading text-sm font-medium text-foreground mb-1.5">
-              Aporte voluntario mensual al Fondo de Pensiones Obligatorias (RAIS)
-              <span className="ml-1.5 text-[10px] font-body font-bold bg-accent text-primary rounded px-2 py-0.5">
-                INCRGO
-              </span>
-              <HelpTooltip text="Aportes adicionales que haces directamente a tu fondo de pensiones obligatorio. Tienen tratamiento como INCRGO, diferente al FPV/AFC. Máx 25% del ingreso o 2.500 UVT/año." />
-            </label>
-            <MoneyInput value={inputs.volObl} onChange={(v) => update("volObl", v)} />
-            <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-              <strong>RAIS:</strong> Régimen de Ahorro Individual con Solidaridad. Es el sistema de pensiones donde tus
-              aportes se acumulan en una cuenta individual administrada por un fondo de pensiones.
-            </p>
-            <p className="text-[10px] text-muted-foreground font-body italic mt-1">
-              <strong>INCRGO:</strong> Ingreso No Constitutivo de Renta ni Ganancia Ocasional. Son valores que se restan
-              de tu ingreso bruto antes de calcular impuestos, reduciendo directamente tu base gravable.
-            </p>
-          </div>
-        </div>
+        {aportesBody}
       </CollapsibleSection>
 
       {/* Navigation buttons */}
