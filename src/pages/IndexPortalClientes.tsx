@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ProgressSteps from '@/components/ProgressSteps';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import SimulatorForm from '@/components/SimulatorForm';
@@ -50,9 +50,11 @@ const IndexPortalClientes: React.FC = () => {
     tieneAsesor: false,
   });
   const [inputs, setInputs] = useState<SimulatorInputs>(defaultInputs);
+  const rightColRef = useRef<HTMLDivElement>(null);
+  const scrollTop = () => rightColRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <div className="skandia-client-shell min-h-screen bg-background flex">
+    <div className="skandia-client-shell h-screen overflow-hidden bg-background flex">
       {/* Sidebar (decorative, non-functional) - mismo que versión clientes */}
       <aside className="hidden md:flex sticky top-0 h-screen w-[88px] flex-col items-stretch border-r border-border bg-card z-40">
         <button type="button" className="h-14 flex items-center justify-center text-foreground/70 hover:text-primary" aria-label="Menú">
@@ -85,7 +87,7 @@ const IndexPortalClientes: React.FC = () => {
         </button>
       </aside>
 
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col h-screen">
         {/* Header - mismo que versión clientes */}
         <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
           <div className="px-4 md:px-s4 py-s2 flex items-center justify-between gap-3">
@@ -112,9 +114,9 @@ const IndexPortalClientes: React.FC = () => {
         </header>
 
         {/* Two-column layout */}
-        <div className="flex-1 flex flex-col lg:flex-row">
+        <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
           {/* Left column - illustration */}
-          <div className="lg:w-[42%] lg:min-h-[calc(100vh-57px)] bg-accent/40 flex flex-col items-center justify-center px-6 py-12 lg:py-16">
+          <div className="lg:w-[42%] lg:h-full lg:overflow-hidden bg-accent/40 flex flex-col items-center justify-center px-6 py-12 lg:py-16">
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full max-w-sm mb-6 self-start">
               <ol className="flex items-center gap-2">
@@ -162,8 +164,8 @@ const IndexPortalClientes: React.FC = () => {
             </div>
           </div>
 
-          {/* Right column - simulator */}
-          <div className="lg:w-[58%] flex flex-col">
+          {/* Right column - simulator (scrollable) */}
+          <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
             <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
@@ -177,7 +179,7 @@ const IndexPortalClientes: React.FC = () => {
                   onNext={(data) => {
                     setUserData(data);
                     setStep(2);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    scrollTop();
                   }}
                 />
               )}
@@ -185,15 +187,15 @@ const IndexPortalClientes: React.FC = () => {
                 <SimulatorForm
                   inputs={inputs}
                   setInputs={setInputs}
-                  onBack={() => { setStep(1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  onNext={() => { setStep(3); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onBack={() => { setStep(1); scrollTop(); }}
+                  onNext={() => { setStep(3); scrollTop(); }}
                 />
               )}
               {step === 3 && (
                 <ResultsScreen
                   inputs={inputs}
                   userData={userData}
-                  onBack={() => { setStep(2); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  onBack={() => { setStep(2); scrollTop(); }}
                   onOpenContact={() => setShowContactModal(true)}
                 />
               )}
