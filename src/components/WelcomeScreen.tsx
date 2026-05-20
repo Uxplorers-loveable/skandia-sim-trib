@@ -14,6 +14,7 @@ interface WelcomeScreenProps {
   hideClienteSwitch?: boolean;
   hideDataModule?: boolean;
   hideHeading?: boolean;
+  portalClientes?: boolean;
 }
 
 const COUNTRY_CODES = [
