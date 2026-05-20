@@ -185,7 +185,7 @@ const IndexPortalClientes: React.FC = () => {
                     img: simOtros,
                     title: 'Otros simuladores',
                     desc: 'Herramientas que te ayudarán a conocer la proyección de tus inversiones a futuro.',
-                    onClick: () => {},
+                    href: 'https://portal.skandia.com.co/mercadeo/distribuidores/simuladores_planeacion_financiera/index.php?idSession=82e-326d2edfsdfds',
                   },
                 ].map((card) => (
                   <div
@@ -199,13 +199,24 @@ const IndexPortalClientes: React.FC = () => {
                     <p className="font-body text-sm text-muted-foreground mb-s3 flex-1">
                       {card.desc}
                     </p>
-                    <button
-                      type="button"
-                      onClick={card.onClick}
-                      className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-heading font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
-                      Seleccionar
-                    </button>
+                    {'href' in card && card.href ? (
+                      <a
+                        href={card.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-heading font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                      >
+                        Seleccionar
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={card.onClick}
+                        className="w-full mt-2 inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border-2 border-primary text-primary font-heading font-bold text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                      >
+                        Seleccionar
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
