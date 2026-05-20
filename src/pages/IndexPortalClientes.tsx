@@ -314,15 +314,16 @@ const IndexPortalClientes: React.FC = () => {
 
             <main className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pb-20 flex-1">
               {step === STEP_DATOS && (
-                <WelcomeScreen
-                  hideClienteSwitch
-                  hideDataModule
-                  hideHeading
-                  onNext={(data) => {
-                    setUserData(data);
-                    goTo(STEP_INGRESO);
-                  }}
-                />
+              <WelcomeScreen
+                hideClienteSwitch
+                hideDataModule
+                hideHeading
+                portalClientes
+                onNext={(data) => {
+                  setUserData(data);
+                  goTo(STEP_INGRESO);
+                }}
+              />
               )}
               {sectionFor(step) && (
                 <div className="animate-fade-in">
