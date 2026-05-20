@@ -192,7 +192,7 @@ const IndexPortalClientes: React.FC = () => {
                     key={card.title}
                     className="group w-full bg-card rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition-shadow p-6 flex flex-col items-center text-center"
                   >
-                    <img src={card.img} alt={card.title} className="h-[108px] w-auto object-contain mb-s3" />
+                    <img src={card.img} alt={card.title} className="hidden lg:block h-[108px] w-auto object-contain mb-s3" />
                     <h2 className="font-heading font-bold text-foreground text-lg mb-2">
                       {card.title}
                     </h2>
