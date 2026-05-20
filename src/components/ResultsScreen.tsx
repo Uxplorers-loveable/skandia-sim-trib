@@ -94,10 +94,10 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
 
       {portalClientes && (
       <div className="rounded-xl border-2 border-primary bg-accent p-s3">
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-            <i className="fa-solid fa-check text-primary-foreground" />
-          </div>
+          <div className="flex items-start gap-3">
+            <div className={`w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 ${portalClientes ? 'hidden md:flex' : ''}`}>
+              <i className="fa-solid fa-check text-primary-foreground" />
+            </div>
           <div className="flex-1">
             <p className="text-xs font-heading font-bold uppercase tracking-wider text-primary mb-1">
               Aporte sugerido para maximizar tu beneficio tributario FPV — mensual
@@ -131,7 +131,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-s2">
           <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className={`w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center ${portalClientes ? 'hidden md:flex' : ''}`}>
               <i className="fa-solid fa-piggy-bank text-primary text-sm" />
             </div>
             <p className="font-heading text-xs font-bold text-foreground">Aumenta tu aporte voluntario</p>
@@ -140,7 +140,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             </p>
           </div>
           <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className={`w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center ${portalClientes ? 'hidden md:flex' : ''}`}>
               <i className="fa-solid fa-file-invoice-dollar text-primary text-sm" />
             </div>
             <p className="font-heading text-xs font-bold text-foreground">Revisa tus deducciones</p>
@@ -149,7 +149,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
             </p>
           </div>
           <div className="rounded-lg border border-border bg-secondary/30 p-3 space-y-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <div className={`w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center ${portalClientes ? 'hidden md:flex' : ''}`}>
               <i className="fa-solid fa-calendar-check text-primary text-sm" />
             </div>
             <p className="font-heading text-xs font-bold text-foreground">Planifica antes de diciembre</p>
