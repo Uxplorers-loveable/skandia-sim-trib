@@ -174,6 +174,8 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
       </div>
       )}
 
+      {portalClientes && ctaBlock}
+
       {portalClientes && results.ahorroOpt > 0 && (
       <div>
         <h3 className="font-heading text-sm font-bold text-foreground mb-s2">
