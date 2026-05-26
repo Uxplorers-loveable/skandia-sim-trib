@@ -155,6 +155,11 @@ const IndexPortalClientes: React.FC = () => {
             <div className="w-full px-4 md:px-s6 py-s4">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground mb-s3">
                 <ol className="flex items-center gap-2 text-xs">
+                  <li>
+                    <a href="#" className="text-primary hover:text-primary/80 transition-colors mr-1" aria-label="Volver">
+                      <i className="fa-solid fa-arrow-left text-xs" />
+                    </a>
+                  </li>
                   <li><a href="#" className="hover:text-primary transition-colors">Inicio</a></li>
                   <li aria-hidden="true">/</li>
                   <li className="text-primary font-semibold">Simuladores</li>
