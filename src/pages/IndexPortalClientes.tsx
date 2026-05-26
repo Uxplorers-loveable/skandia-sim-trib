@@ -368,6 +368,12 @@ const IndexPortalClientes: React.FC = () => {
                   onBack={() => goTo(STEP_APORTES)}
                   onOpenContact={() => setShowContactModal(true)}
                   portalClientes
+                  onRestart={() => {
+                    setInputs(defaultInputs);
+                    setUserData({ nombre: '', email: '', telefono: '', esCliente: false, tieneAsesor: false });
+                    setStep(1);
+                    setView('simuladores');
+                  }}
                 />
               )}
             </main>
