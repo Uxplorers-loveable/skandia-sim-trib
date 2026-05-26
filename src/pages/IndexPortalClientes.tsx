@@ -160,7 +160,7 @@ const IndexPortalClientes: React.FC = () => {
                   <li className="text-primary font-semibold">Simuladores</li>
                 </ol>
               </nav>
-              <h1 className="font-heading font-bold text-foreground text-3xl md:text-4xl mb-2">
+              <h1 className="font-heading font-bold text-foreground md:text-4xl mb-2 text-2xl">
                 Simuladores
               </h1>
               <p className="font-body text-sm md:text-base text-muted-foreground mb-s4 w-full">
