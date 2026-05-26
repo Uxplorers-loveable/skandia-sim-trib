@@ -10,6 +10,7 @@ interface ResultsScreenProps {
   onBack: () => void;
   onOpenContact: () => void;
   portalClientes?: boolean;
+  onRestart?: () => void;
 }
 
 const MetricCard: React.FC<{
@@ -37,7 +38,7 @@ const MetricCard: React.FC<{
   );
 };
 
-const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact, portalClientes = false }) => {
+const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack, onOpenContact, portalClientes = false, onRestart }) => {
   const [showTable, setShowTable] = useState(false);
   const [showEmailConfirm, setShowEmailConfirm] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
@@ -569,11 +570,17 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ inputs, userData, onBack,
       </div>
 
       {/* Back button */}
-      <div className="pt-s2">
-        <Button variant="ghost" onClick={onBack} className="w-full">
+      <div className="pt-s2 flex flex-col sm:flex-row gap-3">
+        <Button variant="ghost" onClick={onBack} className="w-full sm:flex-1">
           <i className="fa-solid fa-arrow-left mr-2" />
           Ajustar mis datos
         </Button>
+        {portalClientes && onRestart && (
+          <Button variant="ghost" onClick={onRestart} className="w-full sm:flex-1">
+            <i className="fa-solid fa-rotate-right mr-2" />
+            Simular de nuevo
+          </Button>
+        )}
       </div>
 
     </div>
