@@ -372,7 +372,7 @@ const IndexPortalClientes: React.FC = () => {
                     setInputs(defaultInputs);
                     setUserData({ nombre: '', email: '', telefono: '', esCliente: false, tieneAsesor: false });
                     setStep(1);
-                    setView('simuladores');
+                    scrollTop();
                   }}
                 />
               )}
