@@ -324,11 +324,11 @@ const IndexPortalClientes: React.FC = () => {
                 </p>
               </div>
             )}
-            <div className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pt-s3">
+            <div className={`${step === STEP_RESULTS ? 'lg:max-w-[80%]' : 'max-w-[800px]'} mx-auto w-full max-w-[800px] px-4 md:px-s6 pt-s3`}>
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
 
-            <main className="max-w-[800px] mx-auto w-full px-4 md:px-s6 pb-20 flex-1">
+            <main className={`${step === STEP_RESULTS ? 'lg:max-w-[80%]' : ''} max-w-[800px] mx-auto w-full px-4 md:px-s6 pb-20 flex-1`}>
               {step === STEP_DATOS && (
               <WelcomeScreen
                 hideClienteSwitch
