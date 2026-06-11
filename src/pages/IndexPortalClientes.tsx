@@ -230,7 +230,7 @@ const IndexPortalClientes: React.FC = () => {
         ) : (
         <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
           {/* Left column - illustration (solo desktop) */}
-          <div className="hidden lg:flex lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex-col px-6">
+          <div className={`${step === STEP_RESULTS ? 'hidden' : 'hidden lg:flex'} lg:w-[42%] lg:h-full lg:overflow-hidden bg-[#EDFEFA] flex-col px-6`}>
             {/* Breadcrumb aligned with progress bar */}
             <nav aria-label="Breadcrumb" className="font-body text-muted-foreground w-full pt-s3">
               <ol className="flex items-center gap-2">
@@ -279,7 +279,7 @@ const IndexPortalClientes: React.FC = () => {
           </div>
 
           {/* Right column - simulator (scrollable) */}
-          <div ref={rightColRef} className="lg:w-[58%] flex flex-col lg:h-full lg:overflow-y-auto">
+          <div ref={rightColRef} className={`${step === STEP_RESULTS ? 'lg:w-full' : 'lg:w-[58%]'} flex flex-col lg:h-full lg:overflow-y-auto`}>
             {/* Miga de pan mobile/tablet - todas las páginas */}
             <div className="lg:hidden bg-background px-4 pt-4 pb-2">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground">
