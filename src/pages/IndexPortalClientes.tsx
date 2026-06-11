@@ -324,7 +324,7 @@ const IndexPortalClientes: React.FC = () => {
                 </p>
               </div>
             )}
-            <div className={`${step === STEP_RESULTS ? 'lg:max-w-[80%]' : 'max-w-[800px]'} mx-auto w-full max-w-[800px] px-4 md:px-s6 pt-s3`}>
+            <div className={`max-w-[800px] ${step === STEP_RESULTS ? 'lg:max-w-[80%]' : ''} mx-auto w-full px-4 md:px-s6 pt-s3`}>
               <ProgressSteps currentStep={step} steps={STEPS} variant="bar" />
             </div>
 
