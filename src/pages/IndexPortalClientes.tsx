@@ -279,7 +279,7 @@ const IndexPortalClientes: React.FC = () => {
           </div>
 
           {/* Right column - simulator (scrollable) */}
-          <div ref={rightColRef} className={`${step === STEP_RESULTS ? 'lg:w-full' : 'lg:w-[58%]'} flex flex-col lg:h-full lg:overflow-y-auto`}>
+          <div ref={rightColRef} className={`${step === STEP_RESULTS ? 'lg:w-full' : 'lg:w-[58%] lg:h-full lg:overflow-y-auto'} flex flex-col`}>
             {/* Miga de pan mobile/tablet - todas las páginas */}
             <div className="lg:hidden bg-background px-4 pt-4 pb-2">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground">
