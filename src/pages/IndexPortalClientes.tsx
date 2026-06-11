@@ -90,7 +90,7 @@ const IndexPortalClientes: React.FC = () => {
   };
 
   return (
-    <div className="skandia-client-shell skandia-portal-shell lg:h-screen lg:overflow-hidden bg-background flex">
+    <div className={`skandia-client-shell skandia-portal-shell ${step === STEP_RESULTS && view === 'simulator' ? '' : 'lg:h-screen lg:overflow-hidden'} bg-background flex`}>
       {/* Sidebar (decorative, non-functional) - mismo que versión clientes */}
       <aside className="hidden md:flex sticky top-0 h-screen w-[88px] flex-col items-stretch border-r border-border bg-card z-40">
         <button type="button" className="h-14 flex items-center justify-center text-foreground/70 hover:text-primary" aria-label="Menú">
@@ -123,7 +123,7 @@ const IndexPortalClientes: React.FC = () => {
         </button>
       </aside>
 
-      <div className="flex-1 min-w-0 flex flex-col lg:h-screen">
+      <div className={`flex-1 min-w-0 flex flex-col ${step === STEP_RESULTS && view === 'simulator' ? '' : 'lg:h-screen'}`}>
         {/* Header - mismo que versión clientes */}
         <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
           <div className="px-4 md:px-s4 py-s2 flex items-center justify-between gap-3">
@@ -279,7 +279,7 @@ const IndexPortalClientes: React.FC = () => {
           </div>
 
           {/* Right column - simulator (scrollable) */}
-          <div ref={rightColRef} className={`${step === STEP_RESULTS ? 'lg:w-full' : 'lg:w-[58%]'} flex flex-col lg:h-full lg:overflow-y-auto`}>
+          <div ref={rightColRef} className={`${step === STEP_RESULTS ? 'lg:w-full' : 'lg:w-[58%] lg:h-full lg:overflow-y-auto'} flex flex-col`}>
             {/* Miga de pan mobile/tablet - todas las páginas */}
             <div className="lg:hidden bg-background px-4 pt-4 pb-2">
               <nav aria-label="Breadcrumb" className="font-body text-muted-foreground">
